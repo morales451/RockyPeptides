@@ -13,7 +13,7 @@ export default function Header() {
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-6">
           <a
             href="#reality"
             className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
@@ -27,10 +27,22 @@ export default function Header() {
             GLP-3 Basics
           </a>
           <a
+            href="#dosing"
+            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
+          >
+            Getting Started
+          </a>
+          <a
             href="#myths"
             className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
           >
             Myth vs. Fact
+          </a>
+          <a
+            href="#contact"
+            className="text-sm font-medium text-white bg-ocean-500 hover:bg-ocean-600 px-4 py-2 rounded-lg transition-colors"
+          >
+            Contact
           </a>
         </nav>
 
@@ -83,11 +95,39 @@ export default function Header() {
             GLP-3 Basics
           </a>
           <a
+            href="#dosing"
+            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
+            onClick={() => setMenuOpen(false)}
+          >
+            Getting Started
+          </a>
+          <a
+            href="#results"
+            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
+            onClick={() => setMenuOpen(false)}
+          >
+            Results
+          </a>
+          <a
             href="#myths"
             className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
             onClick={() => setMenuOpen(false)}
           >
             Myth vs. Fact
+          </a>
+          <a
+            href="#faq"
+            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
+            onClick={() => setMenuOpen(false)}
+          >
+            FAQ
+          </a>
+          <a
+            href="#contact"
+            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
+            onClick={() => setMenuOpen(false)}
+          >
+            Contact
           </a>
         </nav>
       )}
