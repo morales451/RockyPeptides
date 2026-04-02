@@ -7,6 +7,33 @@ export default function Footer() {
           <p className="text-sm text-sage-300 mb-6">
             Education over hype. Science over stigma.
           </p>
+
+          <div className="flex flex-wrap gap-x-6 gap-y-2 mb-8 text-sm">
+            <a href="#dosing" className="text-sage-300 hover:text-white transition-colors">
+              Getting Started
+            </a>
+            <a href="#results" className="text-sage-300 hover:text-white transition-colors">
+              Results
+            </a>
+            <a href="#myths" className="text-sage-300 hover:text-white transition-colors">
+              Myth vs. Fact
+            </a>
+            <a href="#faq" className="text-sage-300 hover:text-white transition-colors">
+              FAQ
+            </a>
+            <a href="#contact" className="text-sage-300 hover:text-white transition-colors">
+              Contact
+            </a>
+            <a
+              href="https://www.reddit.com/r/Retatrutide/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sage-300 hover:text-white transition-colors"
+            >
+              r/Retatrutide
+            </a>
+          </div>
+
           <h3 className="text-lg font-semibold text-white mb-4">
             Medical Disclaimer
           </h3>

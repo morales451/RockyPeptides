@@ -1,6 +1,11 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MythAccordion from "@/components/MythAccordion";
+import DosingGuide from "@/components/DosingGuide";
+import SocialProof from "@/components/SocialProof";
+import FAQ from "@/components/FAQ";
+import EmailCapture from "@/components/EmailCapture";
+import ContactForm from "@/components/ContactForm";
 import { myths } from "@/lib/myths";
 
 export default function Home() {
@@ -265,10 +270,16 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── DOSING & GETTING STARTED GUIDE ─── */}
+        <DosingGuide />
+
+        {/* ─── SOCIAL PROOF ─── */}
+        <SocialProof />
+
         {/* ─── MYTH VS. REALITY ─── */}
         <section
           id="myths"
-          className="scroll-mt-20 bg-sage-50 py-20 md:py-28"
+          className="scroll-mt-20 bg-white py-20 md:py-28"
         >
           <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-12">
@@ -288,6 +299,15 @@ export default function Home() {
             <MythAccordion myths={myths} />
           </div>
         </section>
+
+        {/* ─── FAQ ─── */}
+        <FAQ />
+
+        {/* ─── EMAIL / DISCOUNT CAPTURE ─── */}
+        <EmailCapture />
+
+        {/* ─── CONTACT FORM ─── */}
+        <ContactForm />
       </main>
 
       <Footer />
