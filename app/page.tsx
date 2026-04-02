@@ -31,9 +31,9 @@ export default function Home() {
             </p>
             <p className="max-w-2xl mx-auto text-lg md:text-xl text-white/60 leading-relaxed">
               That&rsquo;s why Rocky Peptides exists — to cut through the
-              confusion with plain-language science, no sales pitch, and zero
-              agenda beyond education. We don&rsquo;t sell anything. We just
-              explain.
+              confusion with plain-language science and honest information. We
+              believe an educated customer makes better decisions, and better
+              decisions lead to better outcomes.
             </p>
           </div>
         </section>
@@ -279,9 +279,9 @@ export default function Home() {
                 The 10 biggest objections — addressed honestly.
               </h2>
               <p className="max-w-2xl mx-auto text-lg text-warm-800/80">
-                At Rocky Peptides, we believe you deserve straight answers.
-                Click on any objection below to see the full, nuanced reality —
-                no spin, no sales pitch, just facts and common sense.
+                At Rocky Peptides, we believe you deserve straight answers
+                before making any decision. Click on any objection below to see
+                the full, nuanced reality — no spin, just facts and common sense.
               </p>
             </div>
 

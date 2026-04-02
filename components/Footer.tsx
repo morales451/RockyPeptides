@@ -11,17 +11,15 @@ export default function Footer() {
             Medical Disclaimer
           </h3>
           <p className="text-sm leading-relaxed text-sage-200">
-            Rocky Peptides is a strictly educational resource. This website does
-            not sell, distribute, or promote the sale of any peptides, drugs,
-            supplements, or pharmaceutical products. Nothing on this site
-            constitutes medical advice, diagnosis, or treatment
-            recommendations. The information presented is for educational and
-            informational purposes only and is not intended to replace
-            professional medical consultation. Always consult a qualified
-            healthcare provider before making any decisions about medications,
-            supplements, or health protocols. Individual results may vary, and
-            the science discussed here reflects publicly available research at
-            the time of publication.
+            Rocky Peptides provides educational content about GLP-3 peptides
+            and related compounds. Nothing on this site constitutes medical
+            advice, diagnosis, or treatment recommendations. The information
+            presented is for educational and informational purposes only and is
+            not intended to replace professional medical consultation. Always
+            consult a qualified healthcare provider before making any decisions
+            about medications, supplements, or health protocols. Individual
+            results may vary, and the science discussed here reflects publicly
+            available research at the time of publication.
           </p>
         </div>
 
