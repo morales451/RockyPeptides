@@ -1,8 +1,12 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MythAccordion from "@/components/MythAccordion";
+import WhyEvolve from "@/components/WhyEvolve";
 import DosingGuide from "@/components/DosingGuide";
+import Contraindications from "@/components/Contraindications";
 import SocialProof from "@/components/SocialProof";
+import Pricing from "@/components/Pricing";
+import CTABanner from "@/components/CTABanner";
 import FAQ from "@/components/FAQ";
 import EmailCapture from "@/components/EmailCapture";
 import ContactForm from "@/components/ContactForm";
@@ -176,8 +180,11 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── WHY EVOLVE? ─── */}
+        <WhyEvolve />
+
         {/* ─── SECTION D: THE TRANSPARENCY REVEAL ─── */}
-        <section className="scroll-mt-20 bg-white py-20 md:py-28">
+        <section className="scroll-mt-20 bg-warm-50 py-20 md:py-28">
           <div className="max-w-4xl mx-auto px-6">
             <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-4">
               Addressing the Elephant in the Room
@@ -270,16 +277,38 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── CTA: SEE FOR YOURSELF ─── */}
+        <CTABanner
+          heading="Ready to see for yourself?"
+          subtext="Check out our starter kit — everything you need in one package."
+          buttonText="View Pricing"
+          buttonHref="#pricing"
+        />
+
         {/* ─── DOSING & GETTING STARTED GUIDE ─── */}
         <DosingGuide />
+
+        {/* ─── CONTRAINDICATIONS ─── */}
+        <Contraindications />
+
+        {/* ─── CTA: QUESTIONS ─── */}
+        <CTABanner
+          heading="Questions about getting started?"
+          subtext="We're real people who use our own product. Reach out anytime."
+          buttonText="Contact Us"
+          buttonHref="#contact"
+        />
 
         {/* ─── SOCIAL PROOF ─── */}
         <SocialProof />
 
+        {/* ─── PRICING / OUR KITS ─── */}
+        <Pricing />
+
         {/* ─── MYTH VS. REALITY ─── */}
         <section
           id="myths"
-          className="scroll-mt-20 bg-white py-20 md:py-28"
+          className="scroll-mt-20 bg-warm-50 py-20 md:py-28"
         >
           <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-12">
@@ -302,6 +331,14 @@ export default function Home() {
 
         {/* ─── FAQ ─── */}
         <FAQ />
+
+        {/* ─── CTA: READY TO ORDER ─── */}
+        <CTABanner
+          heading="Ready to order?"
+          subtext="Starting at $75/month. Houston local delivery or free pickup."
+          buttonText="Get Started"
+          buttonHref="#contact"
+        />
 
         {/* ─── EMAIL / DISCOUNT CAPTURE ─── */}
         <EmailCapture />

@@ -9,8 +9,14 @@ export default function Footer() {
           </p>
 
           <div className="flex flex-wrap gap-x-6 gap-y-2 mb-8 text-sm">
+            <a href="#why-evolve" className="text-sage-300 hover:text-white transition-colors">
+              Why Evolve
+            </a>
             <a href="#dosing" className="text-sage-300 hover:text-white transition-colors">
               Getting Started
+            </a>
+            <a href="#pricing" className="text-sage-300 hover:text-white transition-colors">
+              Pricing
             </a>
             <a href="#results" className="text-sage-300 hover:text-white transition-colors">
               Results

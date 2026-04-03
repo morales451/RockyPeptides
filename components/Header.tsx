@@ -13,18 +13,12 @@ export default function Header() {
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-5">
           <a
-            href="#reality"
+            href="#why-evolve"
             className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
           >
-            The Reality
-          </a>
-          <a
-            href="#glp3"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-          >
-            GLP-3 Basics
+            Why Evolve
           </a>
           <a
             href="#dosing"
@@ -33,16 +27,28 @@ export default function Header() {
             Getting Started
           </a>
           <a
+            href="#pricing"
+            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
+          >
+            Pricing
+          </a>
+          <a
             href="#myths"
             className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
           >
             Myth vs. Fact
           </a>
           <a
+            href="#faq"
+            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
+          >
+            FAQ
+          </a>
+          <a
             href="#contact"
             className="text-sm font-medium text-white bg-ocean-500 hover:bg-ocean-600 px-4 py-2 rounded-lg transition-colors"
           >
-            Contact
+            Order Now
           </a>
         </nav>
 
@@ -81,18 +87,11 @@ export default function Header() {
       {menuOpen && (
         <nav className="md:hidden border-t border-sage-200 bg-white/95 backdrop-blur-sm px-6 py-4 flex flex-col gap-4">
           <a
-            href="#reality"
+            href="#why-evolve"
             className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
             onClick={() => setMenuOpen(false)}
           >
-            The Reality
-          </a>
-          <a
-            href="#glp3"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-            onClick={() => setMenuOpen(false)}
-          >
-            GLP-3 Basics
+            Why Evolve
           </a>
           <a
             href="#dosing"
@@ -100,6 +99,13 @@ export default function Header() {
             onClick={() => setMenuOpen(false)}
           >
             Getting Started
+          </a>
+          <a
+            href="#pricing"
+            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
+            onClick={() => setMenuOpen(false)}
+          >
+            Pricing
           </a>
           <a
             href="#results"
@@ -127,7 +133,7 @@ export default function Header() {
             className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
             onClick={() => setMenuOpen(false)}
           >
-            Contact
+            Order Now
           </a>
         </nav>
       )}
