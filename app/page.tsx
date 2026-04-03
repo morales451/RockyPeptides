@@ -4,8 +4,11 @@ import MythAccordion from "@/components/MythAccordion";
 import WhyEvolve from "@/components/WhyEvolve";
 import DosingGuide from "@/components/DosingGuide";
 import Contraindications from "@/components/Contraindications";
+import WhatToExpect from "@/components/WhatToExpect";
 import SocialProof from "@/components/SocialProof";
+import HowToOrder from "@/components/HowToOrder";
 import Pricing from "@/components/Pricing";
+import ReferralBanner from "@/components/ReferralBanner";
 import CTABanner from "@/components/CTABanner";
 import FAQ from "@/components/FAQ";
 import EmailCapture from "@/components/EmailCapture";
@@ -291,6 +294,9 @@ export default function Home() {
         {/* ─── CONTRAINDICATIONS ─── */}
         <Contraindications />
 
+        {/* ─── WHAT TO EXPECT ─── */}
+        <WhatToExpect />
+
         {/* ─── CTA: QUESTIONS ─── */}
         <CTABanner
           heading="Questions about getting started?"
@@ -302,8 +308,14 @@ export default function Home() {
         {/* ─── SOCIAL PROOF ─── */}
         <SocialProof />
 
+        {/* ─── HOW TO ORDER ─── */}
+        <HowToOrder />
+
         {/* ─── PRICING / OUR KITS ─── */}
         <Pricing />
+
+        {/* ─── REFERRAL ─── */}
+        <ReferralBanner />
 
         {/* ─── MYTH VS. REALITY ─── */}
         <section

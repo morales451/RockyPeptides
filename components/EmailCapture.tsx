@@ -41,9 +41,8 @@ export default function EmailCapture() {
               Get exclusive discounts &amp; updates
             </h2>
             <p className="text-lg text-white/80 mb-8">
-              Drop your email (and optionally your phone number) to receive
-              coupon codes, new product announcements, and educational content
-              straight to your inbox.
+              Sign up for exclusive coupon codes, new product announcements, and
+              our free dosing quick-reference guide — straight to your inbox.
             </p>
             <form
               name="email-capture"
