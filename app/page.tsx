@@ -19,7 +19,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.1),transparent_70%)]" />
           <div className="relative max-w-4xl mx-auto px-6 py-24 md:py-36 text-center">
             <p className="text-ocean-400 text-sm font-semibold uppercase tracking-widest mb-6">
-              Rocky Peptides &mdash; An Educational Resource
+              Evolve Peptides &mdash; An Educational Resource
             </p>
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-8">
               Heard a lot about GLP-3s?
@@ -35,7 +35,7 @@ export default function Home() {
               skepticism isn&rsquo;t just valid, it&rsquo;s healthy.
             </p>
             <p className="max-w-2xl mx-auto text-lg md:text-xl text-white/60 leading-relaxed">
-              That&rsquo;s why Rocky Peptides exists — to cut through the
+              That&rsquo;s why Evolve Peptides exists — to cut through the
               confusion with plain-language science and honest information. We
               believe an educated customer makes better decisions, and better
               decisions lead to better outcomes.
@@ -79,7 +79,7 @@ export default function Home() {
               <div className="bg-sage-50 rounded-2xl p-6 md:p-8 border border-sage-200">
                 <p className="text-base text-sage-700">
                   <strong className="text-sage-800 block mb-1">
-                    The Rocky Peptides simple version:
+                    The Evolve Peptides simple version:
                   </strong>
                   Peptides aren&rsquo;t synthetic chemicals invented in a lab to
                   do something foreign to your body. They&rsquo;re naturally
@@ -262,7 +262,7 @@ export default function Home() {
                   </strong>
                   The stigma exists because transparency has been the exception,
                   not the rule. The best way to combat misinformation is with
-                  clear, honest education — which is exactly why Rocky Peptides
+                  clear, honest education — which is exactly why Evolve Peptides
                   exists.
                 </p>
               </div>
@@ -290,7 +290,7 @@ export default function Home() {
                 The 10 biggest objections — addressed honestly.
               </h2>
               <p className="max-w-2xl mx-auto text-lg text-warm-800/80">
-                At Rocky Peptides, we believe you deserve straight answers
+                At Evolve Peptides, we believe you deserve straight answers
                 before making any decision. Click on any objection below to see
                 the full, nuanced reality — no spin, just facts and common sense.
               </p>

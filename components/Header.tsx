@@ -9,7 +9,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-sage-200">
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
         <a href="#" className="text-xl font-bold text-sage-800 tracking-tight">
-          Rocky Peptides
+          Evolve Peptides
         </a>
 
         {/* Desktop nav */}

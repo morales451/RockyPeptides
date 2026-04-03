@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Rocky Peptides | Understanding GLP-3 Peptides",
+  title: "Evolve Peptides | Understanding GLP-3 Peptides",
   description:
     "An educational resource for understanding GLP-3 peptides like retatrutide. Get the facts, debunk the myths, and learn the science in plain language.",
 };

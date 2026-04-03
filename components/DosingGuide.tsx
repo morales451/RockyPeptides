@@ -52,8 +52,9 @@ export default function DosingGuide() {
           </h3>
           <p className="text-lg leading-relaxed mb-6">
             The golden rule: <strong className="text-sage-800">start low and go slow.</strong>{" "}
-            This isn&rsquo;t a race. Gradual titration minimizes side effects
-            and lets your body adjust naturally.
+            This isn&rsquo;t a race. While some protocols out there recommend
+            higher doses, we&rsquo;ve seen most people get excellent results
+            with a simple two-step approach. Less is more.
           </p>
           <div className="grid md:grid-cols-2 gap-4 md:gap-6">
             {titrationSchedule.map((step, i) => (
@@ -79,12 +80,14 @@ export default function DosingGuide() {
           <div className="bg-sage-50 rounded-2xl p-6 md:p-8 border border-sage-200 mt-6">
             <p className="text-base text-sage-700">
               <strong className="text-sage-800 block mb-1">
-                Important note:
+                Why we recommend this protocol:
               </strong>
-              These are general guidelines based on common protocols. Everyone
-              responds differently. If you experience persistent nausea or
-              discomfort, stay at your current dose longer before increasing.
-              Listen to your body — not a schedule.
+              Many guides push higher doses (4mg, 8mg, 12mg), but we&rsquo;ve
+              consistently seen people achieve their goals at just 1–2 mg per
+              week. Starting at 1 mg gives your body time to adjust with
+              minimal side effects, and 2 mg is where most people find their
+              sweet spot. If you experience any nausea or discomfort, stay at
+              1 mg longer before moving up. Listen to your body.
             </p>
           </div>
         </div>
@@ -145,6 +148,22 @@ export default function DosingGuide() {
               </div>
             </div>
           </div>
+
+          {/* ── Video: How to do a SubQ injection ── */}
+          <div className="mt-10">
+            <h4 className="font-semibold text-sage-800 mb-4">
+              Watch: How to give a subcutaneous injection
+            </h4>
+            <div className="aspect-video rounded-xl overflow-hidden border border-sage-200 shadow-sm">
+              <iframe
+                src="https://www.youtube.com/embed/tcEWjyQfDLc"
+                title="How to give a subcutaneous injection"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          </div>
         </div>
 
         {/* ── Storage & Handling (KEY) ── */}
@@ -164,7 +183,9 @@ export default function DosingGuide() {
                 className={`rounded-xl p-6 border ${
                   i === 1
                     ? "bg-coral-400/10 border-coral-400/30"
-                    : "bg-white border-sage-200"
+                    : i === 2
+                      ? "bg-ocean-500/5 border-ocean-400/30"
+                      : "bg-white border-sage-200"
                 }`}
               >
                 <h4 className="font-semibold text-sage-800 mb-2">
