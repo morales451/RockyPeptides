@@ -5,6 +5,16 @@ export const metadata: Metadata = {
   title: "Evolve Peptides | Understanding GLP-3 Peptides",
   description:
     "An educational resource for understanding GLP-3 peptides like retatrutide. Get the facts, debunk the myths, and learn the science in plain language.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
+  openGraph: {
+    title: "Evolve Peptides | Understanding GLP-3 Peptides",
+    description:
+      "An educational resource for understanding GLP-3 peptides like retatrutide. Get the facts, debunk the myths, and learn the science in plain language.",
+    images: [{ url: "/logo.png" }],
+  },
 };
 
 export default function RootLayout({

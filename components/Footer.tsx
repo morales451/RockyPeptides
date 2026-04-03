@@ -3,10 +3,16 @@ export default function Footer() {
     <footer className="bg-sage-800 text-sage-100">
       <div className="max-w-4xl mx-auto px-6 py-12 md:py-16">
         <div className="mb-8">
-          <p className="text-xl font-bold text-white mb-1">Evolve Peptides</p>
-          <p className="text-sm text-sage-300 mb-6">
-            Education over hype. Science over stigma.
-          </p>
+          <div className="mb-6">
+            <img
+              src="/logo.png"
+              alt="Evolve Peptides"
+              className="h-12 w-auto brightness-0 invert mb-2"
+            />
+            <p className="text-sm text-sage-300">
+              Education over hype. Science over stigma.
+            </p>
+          </div>
 
           <div className="flex flex-wrap gap-x-6 gap-y-2 mb-8 text-sm">
             <a href="#why-evolve" className="text-sage-300 hover:text-white transition-colors">
