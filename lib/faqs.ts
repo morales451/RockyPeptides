@@ -83,4 +83,34 @@ export const faqs: FAQ[] = [
     answer:
       "Results vary, but on our recommended 1–2mg protocol, most people see noticeable appetite reduction in weeks 1–2 and measurable weight loss by month 2–3. The Reddit community posts we feature on this page show a wide range of outcomes — from 25 lbs to over 100 lbs lost — but those are on various protocols and timelines. The key is consistency, proper diet, and patience.",
   },
+  {
+    id: 14,
+    question: "How long should I stay on retatrutide?",
+    answer:
+      "It depends on your goal. If you're looking to lose 20–30 lbs, a 3-month protocol is usually enough to get there and build sustainable habits. For larger goals — 50 lbs or more — many people stay on for 6+ months at a steady 1–2mg dose. There's no strict cutoff. The idea is to use it long enough to hit your target weight, lock in your new eating patterns, and then taper off. Think of it as a tool to reset your appetite baseline, not something you need to be on forever.",
+  },
+  {
+    id: 15,
+    question: "Is it safe long-term, or should I cycle on and off?",
+    answer:
+      "At the 1–2mg doses we recommend, long-term use is generally well-tolerated. That said, most people don't need to stay on indefinitely — once you've hit your goal and your habits are solid, you can taper down and stop. Some people choose to cycle: a few months on, a break, then back on if needed. There's no medical requirement to cycle at low doses, but taking breaks lets you see how your body maintains on its own. Listen to your body and consult a healthcare provider if you're unsure.",
+  },
+  {
+    id: 16,
+    question: "Does retatrutide affect menstrual cycles?",
+    answer:
+      "Some women report changes to their cycle — periods may come earlier, later, or be lighter/heavier than usual, especially in the first 1–2 months. This is common with significant weight loss and metabolic shifts, not unique to peptides. Rapid fat loss can temporarily affect estrogen levels since fat tissue produces estrogen. Most women see their cycles normalize after the body adjusts. If you experience persistent irregularity or are trying to conceive, talk to your OB-GYN. Do not use retatrutide if you are pregnant or breastfeeding.",
+  },
+  {
+    id: 17,
+    question: "Will retatrutide make me feel sick?",
+    answer:
+      "Mild nausea is the most commonly reported side effect, especially in the first week or two as your body adjusts. It's usually manageable — eating smaller, blander meals helps a lot. Some people also experience mild fatigue or occasional heartburn early on. These side effects almost always fade as your body adapts. Starting at a low dose (1mg) and titrating up slowly is the best way to minimize discomfort. If nausea is severe or persistent, it may mean your dose is too high — scale back and give your body more time.",
+  },
+  {
+    id: 18,
+    question: "How long does retatrutide stay in your system after you stop?",
+    answer:
+      "Retatrutide has a long half-life of about 6 days, meaning it takes roughly 4–5 weeks after your last injection for the compound to fully clear your system. During that time, appetite suppression gradually fades — most people notice hunger returning to normal over 2–4 weeks. This is actually a benefit: it gives you a smooth transition rather than an abrupt return of appetite, which makes it easier to maintain your new eating habits. You won't \"snap back\" overnight.",
+  },
 ];
