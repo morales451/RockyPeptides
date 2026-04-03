@@ -3,14 +3,26 @@ export default function Footer() {
     <footer className="bg-sage-800 text-sage-100">
       <div className="max-w-4xl mx-auto px-6 py-12 md:py-16">
         <div className="mb-8">
-          <p className="text-xl font-bold text-white mb-1">Rocky Peptides</p>
-          <p className="text-sm text-sage-300 mb-6">
-            Education over hype. Science over stigma.
-          </p>
+          <div className="mb-6">
+            <img
+              src="/Gemini_Generated_Image_u6pjcwu6pjcwu6pj.png"
+              alt="Evolve Peptides"
+              className="h-12 w-auto brightness-0 invert mb-2"
+            />
+            <p className="text-sm text-sage-300">
+              Education over hype. Science over stigma.
+            </p>
+          </div>
 
           <div className="flex flex-wrap gap-x-6 gap-y-2 mb-8 text-sm">
+            <a href="#why-evolve" className="text-sage-300 hover:text-white transition-colors">
+              Why Evolve
+            </a>
             <a href="#dosing" className="text-sage-300 hover:text-white transition-colors">
               Getting Started
+            </a>
+            <a href="#pricing" className="text-sage-300 hover:text-white transition-colors">
+              Pricing
             </a>
             <a href="#results" className="text-sage-300 hover:text-white transition-colors">
               Results
@@ -38,7 +50,7 @@ export default function Footer() {
             Medical Disclaimer
           </h3>
           <p className="text-sm leading-relaxed text-sage-200">
-            Rocky Peptides provides educational content about GLP-3 peptides
+            Evolve Peptides provides educational content about GLP-3 peptides
             and related compounds. Nothing on this site constitutes medical
             advice, diagnosis, or treatment recommendations. The information
             presented is for educational and informational purposes only and is
@@ -52,7 +64,7 @@ export default function Footer() {
 
         <div className="border-t border-sage-700 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-sage-300">
-            &copy; {new Date().getFullYear()} Rocky Peptides. For educational
+            &copy; {new Date().getFullYear()} Evolve Peptides. For educational
             purposes only.
           </p>
           <div className="flex items-center gap-6">

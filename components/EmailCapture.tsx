@@ -23,7 +23,7 @@ export default function EmailCapture() {
   }
 
   return (
-    <section id="signup" className="scroll-mt-20 bg-ocean-600 py-16 md:py-24">
+    <section id="signup" className="scroll-mt-20 bg-sage-800 py-16 md:py-24">
       <div className="max-w-3xl mx-auto px-6 text-center">
         {submitted ? (
           <div>
@@ -32,7 +32,7 @@ export default function EmailCapture() {
             </p>
             <p className="text-lg text-white/80">
               Keep an eye on your inbox for exclusive discounts and updates from
-              Rocky Peptides.
+              Evolve Peptides.
             </p>
           </div>
         ) : (
@@ -64,17 +64,17 @@ export default function EmailCapture() {
                 name="email"
                 required
                 placeholder="Your email address"
-                className="flex-1 px-4 py-3 rounded-lg text-sage-800 placeholder:text-warm-800/40 border-0 focus:ring-2 focus:ring-white/50 outline-none"
+                className="flex-1 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
               />
               <input
                 type="tel"
                 name="phone"
                 placeholder="Phone (optional)"
-                className="sm:w-44 px-4 py-3 rounded-lg text-sage-800 placeholder:text-warm-800/40 border-0 focus:ring-2 focus:ring-white/50 outline-none"
+                className="sm:w-44 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
               />
               <button
                 type="submit"
-                className="px-6 py-3 rounded-lg bg-white text-ocean-700 font-semibold hover:bg-warm-50 transition-colors cursor-pointer"
+                className="px-6 py-3 rounded-lg bg-ocean-500 text-white font-semibold hover:bg-ocean-600 transition-colors cursor-pointer"
               >
                 Sign Up
               </button>

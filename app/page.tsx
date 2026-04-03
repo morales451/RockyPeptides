@@ -1,8 +1,12 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MythAccordion from "@/components/MythAccordion";
+import WhyEvolve from "@/components/WhyEvolve";
 import DosingGuide from "@/components/DosingGuide";
+import Contraindications from "@/components/Contraindications";
 import SocialProof from "@/components/SocialProof";
+import Pricing from "@/components/Pricing";
+import CTABanner from "@/components/CTABanner";
 import FAQ from "@/components/FAQ";
 import EmailCapture from "@/components/EmailCapture";
 import ContactForm from "@/components/ContactForm";
@@ -19,7 +23,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.1),transparent_70%)]" />
           <div className="relative max-w-4xl mx-auto px-6 py-24 md:py-36 text-center">
             <p className="text-ocean-400 text-sm font-semibold uppercase tracking-widest mb-6">
-              Rocky Peptides &mdash; An Educational Resource
+              Evolve Peptides &mdash; An Educational Resource
             </p>
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-8">
               Heard a lot about GLP-3s?
@@ -35,7 +39,7 @@ export default function Home() {
               skepticism isn&rsquo;t just valid, it&rsquo;s healthy.
             </p>
             <p className="max-w-2xl mx-auto text-lg md:text-xl text-white/60 leading-relaxed">
-              That&rsquo;s why Rocky Peptides exists — to cut through the
+              That&rsquo;s why Evolve Peptides exists — to cut through the
               confusion with plain-language science and honest information. We
               believe an educated customer makes better decisions, and better
               decisions lead to better outcomes.
@@ -79,7 +83,7 @@ export default function Home() {
               <div className="bg-sage-50 rounded-2xl p-6 md:p-8 border border-sage-200">
                 <p className="text-base text-sage-700">
                   <strong className="text-sage-800 block mb-1">
-                    The Rocky Peptides simple version:
+                    The Evolve Peptides simple version:
                   </strong>
                   Peptides aren&rsquo;t synthetic chemicals invented in a lab to
                   do something foreign to your body. They&rsquo;re naturally
@@ -176,8 +180,11 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── WHY EVOLVE? ─── */}
+        <WhyEvolve />
+
         {/* ─── SECTION D: THE TRANSPARENCY REVEAL ─── */}
-        <section className="scroll-mt-20 bg-white py-20 md:py-28">
+        <section className="scroll-mt-20 bg-warm-50 py-20 md:py-28">
           <div className="max-w-4xl mx-auto px-6">
             <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-4">
               Addressing the Elephant in the Room
@@ -262,7 +269,7 @@ export default function Home() {
                   </strong>
                   The stigma exists because transparency has been the exception,
                   not the rule. The best way to combat misinformation is with
-                  clear, honest education — which is exactly why Rocky Peptides
+                  clear, honest education — which is exactly why Evolve Peptides
                   exists.
                 </p>
               </div>
@@ -270,16 +277,38 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── CTA: SEE FOR YOURSELF ─── */}
+        <CTABanner
+          heading="Ready to see for yourself?"
+          subtext="Check out our starter kit — everything you need in one package."
+          buttonText="View Pricing"
+          buttonHref="#pricing"
+        />
+
         {/* ─── DOSING & GETTING STARTED GUIDE ─── */}
         <DosingGuide />
+
+        {/* ─── CONTRAINDICATIONS ─── */}
+        <Contraindications />
+
+        {/* ─── CTA: QUESTIONS ─── */}
+        <CTABanner
+          heading="Questions about getting started?"
+          subtext="We're real people who use our own product. Reach out anytime."
+          buttonText="Contact Us"
+          buttonHref="#contact"
+        />
 
         {/* ─── SOCIAL PROOF ─── */}
         <SocialProof />
 
+        {/* ─── PRICING / OUR KITS ─── */}
+        <Pricing />
+
         {/* ─── MYTH VS. REALITY ─── */}
         <section
           id="myths"
-          className="scroll-mt-20 bg-white py-20 md:py-28"
+          className="scroll-mt-20 bg-warm-50 py-20 md:py-28"
         >
           <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-12">
@@ -290,7 +319,7 @@ export default function Home() {
                 The 10 biggest objections — addressed honestly.
               </h2>
               <p className="max-w-2xl mx-auto text-lg text-warm-800/80">
-                At Rocky Peptides, we believe you deserve straight answers
+                At Evolve Peptides, we believe you deserve straight answers
                 before making any decision. Click on any objection below to see
                 the full, nuanced reality — no spin, just facts and common sense.
               </p>
@@ -302,6 +331,14 @@ export default function Home() {
 
         {/* ─── FAQ ─── */}
         <FAQ />
+
+        {/* ─── CTA: READY TO ORDER ─── */}
+        <CTABanner
+          heading="Ready to order?"
+          subtext="Starting at $75/month. Houston local delivery or free pickup."
+          buttonText="Get Started"
+          buttonHref="#contact"
+        />
 
         {/* ─── EMAIL / DISCOUNT CAPTURE ─── */}
         <EmailCapture />
