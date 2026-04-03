@@ -10,7 +10,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
         <a href="#" className="flex items-center gap-2">
           <img
-            src="/logo.png"
+            src="/Gemini_Generated_Image_u6pjcwu6pjcwu6pj.png"
             alt="Evolve Peptides"
             className="h-10 w-auto"
           />

@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="mb-8">
           <div className="mb-6">
             <img
-              src="/logo.png"
+              src="/Gemini_Generated_Image_u6pjcwu6pjcwu6pj.png"
               alt="Evolve Peptides"
               className="h-12 w-auto brightness-0 invert mb-2"
             />

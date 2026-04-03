@@ -6,14 +6,14 @@ export const metadata: Metadata = {
   description:
     "An educational resource for understanding GLP-3 peptides like retatrutide. Get the facts, debunk the myths, and learn the science in plain language.",
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/Gemini_Generated_Image_u6pjcwu6pjcwu6pj.png",
+    apple: "/Gemini_Generated_Image_u6pjcwu6pjcwu6pj.png",
   },
   openGraph: {
     title: "Evolve Peptides | Understanding GLP-3 Peptides",
     description:
       "An educational resource for understanding GLP-3 peptides like retatrutide. Get the facts, debunk the myths, and learn the science in plain language.",
-    images: [{ url: "/logo.png" }],
+    images: [{ url: "/Gemini_Generated_Image_u6pjcwu6pjcwu6pj.png" }],
   },
 };
 
