@@ -212,25 +212,6 @@ export default function Home() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-sage-800 mb-1">
-                      The Compounding Pharmacy Question
-                    </h3>
-                    <p>
-                      Compounding pharmacies legally produce custom medications
-                      when there&rsquo;s a drug shortage or a specific patient
-                      need. This is a real, regulated corner of medicine — not
-                      some underground operation. But the lack of consumer
-                      awareness about this process creates unnecessary fear.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-warm-100 flex items-center justify-center">
-                    <span className="text-warm-800 font-semibold text-sm">
-                      2
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-sage-800 mb-1">
                       The Supply Chain Reality
                     </h3>
                     <p>
@@ -246,7 +227,7 @@ export default function Home() {
                 <div className="flex gap-4 items-start">
                   <div className="flex-shrink-0 w-8 h-8 rounded-full bg-warm-100 flex items-center justify-center">
                     <span className="text-warm-800 font-semibold text-sm">
-                      3
+                      2
                     </span>
                   </div>
                   <div>
