@@ -11,7 +11,7 @@ export const myths: Myth[] = [
     title: "Verification",
     myth: "COAs on websites prove it's safe.",
     reality:
-      "The vast majority of COAs in this industry can be fabricated — and ours are no exception. We'll be upfront about that. We source our peptides from manufacturers that produce and sell millions of units, and we do receive COAs that we're happy to share with you. But a PDF on a website should never be your litmus test for safety or quality. The real measure of trust is the source, the consistency, and whether a supplier is honest enough to tell you that. We are.",
+      "A COA — Certificate of Analysis — is a lab report that shows a product was tested for purity, identity, and potency. In theory, it proves what's in the vial matches what's on the label. In practice? The vast majority of COAs in this industry can be fabricated — and ours are no exception. We'll be upfront about that. We source our peptides from manufacturers that produce and sell millions of units, and we do receive COAs that we're happy to share with you. But a PDF on a website should never be your litmus test for safety or quality. The real measure of trust is the source, the consistency, and whether a supplier is honest enough to tell you that. We are.",
   },
   {
     id: 2,
