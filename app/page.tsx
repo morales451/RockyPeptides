@@ -13,6 +13,7 @@ import CTABanner from "@/components/CTABanner";
 import FAQ from "@/components/FAQ";
 import EmailCapture from "@/components/EmailCapture";
 import ContactForm from "@/components/ContactForm";
+import WeightLossProjection from "@/components/WeightLossProjection";
 import { myths } from "@/lib/myths";
 
 export default function Home() {
@@ -277,6 +278,9 @@ export default function Home() {
 
         {/* ─── WHAT TO EXPECT ─── */}
         <WhatToExpect />
+
+        {/* ─── WEIGHT-LOSS PROJECTION ─── */}
+        <WeightLossProjection />
 
         {/* ─── CTA: QUESTIONS ─── */}
         <CTABanner
