@@ -1,21 +1,16 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useMemo, useState, type FormEvent } from "react";
+import {
+  PROJECTION_FREE_WEEKS as FREE_WEEKS,
+  PROJECTION_WEEKS as WEEKS,
+  computeProjection,
+} from "@/lib/projection";
+import { REASONS, formDataToUrlEncoded } from "@/lib/forms";
+import TcpaDisclosure from "@/components/TcpaDisclosure";
 
-const DOSE = { asymptote: 0.16, k: 0.039 };
-const WEEKS = 52;
-const FREE_WEEKS = 12;
 const LB_PER_KG = 2.20462;
-const STORAGE_KEY = "rp-projection-unlocked";
-
-const REASONS = [
-  { value: "weight-loss", label: "Lose weight" },
-  { value: "appetite", label: "Curb appetite & food noise" },
-  { value: "glp1-plateau", label: "Push past a GLP-1 plateau" },
-  { value: "metabolic-health", label: "Improve metabolic health" },
-  { value: "recomposition", label: "Body recomposition" },
-  { value: "other", label: "Other" },
-] as const;
+const ASYMPTOTE_FOR_AXIS = 0.16;
 
 type Unit = "lbs" | "kg";
 
@@ -23,33 +18,21 @@ function formatWeight(value: number, unit: Unit) {
   return `${value.toFixed(1)} ${unit}`;
 }
 
-export default function WeightLossProjection() {
+export default function WeightLossProjection({
+  initialUnlocked,
+}: {
+  initialUnlocked: boolean;
+}) {
   const [unit, setUnit] = useState<Unit>("lbs");
   const [weightInput, setWeightInput] = useState("220");
-  const [unlocked, setUnlocked] = useState(false);
+  const [unlocked, setUnlocked] = useState(initialUnlocked);
   const [reason, setReason] = useState("");
   const [submitting, setSubmitting] = useState(false);
-
-  useEffect(() => {
-    try {
-      if (localStorage.getItem(STORAGE_KEY) === "1") setUnlocked(true);
-    } catch {
-      // ignore storage errors (private mode, etc.)
-    }
-  }, []);
 
   const startingWeight = Math.max(0, Number(weightInput) || 0);
 
   const points = useMemo(
-    () =>
-      Array.from({ length: WEEKS + 1 }, (_, week) => {
-        const lossFrac = DOSE.asymptote * (1 - Math.exp(-DOSE.k * week));
-        return {
-          week,
-          weight: startingWeight * (1 - lossFrac),
-          lossFrac,
-        };
-      }),
+    () => computeProjection(startingWeight),
     [startingWeight],
   );
 
@@ -65,7 +48,7 @@ export default function WeightLossProjection() {
   const innerH = H - PAD.top - PAD.bottom;
 
   const xMax = WEEKS;
-  const yMin = startingWeight * (1 - DOSE.asymptote * 1.05);
+  const yMin = startingWeight * (1 - ASYMPTOTE_FOR_AXIS * 1.05);
   const yMax = startingWeight;
   const ySpan = Math.max(yMax - yMin, 1);
 
@@ -108,33 +91,26 @@ export default function WeightLossProjection() {
     e.preventDefault();
     setSubmitting(true);
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    formData.set("starting-weight", `${weightInput} ${unit}`);
-
-    const body = new URLSearchParams();
-    formData.forEach((value, key) => {
-      if (typeof value === "string") body.append(key, value);
+    const body = formDataToUrlEncoded(e.currentTarget, {
+      "starting-weight": `${weightInput} ${unit}`,
     });
+    const init: RequestInit = {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    };
 
-    try {
-      const res = await fetch("/__forms.html", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
-      });
-      if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      try {
-        localStorage.setItem(STORAGE_KEY, "1");
-      } catch {
-        // ignore
-      }
-      setUnlocked(true);
-      setSubmitting(false);
+    const [unlockRes] = await Promise.allSettled([
+      fetch("/api/projection/unlock", init),
+      fetch("/__forms.html", init),
+    ]);
+
+    if (unlockRes.status === "rejected" || !unlockRes.value.ok) {
+      console.error("Projection unlock failed", unlockRes);
     }
+
+    setUnlocked(true);
+    setSubmitting(false);
   }
 
   const lockX = xScale(FREE_WEEKS);
@@ -505,10 +481,7 @@ export default function WeightLossProjection() {
                 >
                   {submitting ? "Unlocking…" : "Unlock full projection"}
                 </button>
-                <p className="text-xs text-warm-800/60 leading-relaxed">
-                  By submitting, you agree to receive recurring marketing
-                  texts. Msg &amp; data rates may apply. Reply STOP to opt out.
-                </p>
+                <TcpaDisclosure className="text-warm-800/60" />
               </form>
             </div>
           )}

@@ -1,15 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-
-const REASONS = [
-  { value: "weight-loss", label: "Lose weight" },
-  { value: "appetite", label: "Curb appetite & food noise" },
-  { value: "glp1-plateau", label: "Push past a GLP-1 plateau (Ozempic, Wegovy, Mounjaro)" },
-  { value: "metabolic-health", label: "Improve metabolic health (blood sugar, insulin)" },
-  { value: "recomposition", label: "Body recomposition (lose fat, keep muscle)" },
-  { value: "other", label: "Other" },
-] as const;
+import { REASONS, submitNetlifyForm } from "@/lib/forms";
 
 export default function EmailCapture() {
   const [submitted, setSubmitted] = useState(false);
@@ -17,24 +9,12 @@ export default function EmailCapture() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const body = new URLSearchParams();
-    formData.forEach((value, key) => {
-      if (typeof value === "string") body.append(key, value);
-    });
-
     try {
-      const res = await fetch("/__forms.html", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
-      });
+      const res = await submitNetlifyForm(e.currentTarget);
       if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
-      setSubmitted(true);
     } catch (err) {
       console.error(err);
+    } finally {
       setSubmitted(true);
     }
   }

@@ -1,15 +1,8 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-
-const REASONS = [
-  { value: "weight-loss", label: "Lose weight" },
-  { value: "appetite", label: "Curb appetite & food noise" },
-  { value: "glp1-plateau", label: "Push past a GLP-1 plateau" },
-  { value: "metabolic-health", label: "Improve metabolic health" },
-  { value: "recomposition", label: "Body recomposition" },
-  { value: "other", label: "Other" },
-] as const;
+import { REASONS, submitNetlifyForm } from "@/lib/forms";
+import TcpaDisclosure from "@/components/TcpaDisclosure";
 
 const STORAGE_KEY = "rp-exit-intent-shown";
 
@@ -63,24 +56,12 @@ export default function ExitIntent() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const body = new URLSearchParams();
-    formData.forEach((value, key) => {
-      if (typeof value === "string") body.append(key, value);
-    });
-
     try {
-      const res = await fetch("/__forms.html", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
-      });
+      const res = await submitNetlifyForm(e.currentTarget);
       if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
-      setSubmitted(true);
     } catch (err) {
       console.error(err);
+    } finally {
       setSubmitted(true);
     }
   }
@@ -186,10 +167,7 @@ export default function ExitIntent() {
               >
                 Text me the code
               </button>
-              <p className="text-xs text-warm-800/60 text-center pt-1">
-                By submitting, you agree to receive recurring marketing texts.
-                Msg &amp; data rates may apply. Reply STOP to opt out.
-              </p>
+              <TcpaDisclosure className="text-warm-800/60 text-center pt-1" />
             </form>
           </>
         )}
