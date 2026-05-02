@@ -2,8 +2,18 @@
 
 import { useState, type FormEvent } from "react";
 
+const REASONS = [
+  { value: "weight-loss", label: "Lose weight" },
+  { value: "appetite", label: "Curb appetite & food noise" },
+  { value: "glp1-plateau", label: "Push past a GLP-1 plateau (Ozempic, Wegovy, Mounjaro)" },
+  { value: "metabolic-health", label: "Improve metabolic health (blood sugar, insulin)" },
+  { value: "recomposition", label: "Body recomposition (lose fat, keep muscle)" },
+  { value: "other", label: "Other" },
+] as const;
+
 export default function EmailCapture() {
   const [submitted, setSubmitted] = useState(false);
+  const [reason, setReason] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -57,7 +67,7 @@ export default function EmailCapture() {
               data-netlify="true"
               data-netlify-honeypot="bot-field"
               onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto"
+              className="flex flex-col gap-3 max-w-xl mx-auto"
             >
               <input type="hidden" name="form-name" value="email-capture" />
               <p className="hidden">
@@ -65,19 +75,48 @@ export default function EmailCapture() {
                   Don&rsquo;t fill this out: <input name="bot-field" />
                 </label>
               </p>
-              <input
-                type="email"
-                name="email"
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="Your email address"
+                  className="flex-1 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  required
+                  placeholder="Phone number"
+                  className="sm:w-44 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+                />
+              </div>
+              <select
+                name="reason"
                 required
-                placeholder="Your email address"
-                className="flex-1 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-              />
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone (optional)"
-                className="sm:w-44 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-              />
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+                className="px-4 py-3 rounded-lg bg-white text-sage-800 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+              >
+                <option value="" disabled>
+                  Why are you interested in trying peptides?
+                </option>
+                {REASONS.map((r) => (
+                  <option key={r.value} value={r.value}>
+                    {r.label}
+                  </option>
+                ))}
+              </select>
+              {reason === "other" && (
+                <input
+                  type="text"
+                  name="reason_other"
+                  required
+                  maxLength={250}
+                  placeholder="Tell us what brought you here"
+                  className="px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+                />
+              )}
               <button
                 type="submit"
                 className="px-6 py-3 rounded-lg bg-ocean-500 text-white font-semibold hover:bg-ocean-600 transition-colors cursor-pointer"
