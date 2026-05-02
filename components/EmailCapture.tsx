@@ -48,8 +48,8 @@ export default function EmailCapture() {
               You&rsquo;re in!
             </p>
             <p className="text-lg text-white/80">
-              Keep an eye on your inbox for exclusive discounts and updates from
-              Evolve Peptides.
+              Watch your phone for exclusive discounts and updates from Evolve
+              Peptides.
             </p>
           </div>
         ) : (
@@ -58,8 +58,9 @@ export default function EmailCapture() {
               Get exclusive discounts &amp; updates
             </h2>
             <p className="text-lg text-white/80 mb-8">
-              Sign up for exclusive coupon codes, new product announcements, and
-              our free dosing quick-reference guide — straight to your inbox.
+              Drop your number for exclusive coupon codes, new product
+              announcements, and our free dosing quick-reference guide —
+              straight to your phone.
             </p>
             <form
               name="email-capture"
@@ -77,18 +78,19 @@ export default function EmailCapture() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <input
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="Your email address"
-                  className="flex-1 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-                />
-                <input
                   type="tel"
                   name="phone"
                   required
+                  autoComplete="tel"
                   placeholder="Phone number"
-                  className="sm:w-44 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+                  className="flex-1 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  placeholder="Email (optional)"
+                  className="sm:w-64 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
                 />
               </div>
               <select
