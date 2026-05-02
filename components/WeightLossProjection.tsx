@@ -1,24 +1,21 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 
-type Dose = {
-  value: string;
-  label: string;
-  asymptote: number;
-  k: number;
-};
-
-const DOSES: Dose[] = [
-  { value: "2", label: "2 mg / week", asymptote: 0.16, k: 0.039 },
-  { value: "4", label: "4 mg / week", asymptote: 0.21, k: 0.04 },
-  { value: "8", label: "8 mg / week", asymptote: 0.27, k: 0.045 },
-  { value: "12", label: "12 mg / week", asymptote: 0.29, k: 0.041 },
-];
-
+const DOSE = { asymptote: 0.16, k: 0.039 };
 const WEEKS = 52;
-
+const FREE_WEEKS = 12;
 const LB_PER_KG = 2.20462;
+const STORAGE_KEY = "rp-projection-unlocked";
+
+const REASONS = [
+  { value: "weight-loss", label: "Lose weight" },
+  { value: "appetite", label: "Curb appetite & food noise" },
+  { value: "glp1-plateau", label: "Push past a GLP-1 plateau" },
+  { value: "metabolic-health", label: "Improve metabolic health" },
+  { value: "recomposition", label: "Body recomposition" },
+  { value: "other", label: "Other" },
+] as const;
 
 type Unit = "lbs" | "kg";
 
@@ -29,21 +26,32 @@ function formatWeight(value: number, unit: Unit) {
 export default function WeightLossProjection() {
   const [unit, setUnit] = useState<Unit>("lbs");
   const [weightInput, setWeightInput] = useState("220");
-  const [doseValue, setDoseValue] = useState("8");
+  const [unlocked, setUnlocked] = useState(false);
+  const [reason, setReason] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(STORAGE_KEY) === "1") setUnlocked(true);
+    } catch {
+      // ignore storage errors (private mode, etc.)
+    }
+  }, []);
 
   const startingWeight = Math.max(0, Number(weightInput) || 0);
-  const dose = DOSES.find((d) => d.value === doseValue) ?? DOSES[2];
 
-  const points = useMemo(() => {
-    return Array.from({ length: WEEKS + 1 }, (_, week) => {
-      const lossFrac = dose.asymptote * (1 - Math.exp(-dose.k * week));
-      return {
-        week,
-        weight: startingWeight * (1 - lossFrac),
-        lossFrac,
-      };
-    });
-  }, [startingWeight, dose]);
+  const points = useMemo(
+    () =>
+      Array.from({ length: WEEKS + 1 }, (_, week) => {
+        const lossFrac = DOSE.asymptote * (1 - Math.exp(-DOSE.k * week));
+        return {
+          week,
+          weight: startingWeight * (1 - lossFrac),
+          lossFrac,
+        };
+      }),
+    [startingWeight],
+  );
 
   const w12 = points[12];
   const w24 = points[24];
@@ -57,7 +65,7 @@ export default function WeightLossProjection() {
   const innerH = H - PAD.top - PAD.bottom;
 
   const xMax = WEEKS;
-  const yMin = startingWeight * (1 - dose.asymptote * 1.05);
+  const yMin = startingWeight * (1 - DOSE.asymptote * 1.05);
   const yMax = startingWeight;
   const ySpan = Math.max(yMax - yMin, 1);
 
@@ -65,19 +73,18 @@ export default function WeightLossProjection() {
   const yScale = (w: number) =>
     PAD.top + ((yMax - w) / ySpan) * innerH;
 
-  const linePath = points
-    .map(
-      (p, i) =>
-        `${i === 0 ? "M" : "L"} ${xScale(p.week).toFixed(2)} ${yScale(
-          p.weight,
-        ).toFixed(2)}`,
-    )
-    .join(" ");
+  const toPath = (slice: typeof points) =>
+    slice
+      .map(
+        (p, i) =>
+          `${i === 0 ? "M" : "L"} ${xScale(p.week).toFixed(2)} ${yScale(
+            p.weight,
+          ).toFixed(2)}`,
+      )
+      .join(" ");
 
-  const areaPath =
-    `${linePath} L ${xScale(xMax).toFixed(2)} ${(PAD.top + innerH).toFixed(
-      2,
-    )} L ${xScale(0).toFixed(2)} ${(PAD.top + innerH).toFixed(2)} Z`;
+  const freePath = toPath(points.slice(0, FREE_WEEKS + 1));
+  const gatedPath = toPath(points.slice(FREE_WEEKS));
 
   const xTicks = [0, 12, 24, 36, 48];
   const yTickCount = 5;
@@ -87,16 +94,50 @@ export default function WeightLossProjection() {
 
   function convertInput(next: Unit) {
     const current = Number(weightInput);
-    if (!Number.isFinite(current) || current <= 0) {
+    if (!Number.isFinite(current) || current <= 0 || next === unit) {
       setUnit(next);
       return;
     }
-    if (next === unit) return;
     const converted =
       next === "kg" ? current / LB_PER_KG : current * LB_PER_KG;
     setWeightInput(converted.toFixed(1));
     setUnit(next);
   }
+
+  async function handleUnlock(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setSubmitting(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    formData.set("starting-weight", `${weightInput} ${unit}`);
+
+    const body = new URLSearchParams();
+    formData.forEach((value, key) => {
+      if (typeof value === "string") body.append(key, value);
+    });
+
+    try {
+      const res = await fetch("/__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      });
+      if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      try {
+        localStorage.setItem(STORAGE_KEY, "1");
+      } catch {
+        // ignore
+      }
+      setUnlocked(true);
+      setSubmitting(false);
+    }
+  }
+
+  const lockX = xScale(FREE_WEEKS);
 
   return (
     <section
@@ -111,92 +152,98 @@ export default function WeightLossProjection() {
           Project your weight loss over 12 months
         </h2>
         <p className="text-lg text-warm-800/80 mb-10 max-w-2xl">
-          Enter your starting weight and weekly dose to see a projected curve
-          modeled on published Phase 2 trial data for retatrutide.
+          Enter your starting weight to see a projected curve on our 2&nbsp;mg
+          weekly protocol, modeled on published Phase 2 trial data for
+          retatrutide.
         </p>
 
         <div className="bg-sage-50 rounded-2xl border border-sage-200 p-6 md:p-8">
-          <div className="grid sm:grid-cols-3 gap-4 mb-8">
-            <div>
-              <label
-                htmlFor="proj-weight"
-                className="block text-sm font-medium text-sage-800 mb-2"
-              >
-                Starting weight
-              </label>
-              <div className="flex">
-                <input
-                  id="proj-weight"
-                  type="number"
-                  inputMode="decimal"
-                  min={50}
-                  max={unit === "lbs" ? 700 : 320}
-                  step="0.1"
-                  value={weightInput}
-                  onChange={(e) => setWeightInput(e.target.value)}
-                  className="flex-1 min-w-0 px-4 py-3 rounded-l-lg bg-white text-sage-800 border-2 border-r-0 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-                />
-                <div className="flex rounded-r-lg overflow-hidden border-2 border-sage-200">
-                  {(["lbs", "kg"] as const).map((u) => (
-                    <button
-                      key={u}
-                      type="button"
-                      onClick={() => convertInput(u)}
-                      aria-pressed={unit === u}
-                      className={`px-3 text-sm font-medium transition-colors cursor-pointer ${
-                        unit === u
-                          ? "bg-ocean-500 text-white"
-                          : "bg-white text-sage-700 hover:bg-sage-100"
-                      }`}
-                    >
-                      {u}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="proj-dose"
-                className="block text-sm font-medium text-sage-800 mb-2"
-              >
-                Weekly dose
-              </label>
-              <select
-                id="proj-dose"
-                value={doseValue}
-                onChange={(e) => setDoseValue(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg bg-white text-sage-800 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-              >
-                {DOSES.map((d) => (
-                  <option key={d.value} value={d.value}>
-                    {d.label}
-                  </option>
+          <div className="mb-8 max-w-sm">
+            <label
+              htmlFor="proj-weight"
+              className="block text-sm font-medium text-sage-800 mb-2"
+            >
+              Starting weight
+            </label>
+            <div className="flex">
+              <input
+                id="proj-weight"
+                type="number"
+                inputMode="decimal"
+                min={50}
+                max={unit === "lbs" ? 700 : 320}
+                step="0.1"
+                value={weightInput}
+                onChange={(e) => setWeightInput(e.target.value)}
+                className="flex-1 min-w-0 px-4 py-3 rounded-l-lg bg-white text-sage-800 border-2 border-r-0 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+              />
+              <div className="flex rounded-r-lg overflow-hidden border-2 border-sage-200">
+                {(["lbs", "kg"] as const).map((u) => (
+                  <button
+                    key={u}
+                    type="button"
+                    onClick={() => convertInput(u)}
+                    aria-pressed={unit === u}
+                    className={`px-3 text-sm font-medium transition-colors cursor-pointer ${
+                      unit === u
+                        ? "bg-ocean-500 text-white"
+                        : "bg-white text-sage-700 hover:bg-sage-100"
+                    }`}
+                  >
+                    {u}
+                  </button>
                 ))}
-              </select>
+              </div>
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-3 mb-6">
+            <div className="bg-white rounded-xl border border-sage-200 p-4 text-center">
+              <p className="text-xs uppercase tracking-wider text-warm-800/60 mb-1">
+                Week 12
+              </p>
+              <p className="text-xl md:text-2xl font-bold text-sage-800">
+                {formatWeight(w12.weight, unit)}
+              </p>
+              <p className="text-sm text-ocean-500 font-semibold">
+                −{(w12.lossFrac * 100).toFixed(1)}%
+              </p>
+            </div>
             {[
-              { label: "Week 12", point: w12 },
               { label: "Week 24", point: w24 },
               { label: "Week 48", point: w48 },
             ].map(({ label, point }) => (
               <div
                 key={label}
-                className="bg-white rounded-xl border border-sage-200 p-4 text-center"
+                className={`relative bg-white rounded-xl border p-4 text-center ${
+                  unlocked ? "border-sage-200" : "border-dashed border-sage-300"
+                }`}
               >
                 <p className="text-xs uppercase tracking-wider text-warm-800/60 mb-1">
                   {label}
                 </p>
-                <p className="text-xl md:text-2xl font-bold text-sage-800">
-                  {formatWeight(point.weight, unit)}
-                </p>
-                <p className="text-sm text-ocean-500 font-semibold">
-                  −{(point.lossFrac * 100).toFixed(1)}%
-                </p>
+                {unlocked ? (
+                  <>
+                    <p className="text-xl md:text-2xl font-bold text-sage-800">
+                      {formatWeight(point.weight, unit)}
+                    </p>
+                    <p className="text-sm text-ocean-500 font-semibold">
+                      −{(point.lossFrac * 100).toFixed(1)}%
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p
+                      aria-hidden="true"
+                      className="text-xl md:text-2xl font-bold text-sage-800/30 blur-sm select-none"
+                    >
+                      {formatWeight(point.weight, unit)}
+                    </p>
+                    <p className="text-xs text-warm-800/60 mt-1">
+                      🔒 Unlock to see
+                    </p>
+                  </>
+                )}
               </div>
             ))}
           </div>
@@ -205,7 +252,7 @@ export default function WeightLossProjection() {
             <svg
               viewBox={`0 0 ${W} ${H}`}
               role="img"
-              aria-label={`Projected weight curve over ${WEEKS} weeks at ${dose.label}`}
+              aria-label={`Projected weight curve over ${WEEKS} weeks at 2 mg per week`}
               className="w-full h-auto"
             >
               <defs>
@@ -213,6 +260,14 @@ export default function WeightLossProjection() {
                   <stop offset="0%" stopColor="#0891b2" stopOpacity="0.25" />
                   <stop offset="100%" stopColor="#0891b2" stopOpacity="0" />
                 </linearGradient>
+                <clipPath id="proj-free-clip">
+                  <rect
+                    x={PAD.left}
+                    y={PAD.top}
+                    width={lockX - PAD.left}
+                    height={innerH}
+                  />
+                </clipPath>
               </defs>
 
               {yTicks.map((t, i) => (
@@ -239,17 +294,16 @@ export default function WeightLossProjection() {
               ))}
 
               {xTicks.map((t) => (
-                <g key={t}>
-                  <text
-                    x={xScale(t)}
-                    y={H - PAD.bottom + 18}
-                    textAnchor="middle"
-                    fontSize="11"
-                    fill="#64748b"
-                  >
-                    Wk {t}
-                  </text>
-                </g>
+                <text
+                  key={t}
+                  x={xScale(t)}
+                  y={H - PAD.bottom + 18}
+                  textAnchor="middle"
+                  fontSize="11"
+                  fill="#64748b"
+                >
+                  Wk {t}
+                </text>
               ))}
 
               <line
@@ -267,9 +321,21 @@ export default function WeightLossProjection() {
                 stroke="#cbd5e1"
               />
 
-              <path d={areaPath} fill="url(#proj-fill)" />
+              {/* Gated area: full fill, but visually gated when locked */}
               <path
-                d={linePath}
+                d={`${toPath(points)} L ${xScale(WEEKS).toFixed(2)} ${(
+                  PAD.top + innerH
+                ).toFixed(2)} L ${xScale(0).toFixed(2)} ${(
+                  PAD.top + innerH
+                ).toFixed(2)} Z`}
+                fill="url(#proj-fill)"
+                opacity={unlocked ? 1 : 0.4}
+                clipPath={unlocked ? undefined : "url(#proj-free-clip)"}
+              />
+
+              {/* Free portion (always solid) */}
+              <path
+                d={freePath}
                 fill="none"
                 stroke="#0891b2"
                 strokeWidth="2.5"
@@ -277,17 +343,76 @@ export default function WeightLossProjection() {
                 strokeLinecap="round"
               />
 
-              {[w12, w24, w48].map((p) => (
+              {/* Gated portion: solid when unlocked, dashed teaser when locked */}
+              <path
+                d={gatedPath}
+                fill="none"
+                stroke="#0891b2"
+                strokeWidth="2.5"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeDasharray={unlocked ? undefined : "4 5"}
+                opacity={unlocked ? 1 : 0.45}
+              />
+
+              {/* Free milestone marker */}
+              <circle
+                cx={xScale(w12.week)}
+                cy={yScale(w12.weight)}
+                r={4}
+                fill="#0891b2"
+                stroke="#fff"
+                strokeWidth="2"
+              />
+
+              {/* Gated milestones */}
+              {[w24, w48].map((p) => (
                 <circle
                   key={p.week}
                   cx={xScale(p.week)}
                   cy={yScale(p.weight)}
                   r={4}
-                  fill="#0891b2"
+                  fill={unlocked ? "#0891b2" : "#94a3b8"}
                   stroke="#fff"
                   strokeWidth="2"
+                  opacity={unlocked ? 1 : 0.6}
                 />
               ))}
+
+              {/* Lock divider at week 12 */}
+              {!unlocked && (
+                <g>
+                  <line
+                    x1={lockX}
+                    x2={lockX}
+                    y1={PAD.top}
+                    y2={PAD.top + innerH}
+                    stroke="#0891b2"
+                    strokeDasharray="2 4"
+                    opacity={0.5}
+                  />
+                  <g
+                    transform={`translate(${lockX - 14}, ${PAD.top + 6})`}
+                  >
+                    <rect
+                      width="28"
+                      height="20"
+                      rx="6"
+                      fill="#0891b2"
+                    />
+                    <text
+                      x="14"
+                      y="14"
+                      textAnchor="middle"
+                      fontSize="11"
+                      fill="#fff"
+                      fontWeight="600"
+                    >
+                      🔒
+                    </text>
+                  </g>
+                </g>
+              )}
 
               <text
                 x={W - PAD.right - 8}
@@ -301,13 +426,99 @@ export default function WeightLossProjection() {
             </svg>
           </div>
 
-          <p className="text-xs text-warm-800/60 mt-4 leading-relaxed">
+          {!unlocked && (
+            <div className="mt-6 bg-white rounded-2xl border-2 border-ocean-500/40 p-6 md:p-8">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-ocean-500 text-white flex items-center justify-center text-xl">
+                  🔒
+                </div>
+                <div>
+                  <h3 className="text-lg md:text-xl font-bold text-sage-800">
+                    See the rest of your projection
+                  </h3>
+                  <p className="text-warm-800/80">
+                    Drop your number to unlock weeks 12–48 — and we&rsquo;ll
+                    text you a discount code for your first order.
+                  </p>
+                </div>
+              </div>
+
+              <form
+                name="projection-unlock"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                onSubmit={handleUnlock}
+                className="space-y-3"
+              >
+                <input
+                  type="hidden"
+                  name="form-name"
+                  value="projection-unlock"
+                />
+                <input type="hidden" name="starting-weight" value="" readOnly />
+                <p className="hidden">
+                  <label>
+                    Don&rsquo;t fill this out: <input name="bot-field" />
+                  </label>
+                </p>
+
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    autoComplete="tel"
+                    placeholder="Phone number"
+                    className="px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+                  />
+                  <select
+                    name="reason"
+                    required
+                    value={reason}
+                    onChange={(e) => setReason(e.target.value)}
+                    className="px-4 py-3 rounded-lg bg-white text-sage-800 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+                  >
+                    <option value="" disabled>
+                      What brought you here?
+                    </option>
+                    {REASONS.map((r) => (
+                      <option key={r.value} value={r.value}>
+                        {r.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {reason === "other" && (
+                  <input
+                    type="text"
+                    name="reason_other"
+                    maxLength={250}
+                    placeholder="Tell us more (optional)"
+                    className="w-full px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+                  />
+                )}
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full sm:w-auto px-8 py-3 rounded-lg bg-ocean-500 text-white font-semibold hover:bg-ocean-600 transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {submitting ? "Unlocking…" : "Unlock full projection"}
+                </button>
+                <p className="text-xs text-warm-800/60 leading-relaxed">
+                  By submitting, you agree to receive recurring marketing
+                  texts. Msg &amp; data rates may apply. Reply STOP to opt out.
+                </p>
+              </form>
+            </div>
+          )}
+
+          <p className="text-xs text-warm-800/60 mt-6 leading-relaxed">
             Projection modeled on percent body-weight change reported in
             Jastreboff et al., <em>NEJM</em> 2023 (Phase 2 retatrutide trial).
-            Trial averages assume titration; the 2&nbsp;mg curve is
-            extrapolated below the lowest published arm. Individual results
-            vary based on adherence, diet, activity, and biology. Not medical
-            advice.
+            The 2&nbsp;mg curve is extrapolated below the lowest published
+            arm. Individual results vary based on adherence, diet, activity,
+            and biology. Not medical advice.
           </p>
         </div>
       </div>
