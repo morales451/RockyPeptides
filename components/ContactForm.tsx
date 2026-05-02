@@ -10,14 +10,21 @@ export default function ContactForm() {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    const body = new URLSearchParams();
+    formData.forEach((value, key) => {
+      if (typeof value === "string") body.append(key, value);
+    });
+
     try {
-      await fetch("/", {
+      const res = await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+        body: body.toString(),
       });
+      if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
       setSubmitted(true);
-    } catch {
+    } catch (err) {
+      console.error(err);
       setSubmitted(true);
     }
   }
