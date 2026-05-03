@@ -11,7 +11,7 @@ import Pricing from "@/components/Pricing";
 import ReferralBanner from "@/components/ReferralBanner";
 import CTABanner from "@/components/CTABanner";
 import FAQ from "@/components/FAQ";
-import EmailCapture from "@/components/EmailCapture";
+import PhoneCapture from "@/components/PhoneCapture";
 import ContactForm from "@/components/ContactForm";
 import WeightLossProjection from "@/components/WeightLossProjection";
 import { myths } from "@/lib/myths";
@@ -343,8 +343,8 @@ export default async function Home() {
           buttonHref="#contact"
         />
 
-        {/* ─── EMAIL / DISCOUNT CAPTURE ─── */}
-        <EmailCapture />
+        {/* ─── PHONE / DISCOUNT CAPTURE ─── */}
+        <PhoneCapture />
 
         {/* ─── CONTACT FORM ─── */}
         <ContactForm />
