@@ -1,30 +1,20 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { REASONS, submitNetlifyForm } from "@/lib/forms";
 
 export default function EmailCapture() {
   const [submitted, setSubmitted] = useState(false);
+  const [reason, setReason] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const body = new URLSearchParams();
-    formData.forEach((value, key) => {
-      if (typeof value === "string") body.append(key, value);
-    });
-
     try {
-      const res = await fetch("/__forms.html", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
-      });
+      const res = await submitNetlifyForm(e.currentTarget);
       if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
-      setSubmitted(true);
     } catch (err) {
       console.error(err);
+    } finally {
       setSubmitted(true);
     }
   }
@@ -38,8 +28,8 @@ export default function EmailCapture() {
               You&rsquo;re in!
             </p>
             <p className="text-lg text-white/80">
-              Keep an eye on your inbox for exclusive discounts and updates from
-              Evolve Peptides.
+              Watch your phone for exclusive discounts and updates from Evolve
+              Peptides.
             </p>
           </div>
         ) : (
@@ -48,8 +38,9 @@ export default function EmailCapture() {
               Get exclusive discounts &amp; updates
             </h2>
             <p className="text-lg text-white/80 mb-8">
-              Sign up for exclusive coupon codes, new product announcements, and
-              our free dosing quick-reference guide — straight to your inbox.
+              Drop your number for exclusive coupon codes, new product
+              announcements, and our free dosing quick-reference guide —
+              straight to your phone.
             </p>
             <form
               name="email-capture"
@@ -57,7 +48,7 @@ export default function EmailCapture() {
               data-netlify="true"
               data-netlify-honeypot="bot-field"
               onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto"
+              className="flex flex-col gap-3 max-w-xl mx-auto"
             >
               <input type="hidden" name="form-name" value="email-capture" />
               <p className="hidden">
@@ -65,19 +56,49 @@ export default function EmailCapture() {
                   Don&rsquo;t fill this out: <input name="bot-field" />
                 </label>
               </p>
-              <input
-                type="email"
-                name="email"
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="tel"
+                  name="phone"
+                  required
+                  autoComplete="tel"
+                  placeholder="Phone number"
+                  className="flex-1 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  placeholder="Email (optional)"
+                  className="sm:w-64 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+                />
+              </div>
+              <select
+                name="reason"
                 required
-                placeholder="Your email address"
-                className="flex-1 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-              />
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone (optional)"
-                className="sm:w-44 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-              />
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+                className="px-4 py-3 rounded-lg bg-white text-sage-800 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+              >
+                <option value="" disabled>
+                  Why are you interested in trying peptides?
+                </option>
+                {REASONS.map((r) => (
+                  <option key={r.value} value={r.value}>
+                    {r.label}
+                  </option>
+                ))}
+              </select>
+              {reason === "other" && (
+                <input
+                  type="text"
+                  name="reason_other"
+                  required
+                  maxLength={250}
+                  placeholder="Tell us what brought you here"
+                  className="px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+                />
+              )}
               <button
                 type="submit"
                 className="px-6 py-3 rounded-lg bg-ocean-500 text-white font-semibold hover:bg-ocean-600 transition-colors cursor-pointer"

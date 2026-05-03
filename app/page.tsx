@@ -13,9 +13,16 @@ import CTABanner from "@/components/CTABanner";
 import FAQ from "@/components/FAQ";
 import EmailCapture from "@/components/EmailCapture";
 import ContactForm from "@/components/ContactForm";
+import WeightLossProjection from "@/components/WeightLossProjection";
 import { myths } from "@/lib/myths";
+import { cookies } from "next/headers";
+import { UNLOCK_COOKIE, verifyUnlockToken } from "@/lib/unlock";
 
-export default function Home() {
+export default async function Home() {
+  const cookieStore = await cookies();
+  const projectionUnlocked = verifyUnlockToken(
+    cookieStore.get(UNLOCK_COOKIE)?.value,
+  );
   return (
     <>
       <Header />
@@ -277,6 +284,9 @@ export default function Home() {
 
         {/* ─── WHAT TO EXPECT ─── */}
         <WhatToExpect />
+
+        {/* ─── WEIGHT-LOSS PROJECTION ─── */}
+        <WeightLossProjection initialUnlocked={projectionUnlocked} />
 
         {/* ─── CTA: QUESTIONS ─── */}
         <CTABanner

@@ -1,30 +1,19 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { submitNetlifyForm } from "@/lib/forms";
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const body = new URLSearchParams();
-    formData.forEach((value, key) => {
-      if (typeof value === "string") body.append(key, value);
-    });
-
     try {
-      const res = await fetch("/__forms.html", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
-      });
+      const res = await submitNetlifyForm(e.currentTarget);
       if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
-      setSubmitted(true);
     } catch (err) {
       console.error(err);
+    } finally {
       setSubmitted(true);
     }
   }
