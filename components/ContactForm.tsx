@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { submitNetlifyForm } from "@/lib/forms";
+import TcpaDisclosure from "@/components/TcpaDisclosure";
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -79,18 +80,19 @@ export default function ContactForm() {
               </div>
               <div>
                 <label
-                  htmlFor="contact-email"
+                  htmlFor="contact-phone"
                   className="block text-sm font-medium text-sage-800 mb-2"
                 >
-                  Email
+                  Phone
                 </label>
                 <input
-                  type="email"
-                  id="contact-email"
-                  name="email"
+                  type="tel"
+                  id="contact-phone"
+                  name="phone"
                   required
+                  autoComplete="tel"
                   className="w-full px-4 py-3 rounded-lg border border-sage-200 text-sage-800 placeholder:text-warm-800/40 focus:ring-2 focus:ring-ocean-500/30 focus:border-ocean-500 outline-none transition-colors"
-                  placeholder="you@example.com"
+                  placeholder="(555) 555-1234"
                 />
               </div>
             </div>
@@ -118,6 +120,7 @@ export default function ContactForm() {
             >
               Send Message
             </button>
+            <TcpaDisclosure className="text-warm-800/60" />
           </form>
         )}
       </div>

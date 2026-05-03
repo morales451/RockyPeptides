@@ -2,8 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import { REASONS, submitNetlifyForm } from "@/lib/forms";
+import TcpaDisclosure from "@/components/TcpaDisclosure";
 
-export default function EmailCapture() {
+export default function PhoneCapture() {
   const [submitted, setSubmitted] = useState(false);
   const [reason, setReason] = useState("");
 
@@ -43,36 +44,27 @@ export default function EmailCapture() {
               straight to your phone.
             </p>
             <form
-              name="email-capture"
+              name="phone-capture"
               method="POST"
               data-netlify="true"
               data-netlify-honeypot="bot-field"
               onSubmit={handleSubmit}
               className="flex flex-col gap-3 max-w-xl mx-auto"
             >
-              <input type="hidden" name="form-name" value="email-capture" />
+              <input type="hidden" name="form-name" value="phone-capture" />
               <p className="hidden">
                 <label>
                   Don&rsquo;t fill this out: <input name="bot-field" />
                 </label>
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  type="tel"
-                  name="phone"
-                  required
-                  autoComplete="tel"
-                  placeholder="Phone number"
-                  className="flex-1 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-                />
-                <input
-                  type="email"
-                  name="email"
-                  autoComplete="email"
-                  placeholder="Email (optional)"
-                  className="sm:w-64 px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-                />
-              </div>
+              <input
+                type="tel"
+                name="phone"
+                required
+                autoComplete="tel"
+                placeholder="Phone number"
+                className="px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+              />
               <select
                 name="reason"
                 required
@@ -105,6 +97,7 @@ export default function EmailCapture() {
               >
                 Sign Up
               </button>
+              <TcpaDisclosure className="text-white/70 text-center pt-1" />
             </form>
           </>
         )}
