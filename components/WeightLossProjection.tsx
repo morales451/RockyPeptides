@@ -1,14 +1,10 @@
 "use client";
 
-import { useMemo, useState, type FormEvent } from "react";
+import { useMemo, useState } from "react";
 import {
-  PROJECTION_FREE_WEEKS as FREE_WEEKS,
   PROJECTION_WEEKS as WEEKS,
   computeProjection,
 } from "@/lib/projection";
-import { REASONS, formDataToUrlEncoded } from "@/lib/forms";
-import TcpaDisclosure from "@/components/TcpaDisclosure";
-import DealerSelect from "@/components/DealerSelect";
 
 const LB_PER_KG = 2.20462;
 const ASYMPTOTE_FOR_AXIS = 0.16;
@@ -19,16 +15,9 @@ function formatWeight(value: number, unit: Unit) {
   return `${value.toFixed(1)} ${unit}`;
 }
 
-export default function WeightLossProjection({
-  initialUnlocked,
-}: {
-  initialUnlocked: boolean;
-}) {
+export default function WeightLossProjection() {
   const [unit, setUnit] = useState<Unit>("lbs");
   const [weightInput, setWeightInput] = useState("220");
-  const [unlocked, setUnlocked] = useState(initialUnlocked);
-  const [reason, setReason] = useState("");
-  const [submitting, setSubmitting] = useState(false);
 
   const startingWeight = Math.max(0, Number(weightInput) || 0);
 
@@ -67,8 +56,7 @@ export default function WeightLossProjection({
       )
       .join(" ");
 
-  const freePath = toPath(points.slice(0, FREE_WEEKS + 1));
-  const gatedPath = toPath(points.slice(FREE_WEEKS));
+  const curvePath = toPath(points);
 
   const xTicks = [0, 12, 24, 36, 48];
   const yTickCount = 5;
@@ -87,34 +75,6 @@ export default function WeightLossProjection({
     setWeightInput(converted.toFixed(1));
     setUnit(next);
   }
-
-  async function handleUnlock(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setSubmitting(true);
-
-    const body = formDataToUrlEncoded(e.currentTarget, {
-      "starting-weight": `${weightInput} ${unit}`,
-    });
-    const init: RequestInit = {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body,
-    };
-
-    const [unlockRes] = await Promise.allSettled([
-      fetch("/api/projection/unlock", init),
-      fetch("/__forms.html", init),
-    ]);
-
-    if (unlockRes.status === "rejected" || !unlockRes.value.ok) {
-      console.error("Projection unlock failed", unlockRes);
-    }
-
-    setUnlocked(true);
-    setSubmitting(false);
-  }
-
-  const lockX = xScale(FREE_WEEKS);
 
   return (
     <section
@@ -175,52 +135,24 @@ export default function WeightLossProjection({
           </div>
 
           <div className="grid grid-cols-3 gap-3 mb-6">
-            <div className="bg-white rounded-xl border border-sage-200 p-4 text-center">
-              <p className="text-xs uppercase tracking-wider text-warm-800/60 mb-1">
-                Week 12
-              </p>
-              <p className="text-xl md:text-2xl font-bold text-sage-800">
-                {formatWeight(w12.weight, unit)}
-              </p>
-              <p className="text-sm text-ocean-500 font-semibold">
-                −{(w12.lossFrac * 100).toFixed(1)}%
-              </p>
-            </div>
             {[
+              { label: "Week 12", point: w12 },
               { label: "Week 24", point: w24 },
               { label: "Week 48", point: w48 },
             ].map(({ label, point }) => (
               <div
                 key={label}
-                className={`relative bg-white rounded-xl border p-4 text-center ${
-                  unlocked ? "border-sage-200" : "border-dashed border-sage-300"
-                }`}
+                className="bg-white rounded-xl border border-sage-200 p-4 text-center"
               >
                 <p className="text-xs uppercase tracking-wider text-warm-800/60 mb-1">
                   {label}
                 </p>
-                {unlocked ? (
-                  <>
-                    <p className="text-xl md:text-2xl font-bold text-sage-800">
-                      {formatWeight(point.weight, unit)}
-                    </p>
-                    <p className="text-sm text-ocean-500 font-semibold">
-                      −{(point.lossFrac * 100).toFixed(1)}%
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p
-                      aria-hidden="true"
-                      className="text-xl md:text-2xl font-bold text-sage-800/30 blur-sm select-none"
-                    >
-                      {formatWeight(point.weight, unit)}
-                    </p>
-                    <p className="text-xs text-warm-800/60 mt-1">
-                      🔒 Unlock to see
-                    </p>
-                  </>
-                )}
+                <p className="text-xl md:text-2xl font-bold text-sage-800">
+                  {formatWeight(point.weight, unit)}
+                </p>
+                <p className="text-sm text-ocean-500 font-semibold">
+                  −{(point.lossFrac * 100).toFixed(1)}%
+                </p>
               </div>
             ))}
           </div>
@@ -237,14 +169,6 @@ export default function WeightLossProjection({
                   <stop offset="0%" stopColor="#0891b2" stopOpacity="0.25" />
                   <stop offset="100%" stopColor="#0891b2" stopOpacity="0" />
                 </linearGradient>
-                <clipPath id="proj-free-clip">
-                  <rect
-                    x={PAD.left}
-                    y={PAD.top}
-                    width={lockX - PAD.left}
-                    height={innerH}
-                  />
-                </clipPath>
               </defs>
 
               {yTicks.map((t, i) => (
@@ -298,21 +222,19 @@ export default function WeightLossProjection({
                 stroke="#cbd5e1"
               />
 
-              {/* Gated area: full fill, but visually gated when locked */}
+              {/* Area fill under the full curve */}
               <path
-                d={`${toPath(points)} L ${xScale(WEEKS).toFixed(2)} ${(
+                d={`${curvePath} L ${xScale(WEEKS).toFixed(2)} ${(
                   PAD.top + innerH
                 ).toFixed(2)} L ${xScale(0).toFixed(2)} ${(
                   PAD.top + innerH
                 ).toFixed(2)} Z`}
                 fill="url(#proj-fill)"
-                opacity={unlocked ? 1 : 0.4}
-                clipPath={unlocked ? undefined : "url(#proj-free-clip)"}
               />
 
-              {/* Free portion (always solid) */}
+              {/* Full curve line */}
               <path
-                d={freePath}
+                d={curvePath}
                 fill="none"
                 stroke="#0891b2"
                 strokeWidth="2.5"
@@ -320,76 +242,18 @@ export default function WeightLossProjection({
                 strokeLinecap="round"
               />
 
-              {/* Gated portion: solid when unlocked, dashed teaser when locked */}
-              <path
-                d={gatedPath}
-                fill="none"
-                stroke="#0891b2"
-                strokeWidth="2.5"
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                strokeDasharray={unlocked ? undefined : "4 5"}
-                opacity={unlocked ? 1 : 0.45}
-              />
-
-              {/* Free milestone marker */}
-              <circle
-                cx={xScale(w12.week)}
-                cy={yScale(w12.weight)}
-                r={4}
-                fill="#0891b2"
-                stroke="#fff"
-                strokeWidth="2"
-              />
-
-              {/* Gated milestones */}
-              {[w24, w48].map((p) => (
+              {/* Milestone markers */}
+              {[w12, w24, w48].map((p) => (
                 <circle
                   key={p.week}
                   cx={xScale(p.week)}
                   cy={yScale(p.weight)}
                   r={4}
-                  fill={unlocked ? "#0891b2" : "#94a3b8"}
+                  fill="#0891b2"
                   stroke="#fff"
                   strokeWidth="2"
-                  opacity={unlocked ? 1 : 0.6}
                 />
               ))}
-
-              {/* Lock divider at week 12 */}
-              {!unlocked && (
-                <g>
-                  <line
-                    x1={lockX}
-                    x2={lockX}
-                    y1={PAD.top}
-                    y2={PAD.top + innerH}
-                    stroke="#0891b2"
-                    strokeDasharray="2 4"
-                    opacity={0.5}
-                  />
-                  <g
-                    transform={`translate(${lockX - 14}, ${PAD.top + 6})`}
-                  >
-                    <rect
-                      width="28"
-                      height="20"
-                      rx="6"
-                      fill="#0891b2"
-                    />
-                    <text
-                      x="14"
-                      y="14"
-                      textAnchor="middle"
-                      fontSize="11"
-                      fill="#fff"
-                      fontWeight="600"
-                    >
-                      🔒
-                    </text>
-                  </g>
-                </g>
-              )}
 
               <text
                 x={W - PAD.right - 8}
@@ -402,98 +266,6 @@ export default function WeightLossProjection({
               </text>
             </svg>
           </div>
-
-          {!unlocked && (
-            <div className="mt-6 bg-white rounded-2xl border-2 border-ocean-500/40 p-6 md:p-8">
-              <div className="flex items-start gap-3 mb-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-ocean-500 text-white flex items-center justify-center text-xl">
-                  🔒
-                </div>
-                <div>
-                  <h3 className="text-lg md:text-xl font-bold text-sage-800">
-                    See the rest of your projection
-                  </h3>
-                  <p className="text-warm-800/80">
-                    Drop your number to unlock weeks 12–48 — and we&rsquo;ll
-                    text you a discount code for your first order.
-                  </p>
-                </div>
-              </div>
-
-              <form
-                name="projection-unlock"
-                method="POST"
-                data-netlify="true"
-                data-netlify-honeypot="bot-field"
-                onSubmit={handleUnlock}
-                className="space-y-3"
-              >
-                <input
-                  type="hidden"
-                  name="form-name"
-                  value="projection-unlock"
-                />
-                <input type="hidden" name="starting-weight" value="" readOnly />
-                <p className="hidden">
-                  <label>
-                    Don&rsquo;t fill this out: <input name="bot-field" />
-                  </label>
-                </p>
-
-                <div className="grid sm:grid-cols-2 gap-3">
-                  <input
-                    type="tel"
-                    name="phone"
-                    required
-                    autoComplete="tel"
-                    placeholder="Phone number"
-                    className="px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-                  />
-                  <select
-                    name="reason"
-                    required
-                    value={reason}
-                    onChange={(e) => setReason(e.target.value)}
-                    className="px-4 py-3 rounded-lg bg-white text-sage-800 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-                  >
-                    <option value="" disabled>
-                      What brought you here?
-                    </option>
-                    {REASONS.map((r) => (
-                      <option key={r.value} value={r.value}>
-                        {r.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                {reason === "other" && (
-                  <input
-                    type="text"
-                    name="reason_other"
-                    maxLength={250}
-                    placeholder="Tell us more (optional)"
-                    className="w-full px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-                  />
-                )}
-                <DealerSelect className="w-full sm:max-w-xs px-4 py-3 rounded-lg bg-white text-sage-800 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none" />
-                <input
-                  type="text"
-                  name="referral"
-                  maxLength={250}
-                  placeholder="Who referred you? (optional)"
-                  className="w-full sm:max-w-xs px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
-                />
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="w-full sm:w-auto px-8 py-3 rounded-lg bg-ocean-500 text-white font-semibold hover:bg-ocean-600 transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  {submitting ? "Unlocking…" : "Unlock full projection"}
-                </button>
-                <TcpaDisclosure className="text-warm-800/60" />
-              </form>
-            </div>
-          )}
 
           <p className="text-xs text-warm-800/60 mt-6 leading-relaxed">
             Projection modeled on percent body-weight change reported in

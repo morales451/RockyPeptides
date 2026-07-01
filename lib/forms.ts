@@ -18,6 +18,15 @@ export const DEALERS = [
 
 export type DealerValue = (typeof DEALERS)[number]["value"];
 
+export const SUPPLY_OPTIONS = [
+  { value: "1-month", label: "1 month supply" },
+  { value: "3-month", label: "3 month supply" },
+  { value: "6-month", label: "6 month supply" },
+  { value: "other", label: "Other" },
+] as const;
+
+export type SupplyValue = (typeof SUPPLY_OPTIONS)[number]["value"];
+
 export function formDataToUrlEncoded(
   form: HTMLFormElement,
   extra?: Record<string, string>,

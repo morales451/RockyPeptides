@@ -8,21 +8,13 @@ import WhatToExpect from "@/components/WhatToExpect";
 import SocialProof from "@/components/SocialProof";
 import HowToOrder from "@/components/HowToOrder";
 import Pricing from "@/components/Pricing";
-import ReferralBanner from "@/components/ReferralBanner";
 import CTABanner from "@/components/CTABanner";
 import FAQ from "@/components/FAQ";
-import PhoneCapture from "@/components/PhoneCapture";
 import ContactForm from "@/components/ContactForm";
 import WeightLossProjection from "@/components/WeightLossProjection";
 import { myths } from "@/lib/myths";
-import { cookies } from "next/headers";
-import { UNLOCK_COOKIE, verifyUnlockToken } from "@/lib/unlock";
 
-export default async function Home() {
-  const cookieStore = await cookies();
-  const projectionUnlocked = verifyUnlockToken(
-    cookieStore.get(UNLOCK_COOKIE)?.value,
-  );
+export default function Home() {
   return (
     <>
       <Header />
@@ -51,6 +43,74 @@ export default async function Home() {
               We cut through it with plain-language science and honest answers.
               Better information means better decisions.
             </p>
+          </div>
+        </section>
+
+        {/* ─── SECTION A2: THE PROBLEM ─── */}
+        <section className="scroll-mt-20 bg-warm-50 py-20 md:py-28">
+          <div className="max-w-4xl mx-auto px-6">
+            <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-4">
+              Start Here
+            </p>
+            <h2 className="text-2xl md:text-4xl font-bold text-sage-800 mb-4">
+              Does any of this sound familiar?
+            </h2>
+            <p className="text-lg text-warm-800/80 mb-10 max-w-2xl">
+              Before we talk about the science, let&rsquo;s talk about why
+              you&rsquo;re here. Most people who reach out are stuck on one of
+              these.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+              <div className="bg-sage-50 rounded-xl p-6 border border-sage-200">
+                <h3 className="font-semibold text-sage-800 mb-2">
+                  You don&rsquo;t feel good in your body
+                </h3>
+                <p className="text-base text-warm-800">
+                  Clothes don&rsquo;t fit the way they used to. Your energy is
+                  low, and you&rsquo;d rather skip the photo than be in it.
+                </p>
+              </div>
+              <div className="bg-sage-50 rounded-xl p-6 border border-sage-200">
+                <h3 className="font-semibold text-sage-800 mb-2">
+                  The food noise never stops
+                </h3>
+                <p className="text-base text-warm-800">
+                  You think about food all day. Cravings win even when
+                  you&rsquo;re not actually hungry.
+                </p>
+              </div>
+              <div className="bg-sage-50 rounded-xl p-6 border border-sage-200">
+                <h3 className="font-semibold text-sage-800 mb-2">
+                  Vices run the show
+                </h3>
+                <p className="text-base text-warm-800">
+                  Late-night snacking, sugar, a drink to unwind — small habits
+                  that quietly add up and are hard to break.
+                </p>
+              </div>
+              <div className="bg-sage-50 rounded-xl p-6 border border-sage-200">
+                <h3 className="font-semibold text-sage-800 mb-2">
+                  Willpower alone hasn&rsquo;t worked
+                </h3>
+                <p className="text-base text-warm-800">
+                  You&rsquo;ve tried the diets. They don&rsquo;t stick. That
+                  isn&rsquo;t a character flaw — it&rsquo;s biology.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-ocean-500/5 rounded-2xl p-6 md:p-8 border border-ocean-400/30 mt-8">
+              <p className="text-base text-sage-700">
+                <strong className="text-sage-800 block mb-1">
+                  Here&rsquo;s the good news:
+                </strong>
+                These aren&rsquo;t willpower problems — they&rsquo;re signaling
+                problems. Your body&rsquo;s hunger and reward signals are turned
+                up too high. That&rsquo;s exactly what GLP-3 peptides help quiet
+                down. Here&rsquo;s how they work.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -274,7 +334,7 @@ export default async function Home() {
         <WhatToExpect />
 
         {/* ─── WEIGHT-LOSS PROJECTION ─── */}
-        <WeightLossProjection initialUnlocked={projectionUnlocked} />
+        <WeightLossProjection />
 
         {/* ─── CTA: QUESTIONS ─── */}
         <CTABanner
@@ -292,9 +352,6 @@ export default async function Home() {
 
         {/* ─── PRICING / OUR KITS ─── */}
         <Pricing />
-
-        {/* ─── REFERRAL ─── */}
-        <ReferralBanner />
 
         {/* ─── MYTH VS. REALITY ─── */}
         <section
@@ -329,9 +386,6 @@ export default async function Home() {
           buttonText="Get Started"
           buttonHref="#contact"
         />
-
-        {/* ─── PHONE / DISCOUNT CAPTURE ─── */}
-        <PhoneCapture />
 
         {/* ─── CONTACT FORM ─── */}
         <ContactForm />
