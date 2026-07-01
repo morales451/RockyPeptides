@@ -36,8 +36,8 @@ export default function WhatToExpect() {
           What to expect on our protocol
         </h2>
         <p className="text-lg text-warm-800/80 mb-12 max-w-2xl">
-          Here&rsquo;s a realistic look at the typical journey on our 1–2 mg
-          protocol. No hype — just what most people experience.
+          A realistic look at the typical journey on our 1–2 mg protocol. No
+          hype — just what most people experience.
         </p>
 
         <div className="relative">
@@ -73,10 +73,10 @@ export default function WhatToExpect() {
             <strong className="text-sage-800 block mb-1">
               Keep in mind:
             </strong>
-            These are based on our 1–2 mg protocol. Individual results vary —
-            but consistency is the biggest factor. Pair this with adequate
-            protein intake and light activity, and you&rsquo;re setting yourself
-            up for success.
+            Results vary, but consistency is the biggest factor. Pair the
+            protocol with plenty of protein and regular activity and you&rsquo;re
+            set up to succeed — the peptide works best alongside good habits, not
+            in place of them.
           </p>
         </div>
       </div>

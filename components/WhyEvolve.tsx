@@ -3,22 +3,22 @@ export default function WhyEvolve() {
     {
       title: "Founded by users",
       description:
-        "We're not just sellers — we're customers too. We started Evolve because we tried our own product, saw real results, and wanted to share that with others.",
+        "We use our own product. We started Evolve after seeing real results ourselves and wanting to share them.",
     },
     {
       title: "Complete kits",
       description:
-        "BAC water, retatrutide, syringes, and alcohol wipes — everything you need to get started in one package. No hunting for supplies separately.",
+        "Retatrutide, BAC water, syringes, and alcohol wipes — everything you need in one package. No hunting for supplies.",
     },
     {
       title: "Local Houston delivery",
       description:
-        "$20 delivery anywhere in the Houston area, or free pickup. Most orders fulfilled same-day or next-day.",
+        "$20 anywhere in Houston, or free pickup. Most orders fulfilled same- or next-day.",
     },
     {
       title: "Education first",
       description:
-        "We don't just sell — we teach. Every customer gets the knowledge to use peptides safely and effectively. That's why this entire site exists.",
+        "We teach, not just sell. Every customer gets what they need to use peptides safely — that's why this whole site exists.",
     },
   ];
 
@@ -33,7 +33,7 @@ export default function WhyEvolve() {
         </h2>
         <p className="text-lg text-warm-800/80 mb-10 max-w-2xl">
           There are plenty of places to buy peptides. Here&rsquo;s why our
-          customers stick with us.
+          customers stay.
         </p>
 
         <div className="grid md:grid-cols-2 gap-4 md:gap-6">

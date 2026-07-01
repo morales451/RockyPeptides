@@ -37,6 +37,36 @@ export default function DosingCheatSheet() {
           </p>
         </div>
 
+        {/* Mission statement */}
+        <div className="mb-8 print:mb-5 bg-sage-50 rounded-xl p-5 print:p-4 border border-sage-200">
+          <h2 className="text-lg font-bold text-sage-800 mb-2">
+            Read this first: the goal
+          </h2>
+          <p className="text-sm text-warm-800 mb-3">
+            Retatrutide isn&rsquo;t a magic fix — it&rsquo;s a tool to build
+            good habits. The plan is to wean off it while keeping the habits it
+            helped you start.
+          </p>
+          <ul className="space-y-1.5 text-sm">
+            <li className="flex gap-2">
+              <span className="font-bold text-ocean-500 flex-shrink-0">•</span>
+              <span>
+                <strong>Eat high protein and stay active.</strong> This keeps
+                muscle on so you look strong and healthy while losing weight —
+                not flabby.
+              </span>
+            </li>
+            <li className="flex gap-2">
+              <span className="font-bold text-ocean-500 flex-shrink-0">•</span>
+              <span>
+                <strong>Master the fundamentals:</strong> exercise, hydration,
+                protein, and nutritional awareness. These are what last after
+                the peptide.
+              </span>
+            </li>
+          </ul>
+        </div>
+
         {/* Reconstitution */}
         <div className="mb-8 print:mb-5">
           <h2 className="text-lg font-bold text-sage-800 mb-3 pb-2 border-b border-sage-200">

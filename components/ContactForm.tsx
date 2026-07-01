@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { submitNetlifyForm } from "@/lib/forms";
 import TcpaDisclosure from "@/components/TcpaDisclosure";
+import ReferredBySelect from "@/components/ReferredBySelect";
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -30,8 +31,8 @@ export default function ContactForm() {
             Have a question? Reach out.
           </h2>
           <p className="text-lg text-warm-800/80">
-            Whether you need help with an order, have a product question, or
-            just want to say hi — we&rsquo;d love to hear from you.
+            Order help, product questions, or just saying hi — we&rsquo;d love
+            to hear from you.
           </p>
         </div>
 
@@ -111,6 +112,19 @@ export default function ContactForm() {
                 rows={5}
                 className="w-full px-4 py-3 rounded-lg border border-sage-200 text-sage-800 placeholder:text-warm-800/40 focus:ring-2 focus:ring-ocean-500/30 focus:border-ocean-500 outline-none transition-colors resize-y"
                 placeholder="How can we help?"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="contact-referred-by"
+                className="block text-sm font-medium text-sage-800 mb-2"
+              >
+                Referred by
+              </label>
+              <ReferredBySelect
+                id="contact-referred-by"
+                className="w-full px-4 py-3 rounded-lg border border-sage-200 text-sage-800 focus:ring-2 focus:ring-ocean-500/30 focus:border-ocean-500 outline-none transition-colors"
               />
             </div>
 
