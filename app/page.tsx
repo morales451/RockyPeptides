@@ -8,7 +8,6 @@ import WhatToExpect from "@/components/WhatToExpect";
 import SocialProof from "@/components/SocialProof";
 import HowToOrder from "@/components/HowToOrder";
 import Pricing from "@/components/Pricing";
-import ReferralBanner from "@/components/ReferralBanner";
 import CTABanner from "@/components/CTABanner";
 import FAQ from "@/components/FAQ";
 import ContactForm from "@/components/ContactForm";
@@ -285,9 +284,6 @@ export default function Home() {
 
         {/* ─── PRICING / OUR KITS ─── */}
         <Pricing />
-
-        {/* ─── REFERRAL ─── */}
-        <ReferralBanner />
 
         {/* ─── MYTH VS. REALITY ─── */}
         <section
