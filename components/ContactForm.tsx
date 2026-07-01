@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { submitNetlifyForm } from "@/lib/forms";
 import TcpaDisclosure from "@/components/TcpaDisclosure";
-import ReferredBySelect from "@/components/ReferredBySelect";
+import DealerSelect from "@/components/DealerSelect";
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -117,13 +117,13 @@ export default function ContactForm() {
 
             <div>
               <label
-                htmlFor="contact-referred-by"
+                htmlFor="contact-dealer"
                 className="block text-sm font-medium text-sage-800 mb-2"
               >
-                Referred by
+                Who is your dealer?
               </label>
-              <ReferredBySelect
-                id="contact-referred-by"
+              <DealerSelect
+                id="contact-dealer"
                 className="w-full px-4 py-3 rounded-lg border border-sage-200 text-sage-800 focus:ring-2 focus:ring-ocean-500/30 focus:border-ocean-500 outline-none transition-colors"
               />
             </div>

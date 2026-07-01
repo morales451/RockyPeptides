@@ -3,7 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { REASONS, submitNetlifyForm } from "@/lib/forms";
 import TcpaDisclosure from "@/components/TcpaDisclosure";
-import ReferredBySelect from "@/components/ReferredBySelect";
+import DealerSelect from "@/components/DealerSelect";
 
 const STORAGE_KEY = "rp-exit-intent-shown";
 
@@ -162,7 +162,7 @@ export default function ExitIntent() {
                   className="w-full px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
                 />
               )}
-              <ReferredBySelect className="w-full px-4 py-3 rounded-lg bg-white text-sage-800 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none" />
+              <DealerSelect className="w-full px-4 py-3 rounded-lg bg-white text-sage-800 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none" />
               <button
                 type="submit"
                 className="w-full px-6 py-3 rounded-lg bg-ocean-500 text-white font-semibold hover:bg-ocean-600 transition-colors cursor-pointer"

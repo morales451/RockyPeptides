@@ -8,7 +8,7 @@ import {
 } from "@/lib/projection";
 import { REASONS, formDataToUrlEncoded } from "@/lib/forms";
 import TcpaDisclosure from "@/components/TcpaDisclosure";
-import ReferredBySelect from "@/components/ReferredBySelect";
+import DealerSelect from "@/components/DealerSelect";
 
 const LB_PER_KG = 2.20462;
 const ASYMPTOTE_FOR_AXIS = 0.16;
@@ -475,7 +475,7 @@ export default function WeightLossProjection({
                     className="w-full px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
                   />
                 )}
-                <ReferredBySelect className="w-full sm:max-w-xs px-4 py-3 rounded-lg bg-white text-sage-800 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none" />
+                <DealerSelect className="w-full sm:max-w-xs px-4 py-3 rounded-lg bg-white text-sage-800 border-2 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none" />
                 <button
                   type="submit"
                   disabled={submitting}
