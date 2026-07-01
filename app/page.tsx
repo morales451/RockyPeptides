@@ -15,14 +15,8 @@ import PhoneCapture from "@/components/PhoneCapture";
 import ContactForm from "@/components/ContactForm";
 import WeightLossProjection from "@/components/WeightLossProjection";
 import { myths } from "@/lib/myths";
-import { cookies } from "next/headers";
-import { UNLOCK_COOKIE, verifyUnlockToken } from "@/lib/unlock";
 
-export default async function Home() {
-  const cookieStore = await cookies();
-  const projectionUnlocked = verifyUnlockToken(
-    cookieStore.get(UNLOCK_COOKIE)?.value,
-  );
+export default function Home() {
   return (
     <>
       <Header />
@@ -274,7 +268,7 @@ export default async function Home() {
         <WhatToExpect />
 
         {/* ─── WEIGHT-LOSS PROJECTION ─── */}
-        <WeightLossProjection initialUnlocked={projectionUnlocked} />
+        <WeightLossProjection />
 
         {/* ─── CTA: QUESTIONS ─── */}
         <CTABanner
