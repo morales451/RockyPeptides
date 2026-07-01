@@ -93,6 +93,13 @@ export default function PhoneCapture() {
                 />
               )}
               <DealerSelect className="px-4 py-3 rounded-lg bg-white text-sage-800 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none" />
+              <input
+                type="text"
+                name="referral"
+                maxLength={250}
+                placeholder="Who referred you? (optional)"
+                className="px-4 py-3 rounded-lg bg-white text-sage-800 placeholder:text-sage-600/60 border-2 border-sage-600 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+              />
               <button
                 type="submit"
                 className="px-6 py-3 rounded-lg bg-ocean-500 text-white font-semibold hover:bg-ocean-600 transition-colors cursor-pointer"

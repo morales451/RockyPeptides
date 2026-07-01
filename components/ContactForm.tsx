@@ -128,6 +128,24 @@ export default function ContactForm() {
               />
             </div>
 
+            <div>
+              <label
+                htmlFor="contact-referral"
+                className="block text-sm font-medium text-sage-800 mb-2"
+              >
+                Who referred you?{" "}
+                <span className="font-normal text-warm-800/60">(optional)</span>
+              </label>
+              <input
+                type="text"
+                id="contact-referral"
+                name="referral"
+                maxLength={250}
+                className="w-full px-4 py-3 rounded-lg border border-sage-200 text-sage-800 placeholder:text-warm-800/40 focus:ring-2 focus:ring-ocean-500/30 focus:border-ocean-500 outline-none transition-colors"
+                placeholder="Name of the friend who referred you"
+              />
+            </div>
+
             <button
               type="submit"
               className="w-full sm:w-auto px-8 py-3 rounded-lg bg-ocean-500 text-white font-semibold hover:bg-ocean-600 transition-colors cursor-pointer"
