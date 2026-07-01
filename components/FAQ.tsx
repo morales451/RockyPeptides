@@ -17,9 +17,8 @@ export default function FAQ() {
             Got questions? We&rsquo;ve got answers.
           </h2>
           <p className="max-w-2xl mx-auto text-lg text-warm-800/80">
-            Here are the most common questions we hear from people getting
-            started. If yours isn&rsquo;t listed, reach out through the contact
-            form below.
+            The most common questions we hear from people getting started.
+            Don&rsquo;t see yours? Reach out through the contact form below.
           </p>
         </div>
 

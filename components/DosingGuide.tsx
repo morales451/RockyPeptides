@@ -16,9 +16,8 @@ export default function DosingGuide() {
         </h2>
         <div className="space-y-6 text-lg leading-relaxed">
           <p>
-            Whether you&rsquo;re brand new to peptides or just want a clear,
-            no-nonsense reference, this guide walks you through everything from
-            mixing your first vial to storing it properly. Take it one step at a
+            New to peptides or just want a clear reference? This guide covers
+            everything from mixing your first vial to storing it — one step at a
             time.
           </p>
         </div>
@@ -29,9 +28,9 @@ export default function DosingGuide() {
             Step 1: Reconstitution (Mixing Your Peptide)
           </h3>
           <p className="text-lg leading-relaxed mb-6">
-            Your peptide arrives as a freeze-dried powder (lyophilized). Before
-            you can use it, you need to mix it with bacteriostatic (BAC) water.
-            This is simple — just follow these steps carefully.
+            Your peptide arrives as a freeze-dried powder. Before use, mix it
+            with bacteriostatic (BAC) water. It&rsquo;s simple — just follow
+            these steps carefully.
           </p>
           <div className="space-y-4">
             {reconstitutionSteps.map((step, i) => (
@@ -52,9 +51,9 @@ export default function DosingGuide() {
           </h3>
           <p className="text-lg leading-relaxed mb-6">
             The golden rule: <strong className="text-sage-800">start low and go slow.</strong>{" "}
-            This isn&rsquo;t a race. While some protocols out there recommend
-            higher doses, we&rsquo;ve seen most people get excellent results
-            with a simple two-step approach. Less is more.
+            This isn&rsquo;t a race. Some protocols push higher doses, but most
+            people get excellent results with our simple two-step approach. Less
+            is more.
           </p>
           <div className="grid md:grid-cols-2 gap-4 md:gap-6">
             {titrationSchedule.map((step, i) => (
@@ -82,12 +81,11 @@ export default function DosingGuide() {
               <strong className="text-sage-800 block mb-1">
                 Why we recommend this protocol:
               </strong>
-              Many guides push higher doses (4mg, 8mg, 12mg), but we&rsquo;ve
-              consistently seen people achieve their goals at just 1–2 mg per
-              week. Starting at 1 mg gives your body time to adjust with
-              minimal side effects, and 2 mg is where most people find their
-              sweet spot. If you experience any nausea or discomfort, stay at
-              1 mg longer before moving up. Listen to your body.
+              Many guides push higher doses (4, 8, 12 mg), but most people reach
+              their goals at just 1–2 mg per week. Starting at 1 mg lets your
+              body adjust with minimal side effects; 2 mg is where most find
+              their sweet spot. Feeling nausea? Stay at 1 mg longer before moving
+              up. Listen to your body.
             </p>
           </div>
         </div>
@@ -98,9 +96,9 @@ export default function DosingGuide() {
             Step 3: Injection Technique
           </h3>
           <p className="text-lg leading-relaxed mb-6">
-            Subcutaneous (SubQ) injections are simple, virtually painless, and
-            something millions of people do daily (diabetics, IVF patients,
-            etc.). Here&rsquo;s the basics:
+            Subcutaneous (SubQ) injections are simple and nearly painless —
+            millions do them daily (diabetics, IVF patients, and more).
+            Here&rsquo;s the basics:
           </p>
           <div className="space-y-4">
             <div className="flex gap-4 items-start">
@@ -172,9 +170,8 @@ export default function DosingGuide() {
             Step 4: Storage &amp; Handling
           </h3>
           <p className="text-lg leading-relaxed mb-6">
-            This is the part most people overlook — and it matters.
-            Improper storage can degrade your peptide and reduce its
-            effectiveness. Follow these rules:
+            Most people overlook this — and it matters. Poor storage degrades
+            your peptide and weakens its effect. Follow these rules:
           </p>
           <div className="space-y-4">
             {storageRules.map((rule, i) => (

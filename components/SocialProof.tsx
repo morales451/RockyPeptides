@@ -12,9 +12,8 @@ export default function SocialProof() {
             See what others are saying.
           </h2>
           <p className="max-w-2xl mx-auto text-lg text-warm-800/80">
-            These are real posts from the r/Retatrutide community on Reddit.
-            No cherry-picking, no paid testimonials — just people sharing their
-            honest experiences.
+            Real posts from the r/Retatrutide community on Reddit. No
+            cherry-picking, no paid testimonials — just honest experiences.
           </p>
         </div>
 

@@ -9,6 +9,15 @@ export const REASONS = [
 
 export type ReasonValue = (typeof REASONS)[number]["value"];
 
+export const DEALERS = [
+  { value: "alex", label: "Alex" },
+  { value: "eric", label: "Eric" },
+  { value: "luis", label: "Luis" },
+  { value: "none", label: "None / Not applicable" },
+] as const;
+
+export type DealerValue = (typeof DEALERS)[number]["value"];
+
 export function formDataToUrlEncoded(
   form: HTMLFormElement,
   extra?: Record<string, string>,

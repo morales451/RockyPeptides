@@ -44,15 +44,12 @@ export default async function Home() {
               </span>
             </h1>
             <p className="max-w-2xl mx-auto text-lg md:text-xl text-white/80 leading-relaxed mb-6">
-              The peptide space can feel like the Wild West — confusing claims,
-              contradictory information, and a lot of noise. We get it. Your
-              skepticism isn&rsquo;t just valid, it&rsquo;s healthy.
+              The peptide space feels like the Wild West — confusing claims and
+              a lot of noise. Your skepticism is healthy.
             </p>
             <p className="max-w-2xl mx-auto text-lg md:text-xl text-white/60 leading-relaxed">
-              That&rsquo;s why Evolve Peptides exists — to cut through the
-              confusion with plain-language science and honest information. We
-              believe an educated customer makes better decisions, and better
-              decisions lead to better outcomes.
+              We cut through it with plain-language science and honest answers.
+              Better information means better decisions.
             </p>
           </div>
         </section>
@@ -79,27 +76,25 @@ export default async function Home() {
               </p>
               <p>
                 Amino acids are the building blocks of every protein in your
-                body. When a few of them link together in a specific sequence,
-                they form a peptide. Your body already makes thousands of them
-                naturally — they&rsquo;re involved in everything from digestion
-                to immune response to how your brain signals hunger.
+                body. Link a few together in a specific order and you get a
+                peptide. Your body already makes thousands of them — they handle
+                everything from digestion to how your brain signals hunger.
               </p>
               <p>
-                Think of amino acids like letters. Arrange a few letters in a
-                specific order and you get a word with a specific meaning. A
-                peptide is that word. It tells your body to do something it
-                already knows how to do — just more clearly.
+                Think of amino acids as letters. Put them in the right order and
+                you get a word with a specific meaning. A peptide is that word —
+                it tells your body to do something it already knows how to do,
+                just more clearly.
               </p>
               <div className="bg-sage-50 rounded-2xl p-6 md:p-8 border border-sage-200">
                 <p className="text-base text-sage-700">
                   <strong className="text-sage-800 block mb-1">
-                    The Evolve Peptides simple version:
+                    In plain terms:
                   </strong>
-                  Peptides aren&rsquo;t synthetic chemicals invented in a lab to
-                  do something foreign to your body. They&rsquo;re naturally
-                  occurring biological messengers that we&rsquo;ve learned to
-                  replicate to support specific functions — like managing
-                  appetite, blood sugar, and metabolism.
+                  Peptides aren&rsquo;t synthetic chemicals foreign to your
+                  body. They&rsquo;re natural biological messengers we&rsquo;ve
+                  learned to replicate — to help manage appetite, blood sugar,
+                  and metabolism.
                 </p>
               </div>
             </div>
@@ -120,19 +115,17 @@ export default async function Home() {
             </h2>
             <div className="space-y-6 text-lg leading-relaxed">
               <p>
-                You&rsquo;ve probably heard of GLP-1 medications like Ozempic or
-                Wegovy. Those target{" "}
-                <strong className="text-sage-800">one receptor</strong> in your
-                body — the GLP-1 receptor — which helps regulate appetite and
-                blood sugar. And they work. Millions of people have benefited.
+                You&rsquo;ve heard of GLP-1 meds like Ozempic or Wegovy. They
+                target <strong className="text-sage-800">one receptor</strong> —
+                GLP-1 — to regulate appetite and blood sugar. They work, and
+                millions have benefited.
               </p>
               <p>
-                GLP-3 agonists like retatrutide take this a significant step
-                further. Instead of hitting one receptor, they&rsquo;re{" "}
+                GLP-3 agonists like retatrutide go further. They&rsquo;re{" "}
                 <strong className="text-sage-800">triple agonists</strong> —
-                meaning they activate{" "}
-                <strong className="text-sage-800">three receptors</strong>{" "}
-                simultaneously:
+                they hit{" "}
+                <strong className="text-sage-800">three receptors</strong> at
+                once:
               </p>
 
               <div className="grid md:grid-cols-3 gap-4 md:gap-6 my-8">
@@ -144,9 +137,9 @@ export default async function Home() {
                     GLP-1 Receptor
                   </h3>
                   <p className="text-base text-warm-800">
-                    Quiets the &ldquo;food noise&rdquo; — that constant,
-                    nagging mental chatter about what to eat next. It helps
-                    restore normal satiety signals.
+                    Quiets the &ldquo;food noise&rdquo; — the constant mental
+                    chatter about what to eat next — and restores normal fullness
+                    signals.
                   </p>
                 </div>
                 <div className="bg-white rounded-xl p-6 border border-sage-200 shadow-sm">
@@ -157,8 +150,8 @@ export default async function Home() {
                     GIP Receptor
                   </h3>
                   <p className="text-base text-warm-800">
-                    Helps regulate blood sugar and improves how your body
-                    processes insulin — a critical factor for metabolic health.
+                    Regulates blood sugar and improves how your body handles
+                    insulin — key for metabolic health.
                   </p>
                 </div>
                 <div className="bg-white rounded-xl p-6 border border-sage-200 shadow-sm">
@@ -169,8 +162,8 @@ export default async function Home() {
                     Glucagon Receptor
                   </h3>
                   <p className="text-base text-warm-800">
-                    Boosts your body&rsquo;s metabolic rate and promotes fat
-                    burning — working with your biology, not against it.
+                    Boosts your metabolic rate and fat burning — working with
+                    your biology, not against it.
                   </p>
                 </div>
               </div>
@@ -178,12 +171,11 @@ export default async function Home() {
               <div className="bg-sage-50 rounded-2xl p-6 md:p-8 border border-sage-200">
                 <p className="text-base text-sage-700">
                   <strong className="text-sage-800 block mb-1">
-                    Why does this matter?
+                    Why it matters:
                   </strong>
-                  By addressing appetite, blood sugar regulation, and metabolism
-                  simultaneously, GLP-3 agonists tackle the root causes of
-                  weight gain from multiple angles at once — rather than just
-                  suppressing hunger.
+                  By hitting appetite, blood sugar, and metabolism at once,
+                  GLP-3 agonists tackle weight gain from three angles — not just
+                  by suppressing hunger.
                 </p>
               </div>
             </div>
@@ -205,10 +197,9 @@ export default async function Home() {
             <div className="space-y-6 text-lg leading-relaxed">
               <p>
                 Let&rsquo;s be honest: the peptide industry has an image
-                problem, and a lot of it is self-inflicted. Between sketchy
-                websites, overpromising marketing, and a general lack of
-                transparency, it&rsquo;s no wonder people are suspicious.
-                Here&rsquo;s what&rsquo;s actually going on:
+                problem, much of it self-inflicted. Sketchy websites,
+                overpromising marketing, and no transparency — no wonder people
+                are suspicious. Here&rsquo;s what&rsquo;s really going on:
               </p>
               <div className="space-y-6">
                 <div className="flex gap-4 items-start">
@@ -222,12 +213,11 @@ export default async function Home() {
                       The Supply Chain Reality
                     </h3>
                     <p>
-                      The raw active pharmaceutical ingredients (APIs) for most
-                      of these compounds originate from a handful of overseas
-                      manufacturers — the same ones that supply clinics,
-                      compounding pharmacies, and research suppliers alike. The
-                      molecule is the molecule. What varies is the handling,
-                      testing, and accountability along the way.
+                      The raw ingredients (APIs) for most of these compounds
+                      come from a handful of overseas manufacturers — the same
+                      ones that supply clinics, compounding pharmacies, and
+                      research suppliers. The molecule is the molecule. What
+                      varies is the handling, testing, and accountability.
                     </p>
                   </div>
                 </div>
@@ -243,11 +233,10 @@ export default async function Home() {
                     </h3>
                     <p>
                       Products labeled &ldquo;for research purposes only&rdquo;
-                      haven&rsquo;t completed the full FDA approval process for
+                      haven&rsquo;t finished the FDA approval process for
                       consumer sale. That doesn&rsquo;t mean they&rsquo;re
-                      dangerous — it means the regulatory paperwork isn&rsquo;t
-                      done yet. This distinction matters, and we&rsquo;ll dig
-                      deeper into each of these points in the objections below.
+                      dangerous — it means the paperwork isn&rsquo;t done yet.
+                      We dig into this in the objections below.
                     </p>
                   </div>
                 </div>
@@ -259,9 +248,8 @@ export default async function Home() {
                     The bottom line:
                   </strong>
                   The stigma exists because transparency has been the exception,
-                  not the rule. The best way to combat misinformation is with
-                  clear, honest education — which is exactly why Evolve Peptides
-                  exists.
+                  not the rule. The fix is clear, honest education — which is
+                  exactly why Evolve Peptides exists.
                 </p>
               </div>
             </div>
@@ -322,9 +310,8 @@ export default async function Home() {
                 The 10 biggest objections — addressed honestly.
               </h2>
               <p className="max-w-2xl mx-auto text-lg text-warm-800/80">
-                At Evolve Peptides, we believe you deserve straight answers
-                before making any decision. Click on any objection below to see
-                the full, nuanced reality — no spin, just facts and common sense.
+                You deserve straight answers. Click any objection to see the
+                full reality — no spin, just facts and common sense.
               </p>
             </div>
 
