@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { submitNetlifyForm } from "@/lib/forms";
+import { SUPPLY_OPTIONS, submitNetlifyForm } from "@/lib/forms";
 import TcpaDisclosure from "@/components/TcpaDisclosure";
 import DealerSelect from "@/components/DealerSelect";
 
@@ -96,6 +96,30 @@ export default function ContactForm() {
                   placeholder="(555) 555-1234"
                 />
               </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="contact-supply"
+                className="block text-sm font-medium text-sage-800 mb-2"
+              >
+                Which supply are you interested in?
+              </label>
+              <select
+                id="contact-supply"
+                name="supply"
+                defaultValue=""
+                className="w-full px-4 py-3 rounded-lg border border-sage-200 text-sage-800 focus:ring-2 focus:ring-ocean-500/30 focus:border-ocean-500 outline-none transition-colors"
+              >
+                <option value="" disabled>
+                  Select an option
+                </option>
+                {SUPPLY_OPTIONS.map((s) => (
+                  <option key={s.value} value={s.value}>
+                    {s.label}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div>

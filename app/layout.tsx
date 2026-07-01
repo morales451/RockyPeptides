@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ExitIntent from "@/components/ExitIntent";
 
 export const metadata: Metadata = {
   title: "Evolve Peptides | Understanding GLP-3 Peptides",
@@ -27,7 +26,6 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body className="min-h-full flex flex-col">
         {children}
-        <ExitIntent />
       </body>
     </html>
   );

@@ -11,7 +11,6 @@ import Pricing from "@/components/Pricing";
 import ReferralBanner from "@/components/ReferralBanner";
 import CTABanner from "@/components/CTABanner";
 import FAQ from "@/components/FAQ";
-import PhoneCapture from "@/components/PhoneCapture";
 import ContactForm from "@/components/ContactForm";
 import WeightLossProjection from "@/components/WeightLossProjection";
 import { myths } from "@/lib/myths";
@@ -323,9 +322,6 @@ export default function Home() {
           buttonText="Get Started"
           buttonHref="#contact"
         />
-
-        {/* ─── PHONE / DISCOUNT CAPTURE ─── */}
-        <PhoneCapture />
 
         {/* ─── CONTACT FORM ─── */}
         <ContactForm />
