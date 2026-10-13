@@ -46,7 +46,7 @@ export default function WhatToExpect() {
                 key={m.time}
                 className={`row ${i === 0 ? "row-first" : ""} grid grid-cols-[6.5rem_1fr] gap-3 md:grid-cols-[8rem_1fr]`}
               >
-                <span className="num font-black" style={{ fontStretch: "105%" }}>
+                <span className="num font-black" style={{ fontStretch: "108%" }}>
                   {m.time}
                 </span>
                 <span>

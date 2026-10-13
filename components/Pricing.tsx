@@ -47,7 +47,7 @@ export default function Pricing() {
                   <span className="text-xl font-black" style={{ fontStretch: "112%" }}>
                     Total
                   </span>
-                  <span className="num text-[3.25rem] font-black leading-[0.9]" style={{ fontStretch: "115%" }}>
+                  <span className="num text-[3.25rem] font-black leading-[0.9]" style={{ fontStretch: "118%" }}>
                     ${t.price}
                   </span>
                 </div>

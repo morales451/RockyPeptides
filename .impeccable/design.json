@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-13T00:00:00Z",
+  "title": "Design System: Evolve Peptides",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "primary", "displayName": "Label Navy", "canonical": "#0d2b4e", "tonalRamp": ["#05111f", "#0d2b4e", "#1f4268", "#3a5575", "#5d7896", "#8aa0b8", "#bccad8", "#e6ecf2"] },
+      "mint": { "role": "primary", "displayName": "Package Mint", "canonical": "#2fd3a0", "tonalRamp": ["#063b2b", "#0c5c44", "#149470", "#1fb886", "#2fd3a0", "#74e3bf", "#c9f3e4", "#eafbf4"] },
+      "mint-pale": { "role": "secondary", "displayName": "Pale Mint", "canonical": "#c9f3e4", "tonalRamp": ["#063b2b", "#0c5c44", "#149470", "#2fd3a0", "#74e3bf", "#a6edd4", "#c9f3e4", "#eafbf4"] },
+      "mint-deep": { "role": "secondary", "displayName": "Deep Mint", "canonical": "#149470", "tonalRamp": ["#042a1f", "#063b2b", "#0c5c44", "#149470", "#1fb886", "#2fd3a0", "#74e3bf", "#c9f3e4"] },
+      "paper": { "role": "neutral", "displayName": "Paper White", "canonical": "#ffffff", "tonalRamp": ["#1f2423", "#3d4543", "#5e6866", "#838d8b", "#a9b2b0", "#cfd6d4", "#eef3f1", "#ffffff"] },
+      "ink-soft": { "role": "neutral", "displayName": "Soft Ink", "canonical": "#3a5575", "tonalRamp": ["#0d1a2a", "#1a2f48", "#2a445f", "#3a5575", "#5b7493", "#8299b3", "#b2c1d2", "#e2e8ef"] },
+      "fog": { "role": "neutral", "displayName": "Fog", "canonical": "#eef3f1", "tonalRamp": ["#1f2423", "#3d4543", "#5e6866", "#838d8b", "#a9b2b0", "#cfd6d4", "#eef3f1", "#f8faf9"] },
+      "placeholder": { "role": "neutral", "displayName": "Placeholder Slate", "canonical": "#6c809a", "tonalRamp": ["#151b24", "#2a3545", "#435267", "#6c809a", "#8798ae", "#a8b5c6", "#cbd3de", "#edf0f4"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline only. Archivo black at width 118%, balanced wrap." },
+      "headline": { "displayName": "Headline", "purpose": "Section headlines set directly on the mint or navy field. Width 112%." },
+      "label-title": { "displayName": "Label Title", "purpose": "The name printed at the top of every facts label. Width 118%." },
+      "lead": { "displayName": "Lead", "purpose": "One or two empathetic lines under a headline, max 62ch." },
+      "body": { "displayName": "Body", "purpose": "Prose inside labels, max 62ch, pretty wrap." },
+      "row-label": { "displayName": "Row Label", "purpose": "Name side of every label row; semi-condensed at width 88%." },
+      "numeral": { "displayName": "Numeral", "purpose": "Value side of every row and every dose; tabular numerals." },
+      "field-label": { "displayName": "Field Label", "purpose": "Visible label above every input." },
+      "button": { "displayName": "Button", "purpose": "Button text; extra-bold at width 108%." },
+      "footnote": { "displayName": "Footnote", "purpose": "Asterisked caveats at the foot of a label, in soft ink." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The print-in curve for label rules and rows." },
+      { "name": "print-rule", "value": "transform 900ms var(--ease-out)", "purpose": "Label bars draw left to right from scaleX(0) when a below-the-fold label enters." },
+      { "name": "print-row", "value": "opacity 600ms, transform 600ms var(--ease-out); delay calc(var(--i) * 45ms + 120ms)", "purpose": "Rows rise 6px and fade in, staggered, capped at 12 steps. Disabled under prefers-reduced-motion." },
+      { "name": "button-invert", "value": "background-color 160ms ease, color 160ms ease", "purpose": "Button hover inversion." },
+      { "name": "accordion", "value": "grid-template-rows 300ms ease-out", "purpose": "Accordion rows open in place; plus collapses to minus." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Facts Label",
+      "kind": "card",
+      "refersTo": "label",
+      "description": "White label, 2px navy border, ruled 10/5/1px; name left, tabular value right; asterisk footnote at the foot.",
+      "html": "<div class=\"ds-field\"><div class=\"ds-label\"><h3 class=\"ds-label-title\">GLP-3 Facts</h3><p class=\"ds-sub\">Retatrutide on our simple 1&ndash;2 mg plan</p><span class=\"ds-rule ds-rule-xl\"></span><div class=\"ds-row ds-row-first\"><span class=\"ds-name\"><b>Dose</b></span><span class=\"ds-val\">1 shot a week</span></div><span class=\"ds-rule ds-rule-md\"></span><div class=\"ds-big\"><span>Receptors it works on</span><span class=\"ds-bignum\">3</span></div><span class=\"ds-rule ds-rule-md\"></span><div class=\"ds-row ds-row-first\"><span class=\"ds-name\"><b>GLP-1</b></span><span class=\"ds-val\" style=\"font-weight:400\">Quiets food noise</span></div><div class=\"ds-row\"><span class=\"ds-name\"><b>GIP</b></span><span class=\"ds-val\" style=\"font-weight:400\">Steadies blood sugar</span></div><span class=\"ds-rule ds-rule-xl\"></span><div class=\"ds-row ds-row-first\"><span class=\"ds-name\">Complete kit</span><span class=\"ds-val\">$75/mo*</span></div><p class=\"ds-footnote\">*1-month kit. 3- and 6-month kits cost less per month.</p></div></div>",
+      "css": ".ds-field { background: #2fd3a0; padding: 24px; font-family: var(--font-archivo), Archivo, ui-sans-serif, system-ui, sans-serif; } .ds-label { background: #fff; color: #0d2b4e; border: 2px solid #0d2b4e; border-radius: 0; padding: 0.75rem 1.1rem 0.9rem; max-width: 28rem; } .ds-label-title { margin: 0; font-weight: 900; font-stretch: 118%; letter-spacing: -0.03em; line-height: 0.95; font-size: 2.5rem; } .ds-sub { margin: 0.25rem 0 0; font-size: 0.9375rem; } .ds-rule { display: block; background: #0d2b4e; } .ds-rule-xl { height: 10px; margin: 0.4rem 0 0.15rem; } .ds-rule-md { height: 5px; margin: 0.25rem 0 0.1rem; } .ds-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-top: 1px solid #0d2b4e; padding: 0.45rem 0; } .ds-row-first { border-top: 0; } .ds-name { font-stretch: 88%; } .ds-val { font-variant-numeric: tabular-nums; font-weight: 800; text-align: right; } .ds-big { display: flex; align-items: flex-end; justify-content: space-between; padding: 0.25rem 0; font-weight: 900; font-stretch: 112%; font-size: 1.5rem; line-height: 1.1; } .ds-bignum { font-variant-numeric: tabular-nums; font-size: 3.5rem; font-stretch: 118%; line-height: 0.85; } .ds-footnote { margin: 0.75rem 0 0; font-size: 0.8125rem; line-height: 1.45; color: #3a5575; }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Navy, square, 2px border; inverts to white on hover.",
+      "html": "<button class=\"ds-btn\">Choose the 3 month kit</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; padding: 0 1.4rem; background: #0d2b4e; color: #fff; border: 2px solid #0d2b4e; border-radius: 0; font-family: var(--font-archivo), Archivo, ui-sans-serif, system-ui, sans-serif; font-size: 1rem; font-weight: 800; font-stretch: 108%; letter-spacing: 0.01em; cursor: pointer; transition: background-color 160ms ease, color 160ms ease; } .ds-btn:hover { background: #fff; color: #0d2b4e; } .ds-btn:focus-visible { outline: 3px solid #0d2b4e; outline-offset: 3px; }"
+    },
+    {
+      "name": "Mint Button",
+      "kind": "button",
+      "refersTo": "button-mint",
+      "description": "Mint fill for navy fields; hovers to transparent with mint text.",
+      "html": "<div class=\"ds-ink\"><button class=\"ds-btn-mint\">Talk to us</button></div>",
+      "css": ".ds-ink { background: #0d2b4e; padding: 24px; } .ds-btn-mint { display: inline-flex; align-items: center; min-height: 3rem; padding: 0 1.4rem; background: #2fd3a0; color: #0d2b4e; border: 2px solid #2fd3a0; border-radius: 0; font-family: var(--font-archivo), Archivo, ui-sans-serif, system-ui, sans-serif; font-size: 1rem; font-weight: 800; font-stretch: 108%; letter-spacing: 0.01em; cursor: pointer; transition: background-color 160ms ease, color 160ms ease; } .ds-btn-mint:hover { background: transparent; color: #2fd3a0; } .ds-btn-mint:focus-visible { outline: 3px solid #2fd3a0; outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Transparent with navy border and text; fills navy on hover.",
+      "html": "<button class=\"ds-btn-ghost\">Print</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; min-height: 3rem; padding: 0 1.4rem; background: transparent; color: #0d2b4e; border: 2px solid #0d2b4e; border-radius: 0; font-family: var(--font-archivo), Archivo, ui-sans-serif, system-ui, sans-serif; font-size: 1rem; font-weight: 800; font-stretch: 108%; letter-spacing: 0.01em; cursor: pointer; transition: background-color 160ms ease, color 160ms ease; } .ds-btn-ghost:hover { background: #0d2b4e; color: #fff; } .ds-btn-ghost:focus-visible { outline: 3px solid #0d2b4e; outline-offset: 3px; }"
+    },
+    {
+      "name": "Phone Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Square white field with 2px navy border, visible label above, mint focus outline; paired with a primary button.",
+      "html": "<form class=\"ds-form\"><label class=\"ds-field-label\" for=\"ds-phone\">Questions first? Talk to a real person.</label><div class=\"ds-inline\"><input id=\"ds-phone\" class=\"ds-input\" type=\"tel\" placeholder=\"Your phone number\"><button type=\"button\" class=\"ds-btn\">Next</button></div></form>",
+      "css": ".ds-form { font-family: var(--font-archivo), Archivo, ui-sans-serif, system-ui, sans-serif; color: #0d2b4e; max-width: 26rem; } .ds-field-label { display: block; font-weight: 700; font-size: 0.9375rem; margin-bottom: 0.35rem; } .ds-inline { display: flex; gap: 0.5rem; } .ds-input { flex: 1; min-width: 0; min-height: 3rem; padding: 0.6rem 0.8rem; background: #fff; color: #0d2b4e; border: 2px solid #0d2b4e; border-radius: 0; font: inherit; font-size: 1rem; appearance: none; } .ds-input::placeholder { color: #6c809a; } .ds-input:focus-visible { outline: 3px solid #2fd3a0; outline-offset: 0; } .ds-btn { min-height: 3rem; padding: 0 1.4rem; background: #0d2b4e; color: #fff; border: 2px solid #0d2b4e; border-radius: 0; font: inherit; font-weight: 800; font-stretch: 108%; cursor: pointer; transition: background-color 160ms ease, color 160ms ease; } .ds-btn:hover { background: #fff; color: #0d2b4e; }"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "White sticky bar with a 2px navy bottom border, logo left, semibold links and a compact primary button.",
+      "html": "<header class=\"ds-header\"><span class=\"ds-logo\"><svg viewBox=\"0 0 48 48\" width=\"36\" height=\"36\" aria-hidden=\"true\"><rect width=\"48\" height=\"48\" fill=\"#0d2b4e\"/><path d=\"M12 35 L24 24 L36 13\" stroke=\"#fff\" stroke-width=\"3.5\" fill=\"none\"/><rect x=\"7\" y=\"30\" width=\"10\" height=\"10\" fill=\"#fff\"/><rect x=\"19\" y=\"19\" width=\"10\" height=\"10\" fill=\"#fff\"/><rect x=\"31\" y=\"8\" width=\"10\" height=\"10\" fill=\"#2fd3a0\"/></svg><span class=\"ds-word\"><span class=\"ds-evolve\">Evolve</span><span class=\"ds-pep\">Peptides</span></span></span><nav class=\"ds-nav\"><a href=\"#\">The basics</a><a href=\"#\">How to use it</a><a href=\"#\">Pricing</a><a href=\"#\" class=\"ds-nav-btn\">Talk to us</a></nav></header>",
+      "css": ".ds-header { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; height: 4rem; padding: 0 1.5rem; background: #fff; border-bottom: 2px solid #0d2b4e; font-family: var(--font-archivo), Archivo, ui-sans-serif, system-ui, sans-serif; color: #0d2b4e; } .ds-logo { display: inline-flex; align-items: center; gap: 0.625rem; } .ds-word { display: flex; flex-direction: column; line-height: 1; } .ds-evolve { font-weight: 900; font-size: 1.35rem; letter-spacing: -0.03em; font-stretch: 120%; } .ds-pep { margin-top: 3px; border-top: 3px solid currentColor; padding-top: 3px; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; font-stretch: 90%; } .ds-nav { display: flex; align-items: center; gap: 1.5rem; } .ds-nav a { color: #0d2b4e; font-size: 0.9375rem; font-weight: 600; text-decoration: none; } .ds-nav a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em; } .ds-nav a:focus-visible { outline: 3px solid #0d2b4e; outline-offset: 3px; } .ds-nav .ds-nav-btn { display: inline-flex; align-items: center; min-height: 2.5rem; padding: 0 1rem; background: #0d2b4e; color: #fff; border: 2px solid #0d2b4e; font-size: 0.875rem; font-weight: 800; font-stretch: 108%; transition: background-color 160ms ease, color 160ms ease; } .ds-nav .ds-nav-btn:hover { background: #fff; color: #0d2b4e; text-decoration: none; }"
+    },
+    {
+      "name": "Accordion Row",
+      "kind": "custom",
+      "refersTo": "accordion",
+      "description": "A label row that opens in place; the drawn plus becomes a minus.",
+      "html": "<div class=\"ds-acc\"><button class=\"ds-acc-btn\" aria-expanded=\"false\" onclick=\"var o=this.getAttribute('aria-expanded')==='true';this.setAttribute('aria-expanded',!o);\"><span>Is this a steroid?</span><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path d=\"M2 8h12\" stroke=\"currentColor\" stroke-width=\"2.6\"/><path class=\"ds-v\" d=\"M8 2v12\" stroke=\"currentColor\" stroke-width=\"2.6\"/></svg></button><div class=\"ds-acc-panel\"><div><p>No. It is a peptide that works on three hunger and energy receptors.</p></div></div></div>",
+      "css": ".ds-acc { background: #fff; color: #0d2b4e; border-top: 1px solid #0d2b4e; border-bottom: 1px solid #0d2b4e; font-family: var(--font-archivo), Archivo, ui-sans-serif, system-ui, sans-serif; max-width: 32rem; } .ds-acc-btn { display: flex; width: 100%; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 0.75rem 0; background: none; border: 0; color: inherit; font: inherit; font-weight: 800; text-align: left; cursor: pointer; } .ds-acc-btn:focus-visible { outline: 3px solid #0d2b4e; outline-offset: 3px; } .ds-v { transform-origin: center; transition: transform 300ms; } .ds-acc-btn[aria-expanded=true] .ds-v { transform: scaleY(0); } .ds-acc-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 300ms ease-out; } .ds-acc-panel > div { overflow: hidden; } .ds-acc-btn[aria-expanded=true] + .ds-acc-panel { grid-template-rows: 1fr; } .ds-acc-panel p { margin: 0 1.5rem 1rem 0; }"
+    },
+    {
+      "name": "Dose Row with Syringe",
+      "kind": "custom",
+      "refersTo": "dose-visuals",
+      "description": "Week, mg value with a navy units tag, and a flat syringe filled mint to the dose (full 0-100 from sm up; zoomed 0-30 on phones).",
+      "html": "<div class=\"ds-dose\"><span class=\"ds-wk\">Weeks 1-4</span><span class=\"ds-mg\">1 mg<span class=\"ds-units\">10 units</span></span><svg viewBox=\"0 0 600 112\" class=\"ds-syr\" role=\"img\" aria-label=\"Insulin syringe filled to the 10 unit line\"><line x1=\"4\" x2=\"50\" y1=\"54\" y2=\"54\" stroke=\"#0d2b4e\" stroke-width=\"2.5\"/><rect x=\"50\" y=\"44\" width=\"20\" height=\"20\" fill=\"#0d2b4e\"/><rect x=\"70\" y=\"34\" width=\"45\" height=\"40\" fill=\"#2fd3a0\"/><rect x=\"115\" y=\"34\" width=\"12\" height=\"40\" fill=\"#0d2b4e\"/><rect x=\"125\" y=\"56\" width=\"435\" height=\"6\" fill=\"#0d2b4e\" opacity=\"0.35\"/><rect x=\"560\" y=\"28\" width=\"10\" height=\"52\" fill=\"#0d2b4e\"/><rect x=\"70\" y=\"34\" width=\"450\" height=\"40\" fill=\"none\" stroke=\"#0d2b4e\" stroke-width=\"3\"/><rect x=\"520\" y=\"26\" width=\"6\" height=\"56\" fill=\"#0d2b4e\"/><line x1=\"115\" x2=\"115\" y1=\"24\" y2=\"74\" stroke=\"#0d2b4e\" stroke-width=\"3\"/><rect x=\"53\" y=\"0\" width=\"124\" height=\"28\" fill=\"#0d2b4e\"/><text x=\"115\" y=\"20\" text-anchor=\"middle\" font-size=\"17\" font-weight=\"900\" fill=\"#fff\">Draw to 10</text><text x=\"70\" y=\"96\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#0d2b4e\">0</text><text x=\"295\" y=\"96\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#0d2b4e\">50</text><text x=\"520\" y=\"96\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#0d2b4e\">100</text></svg></div>",
+      "css": ".ds-dose { display: grid; grid-template-columns: 7rem 8rem 1fr; align-items: center; gap: 0.25rem 1rem; padding: 1rem 0; background: #fff; color: #0d2b4e; font-family: var(--font-archivo), Archivo, ui-sans-serif, system-ui, sans-serif; } .ds-wk { font-weight: 800; font-stretch: 88%; } .ds-mg { font-variant-numeric: tabular-nums; font-weight: 900; font-size: 1.875rem; font-stretch: 112%; white-space: nowrap; } .ds-units { display: block; width: fit-content; margin-top: 0.25rem; padding: 0.125rem 0.375rem; background: #0d2b4e; color: #2fd3a0; font-size: 1rem; font-weight: 900; } .ds-syr { width: 100%; height: auto; font-family: inherit; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Facts Label on the Package",
+    "overview": "The page is the package; the labels are printed on it. Every page is a stack of full-bleed colour fields, mint and navy alternating, and on those fields sit white facts labels ruled in the grammar of the Nutrition Facts panel: a 10px bar, a 5px bar, a 1px hairline, name on the left and value on the right. Information is never dressed up. It is set, ruled and footnoted the way a regulated label is, which is what makes it read as honest.\n\nThere is one typeface, Archivo, and it speaks in widths rather than in families: black and expanded for titles, semi-condensed for row names, regular for prose, tabular for numbers. Every caveat lives in an asterisk footnote rather than in softened copy. Form is strictly flat and square: no radius, no shadow, no gradient, anywhere. The only motion is the label printing itself in as it arrives.",
+    "keyCharacteristics": [
+      "Full-bleed mint and navy fields alternate section by section; mint owns the first viewport.",
+      "White labels with a 2px navy border carry the facts, ruled 10 / 5 / 1px.",
+      "One family (Archivo variable, `wdth` axis), voiced by width and weight.",
+      "Rows: name left, value right, numbers tabular.",
+      "Caveats as asterisk footnotes, small and in soft ink.",
+      "Square, flat, ungraded: zero radius, zero shadow, zero gradient."
+    ],
+    "rules": [
+      { "name": "The Package and the Print Rule", "body": "Colour belongs to the field, never to the label. Labels are always white with navy ink; mint and navy only appear as full-bleed section grounds, as rule ink, or as small solid tags.", "section": "colors" },
+      { "name": "The Alternating Field Rule", "body": "Sections alternate mint and navy, mint first. A navy section adds the `on-ink` context so focus rings switch to mint.", "section": "colors" },
+      { "name": "The One Family Rule", "body": "Archivo is the only face. Hierarchy comes from width (118 / 112 / 108 / 88%) and weight (900 / 800 / 700 / 400), never from a second family.", "section": "typography" },
+      { "name": "The Tabular Value Rule", "body": "Every number that sits in a row or in a dose is tabular so columns of values line up like a printed panel.", "section": "typography" },
+      { "name": "The Asterisk Rule", "body": "A caveat is never a hedge in the sentence. The claim carries an asterisk and the caveat lives in a footnote at the foot of the label, or in the footer's \"*Medical disclaimer\".", "section": "typography" },
+      { "name": "The Printed Flat Rule", "body": "If it could not be printed in two inks on a box, it does not belong. No shadow, no gradient, no translucent glass.", "section": "elevation" },
+      { "name": "The 10 / 5 / 1 Rule", "body": "Three rule weights only: 10px opens and closes a label, 5px separates groups, 1px separates rows. Any new divider uses one of the three.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do put every new fact inside a white facts label on a mint or navy field, opened with a 10px bar.",
+      "Do separate groups with the 5px bar and rows with the 1px hairline, name left and value right.",
+      "Do set every row value and dose in tabular numerals.",
+      "Do move every caveat into an asterisk footnote in soft ink at 0.8125rem.",
+      "Do alternate mint and navy section fields, mint first, and switch focus rings to mint on navy.",
+      "Do keep below-the-fold labels printing in, and keep the reduced-motion exit.",
+      "Do keep the zoomed 0 to 30 syringe on phones and the full 0 to 100 syringe from sm up."
+    ],
+    "donts": [
+      "Don't round any corner; radius is 0px on every element.",
+      "Don't use a box-shadow, gradient, blur or translucent surface.",
+      "Don't introduce a second typeface; vary Archivo's width and weight instead.",
+      "Don't tint a label; labels are white with navy ink.",
+      "Don't add a fourth rule weight; use 10, 5 or 1px.",
+      "Don't put small uppercase eyebrow kickers above headlines; the headline speaks first. (The tracked \"PEPTIDES\" in the wordmark is part of the logo, not a type role.)"
+    ]
+  }
+}
