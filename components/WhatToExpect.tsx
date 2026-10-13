@@ -9,7 +9,7 @@ const milestones = [
   {
     time: "Weeks 3–4",
     title: "The scale starts moving",
-    detail: "Cravings drop and energy improves. Many people are 3–5 lbs down by the end of month one.",
+    detail: "Cravings drop and energy improves. Many people are 3–5 lbs down by the end of month one.*",
   },
   {
     time: "Months 2–3",
@@ -32,8 +32,8 @@ export default function WhatToExpect() {
             What to expect
           </h2>
           <p className="prose-measure mt-5 text-xl leading-snug text-mint-pale">
-            A realistic look at the first few months on our 1&ndash;2&nbsp;mg
-            plan. No hype, just what most people experience.
+            A realistic look at the first few months as you step up
+            to 2&nbsp;mg. No hype, just what most people experience.
           </p>
         </div>
 
@@ -58,7 +58,7 @@ export default function WhatToExpect() {
           </ol>
           <BarMD />
           <p className="footnote pt-1">
-            Results vary; consistency matters most. Eat plenty of protein and
+            *Results vary; consistency matters most. Eat plenty of protein and
             stay active. The peptide works best alongside good habits, not
             instead of them.
           </p>

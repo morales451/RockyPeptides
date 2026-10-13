@@ -12,8 +12,9 @@ function OutArrow() {
 export default function SocialProof() {
   return (
     <section id="results" className="on-ink bg-ink text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-[1fr_1.25fr] md:gap-14 md:px-6 md:py-24">
-        <div className="md:sticky md:top-24 md:self-start">
+      <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-10">
+          <div className="max-w-2xl">
           <h2 className="headline text-[clamp(2.25rem,5vw,3.75rem)]">
             Real people, real posts
           </h2>
@@ -21,18 +22,19 @@ export default function SocialProof() {
             Don&rsquo;t take our word for it. These are posts from the
             r/Retatrutide community on Reddit. Read them yourself.
           </p>
+          </div>
           <a
             href="https://www.reddit.com/r/Retatrutide/top/?sort=top&t=all"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-mint mt-8"
+            className="btn btn-mint shrink-0"
           >
             Browse r/Retatrutide
             <OutArrow />
           </a>
         </div>
 
-        <Label>
+        <Label className="mt-10">
           <h3 className="label-title">Results Posted</h3>
           <BarXL />
           <ul>
@@ -42,16 +44,16 @@ export default function SocialProof() {
                   href={s.redditUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group grid grid-cols-[6.25rem_1fr_auto] items-center gap-3 py-1 md:grid-cols-[8.5rem_1fr_auto]"
+                  className="group grid grid-cols-[6.25rem_1fr_auto] items-center gap-3 py-1 md:grid-cols-[11rem_1fr_auto] md:gap-8 md:py-2"
                 >
                   <span
-                    className="num whitespace-nowrap text-xl font-black md:text-[1.75rem]"
+                    className="num whitespace-nowrap text-xl font-black md:text-[2.5rem] md:leading-none"
                     style={{ fontStretch: "112%" }}
                   >
-                    {s.stat}
+                    {s.stat}*
                   </span>
                   <span>
-                    <span className="block font-extrabold group-hover:underline">
+                    <span className="block font-extrabold group-hover:underline md:text-xl">
                       {s.title}
                     </span>
                     <span className="block text-sm text-ink-soft">
@@ -65,7 +67,7 @@ export default function SocialProof() {
           </ul>
           <BarMD />
           <p className="footnote pt-1">
-            Posts by Reddit users, not paid testimonials. Different people,
+            *Posts by Reddit users, not paid testimonials. Different people,
             doses and timelines; your results will vary.
           </p>
         </Label>

@@ -1,22 +1,25 @@
-export interface TitrationStep {
-  weeks: string;
-  dose: string;
-  notes: string;
+/**
+ * Our kit math, kept in one place so the site and the cheat sheet agree:
+ * one 3 mL BAC water vial mixes three 10 mg retatrutide vials at 1 mL each.
+ * 10 mg in 1 mL means 1 unit on a 100-unit insulin syringe = 0.1 mg.
+ */
+export const BAC_ML = 3;
+export const RETA_MG = 10;
+export const WATER_PER_VIAL_ML = 1;
+export const MG_PER_UNIT = RETA_MG / (WATER_PER_VIAL_ML * 100);
+
+export interface DoseStep {
+  week: string;
+  short: string;
+  mg: number;
+  units: number;
+  note: string;
 }
 
-export const titrationSchedule: TitrationStep[] = [
-  {
-    weeks: "Weeks 1–4",
-    dose: "1 mg/week",
-    notes:
-      "Your starting dose. Let your body adjust. This is when most people notice less food noise.",
-  },
-  {
-    weeks: "Week 5 on",
-    dose: "2 mg/week",
-    notes:
-      "Move up to 2 mg and stay there. Other plans go higher, but most people do great here with few side effects.",
-  },
+export const doseSchedule: DoseStep[] = [
+  { week: "Week 1", short: "Wk 1", mg: 1, units: 10, note: "Your starting dose. Let your body adjust." },
+  { week: "Week 2", short: "Wk 2", mg: 1.5, units: 15, note: "A small step up." },
+  { week: "Week 3 on", short: "Wk 3+", mg: 2, units: 20, note: "Stay here. This is where most people do great." },
 ];
 
 export interface StorageRule {
@@ -51,9 +54,9 @@ export const storageRules: StorageRule[] = [
 ];
 
 export const reconstitutionSteps: string[] = [
-  "Lay out your peptide vial, BAC water, a syringe and alcohol wipes.",
+  "Lay out one retatrutide vial, the BAC water, a syringe and alcohol wipes.",
   "Wipe the tops of both vials with an alcohol wipe.",
-  "Draw BAC water into the syringe (usually 1–2 mL, depending on your dose math).",
+  "Draw 1 mL of BAC water: fill the syringe to the 100 line.",
   "Insert the needle at an angle and let the water run slowly down the inside of the vial. Don’t spray it onto the powder.",
   "Gently swirl until the powder dissolves. Don’t shake it.",
   "Write the date on the vial and put it in the fridge right away.",

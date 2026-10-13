@@ -26,12 +26,8 @@ export default function Hero() {
             Heard a lot about GLP&#8209;3s?
           </h1>
           <p className="prose-measure mt-6 text-xl leading-snug md:text-2xl">
-            Most of what&rsquo;s out there is hype or fear. Here are the plain
-            facts, so you can decide for yourself.
-          </p>
-          <p className="prose-measure mt-3 text-lg">
-            Being skeptical is smart. Read first, ask questions, and only then
-            decide.
+            Being skeptical is smart. Here are the plain facts, so you can
+            decide for yourself.
           </p>
           <a
             href="#familiar"
@@ -73,7 +69,7 @@ export default function Hero() {
             />
           ))}
           <BarXL />
-          <Row first name="Complete kit" value="from $75/mo" />
+          <Row first name="Complete kit" value="$75/mo*" />
           <Row name="Houston delivery / pickup" value="$20 / free" />
           <BarMD />
 
@@ -98,7 +94,8 @@ export default function Hero() {
             </div>
           </form>
           <p className="footnote mt-3">
-            Education, not medical advice. Talk to your doctor before starting
+            *1-month kit. 3- and 6-month kits cost less per month. This is
+            education, not medical advice; talk to your doctor before starting
             anything new.
           </p>
         </Label>

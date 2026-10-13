@@ -72,8 +72,8 @@ export default function WhyEvolve() {
               Why people choose Evolve
             </h2>
             <p className="prose-measure mt-5 text-xl leading-snug text-mint-pale">
-              There are plenty of places to buy peptides. Here&rsquo;s why our
-              customers stay.
+              There are plenty of places to buy peptides. Here&rsquo;s what we
+              do differently.
             </p>
           </div>
           <Label>

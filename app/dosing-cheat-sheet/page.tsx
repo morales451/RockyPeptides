@@ -3,12 +3,8 @@ import Link from "next/link";
 import PrintButton from "@/components/PrintButton";
 import { Logo } from "@/components/Logo";
 import { Label, BarXL, BarMD, Row } from "@/components/Label";
-import {
-  titrationSchedule,
-  storageRules,
-  reconstitutionSteps,
-  injectionSteps,
-} from "@/lib/dosingData";
+import { storageRules, reconstitutionSteps, injectionSteps } from "@/lib/dosingData";
+import { MixVisual, DoseLadder } from "@/components/DoseVisuals";
 
 export const metadata: Metadata = {
   title: "Dosing Cheat Sheet | Evolve Peptides",
@@ -46,7 +42,7 @@ export default function DosingCheatSheet() {
             <h1 className="label-title">Dosing Cheat Sheet</h1>
             <Logo className="hidden sm:inline-flex" />
           </div>
-          <p className="mt-1">Retatrutide on our 1&ndash;2&nbsp;mg plan. Keep it on the fridge.</p>
+          <p className="mt-1">Retatrutide 10&nbsp;mg vials + 3&nbsp;mL BAC water. Keep this on the fridge.</p>
           <BarXL />
           <p className="font-extrabold">The goal</p>
           <p>
@@ -56,27 +52,26 @@ export default function DosingCheatSheet() {
           <Row name="Eat high protein, stay active" value="Keeps your muscle" />
           <Row name="Water, protein, movement, awareness" value="What lasts after" />
 
-          <Section n={1} title="Mix it">
-            <ol>
-              {reconstitutionSteps.map((s, i) => (
-                <li key={i} className={`row ${i === 0 ? "row-first" : ""} flex gap-3 py-1.5 text-sm`}>
-                  <span className="num w-4 shrink-0 font-black">{i + 1}</span>
-                  <span>{s}</span>
-                </li>
-              ))}
-            </ol>
+          <Section n={1} title="Mix it: 1 mL (100 units) of water into each vial">
+            <div className="grid items-center gap-4 sm:grid-cols-[1fr_1fr]">
+              <MixVisual className="h-auto w-full" />
+              <ol>
+                {reconstitutionSteps.map((s, i) => (
+                  <li key={i} className={`row ${i === 0 ? "row-first" : ""} flex gap-3 py-1.5 text-sm`}>
+                    <span className="num w-4 shrink-0 font-black">{i + 1}</span>
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </Section>
 
-          <Section n={2} title="Dose it">
-            {titrationSchedule.map((s, i) => (
-              <div key={s.weeks} className={`row ${i === 0 ? "row-first" : ""} py-1.5 text-sm`}>
-                <div className="flex justify-between gap-4">
-                  <span className="font-extrabold">{s.weeks}</span>
-                  <span className="num text-lg font-black">{s.dose}</span>
-                </div>
-                <p>{s.notes}</p>
-              </div>
-            ))}
+          <Section n={2} title="Dose it: once a week, fill to the line">
+            <DoseLadder compact />
+            <p className="pt-1 text-sm">
+              <span className="font-extrabold">Feeling sick?</span>{" "}
+              Stay on your current dose another week before stepping up.
+            </p>
           </Section>
 
           <Section n={3} title="Inject it">

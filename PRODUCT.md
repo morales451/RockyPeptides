@@ -35,6 +35,7 @@ The site is run by people who use the product themselves and lead with education
 ## Capabilities and Constraints
 
 - Next.js 16 (App Router), React 19, Tailwind CSS v4, deployed on Netlify.
+- Dosing protocol (user-confirmed): one 3 mL BAC water vial mixes three 10 mg retatrutide vials at 1 mL each, so 1 unit on a 100-unit insulin syringe = 0.1 mg. Week 1: 1 mg (10 units); week 2: 1.5 mg (15 units); week 3 on: 2 mg (20 units), once weekly. Many visitors skip written instructions, so dosing must be shown visually.
 - Pricing: 1-month kit $75, 3-month $200, 6-month $375. Houston delivery $20; local pickup free. Refund offered if the visitor doesn't feel the effects described on the page.
 - Lead capture currently collects phone only (email was deliberately removed), with a TCPA disclosure.
 - Copy currently presents the site as an educational resource, with a medical disclaimer in the footer.
@@ -42,7 +43,7 @@ The site is run by people who use the product themselves and lead with education
 
 ## Brand Commitments
 
-- Name: Evolve Peptides. Logo: `public/Gemini_Generated_Image_u6pjcwu6pjcwu6pj.png` (also used as favicon and OG image; inverted in the footer).
+- Name: Evolve Peptides. Logo: the stepped three-amino-acid chain mark with the "Evolve / Peptides" wordmark (`components/Logo.tsx`, `app/icon.svg`). It replaced the earlier generated image at the user's request.
 - Voice: plain-language, honest and non-defensive. It validates the visitor's skepticism ("Your skepticism is healthy") and avoids jargon and spin.
 - Tagline: "Education over hype. Science over stigma."
 

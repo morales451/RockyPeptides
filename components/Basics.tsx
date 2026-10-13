@@ -55,7 +55,7 @@ export default function Basics() {
             <BarMD />
             <div className="py-4" data-print-row>
               <p className="footnote mb-3">For example, four amino acids, one message:</p>
-              <div className="flex items-center" aria-label="The letters F, U, L, L form the word FULL">
+              <div className="flex flex-wrap items-center gap-y-3" aria-label="The letters F, U, L, L form the word FULL">
                 {letters.map((l, i) => (
                   <div key={i} className="flex items-center" aria-hidden="true">
                     {i > 0 && <span className="h-[3px] w-4 bg-ink md:w-6" />}
@@ -67,7 +67,7 @@ export default function Basics() {
                     </span>
                   </div>
                 ))}
-                <span className="ml-3 text-lg font-extrabold md:ml-4" aria-hidden="true">
+                <span className="w-full whitespace-nowrap text-lg font-extrabold sm:ml-4 sm:w-auto" aria-hidden="true">
                   = &ldquo;you&rsquo;re full.&rdquo;
                 </span>
               </div>

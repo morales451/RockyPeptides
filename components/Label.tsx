@@ -45,7 +45,7 @@ export function Row({
     <div
       className={`row ${first ? "row-first" : ""} flex items-baseline justify-between gap-4 ${className}`}
     >
-      <span className={strong ? "font-extrabold" : ""}>{name}</span>
+      <span className={`condensed ${strong ? "font-extrabold" : ""}`}>{name}</span>
       {value !== undefined && (
         <span className="num text-right font-extrabold shrink-0">{value}</span>
       )}

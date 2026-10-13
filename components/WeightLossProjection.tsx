@@ -108,7 +108,7 @@ export default function WeightLossProjection() {
             <Row
               key={label}
               first={i === 0}
-              name={<span className="font-extrabold">{label}</span>}
+              name={<span className="font-extrabold">{label}*</span>}
               value={
                 <span aria-live="polite">
                   {point.weight.toFixed(0)} {unit}
@@ -156,7 +156,7 @@ export default function WeightLossProjection() {
             ))}
           </svg>
           <p className="footnote mt-3">
-            Modeled on percent body-weight change in Jastreboff et al.,{" "}
+            *Modeled on percent body-weight change in Jastreboff et al.,{" "}
             <em>NEJM</em>{" "}2023 (Phase 2 retatrutide trial). The 2&nbsp;mg curve
             is extrapolated below the lowest published dose. Individual results
             vary with diet, activity and biology. Not medical advice.

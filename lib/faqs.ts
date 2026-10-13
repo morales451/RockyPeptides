@@ -63,7 +63,7 @@ export const faqs: FAQ[] = [
     id: 10,
     question: "How will I know it's working?",
     answer:
-      "Most people notice reduced appetite and less \"food noise\" within the first 1–2 weeks. Visible weight loss typically shows up by weeks 4–6. You may also notice improved energy levels and fewer cravings. If you're not feeling anything after 4 weeks at 1mg, that's when you move up to 2mg.",
+      "Most people notice reduced appetite and less \"food noise\" within the first 1–2 weeks. Visible weight loss typically shows up by weeks 4–6. You may also notice improved energy levels and fewer cravings. On our schedule you step up from 1 mg to 1.5 mg in week 2 and reach 2 mg in week 3.",
   },
   {
     id: 11,

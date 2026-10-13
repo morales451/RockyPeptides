@@ -11,9 +11,9 @@ const includes = [
 ];
 
 const tiers = [
-  { name: "1 Month Kit", supply: "1-month", price: 75, perMonth: 75, savings: null, badge: null },
-  { name: "3 Month Kit", supply: "3-month", price: 200, perMonth: 67, savings: 25, badge: "Most popular" },
-  { name: "6 Month Kit", supply: "6-month", price: 375, perMonth: 63, savings: 75, badge: "Best value" },
+  { name: "1 Month Kit", supply: "1-month", price: 75, perMonth: 75, savings: null },
+  { name: "3 Month Kit", supply: "3-month", price: 200, perMonth: 67, savings: 25 },
+  { name: "6 Month Kit", supply: "6-month", price: 375, perMonth: 63, savings: 75 },
 ];
 
 const steps = [
@@ -38,21 +38,11 @@ export default function Pricing() {
 
         <div className="mt-12 grid items-start gap-6 md:grid-cols-3">
           {tiers.map((t) => {
-            const featured = t.badge === "Most popular";
             return (
-              <Label key={t.name} className={featured ? "border-4 md:-mt-4" : ""}>
-                <div className="flex min-h-7 items-start justify-between gap-2">
-                  {t.badge ? (
-                    <span className="bg-ink px-2 py-0.5 text-xs font-extrabold uppercase tracking-[0.12em] text-mint">
-                      {t.badge}
-                    </span>
-                  ) : (
-                    <span />
-                  )}
-                </div>
-                <h3 className="label-title mt-1">{t.name}</h3>
+              <Label key={t.name}>
+                <h3 className="label-title">{t.name}</h3>
                 <BarXL />
-                <p className="text-sm font-bold">Amount per kit</p>
+                <p className="condensed text-sm font-bold">Amount per kit</p>
                 <div className="flex items-end justify-between">
                   <span className="text-xl font-black" style={{ fontStretch: "112%" }}>
                     Total
@@ -65,7 +55,7 @@ export default function Pricing() {
                 <Row first name="Per month" value={`~$${t.perMonth}`} />
                 <Row name="You save" value={t.savings ? `$${t.savings}` : "—"} />
                 <BarMD />
-                <p className="pt-1 text-sm font-bold">Contains</p>
+                <p className="condensed pt-1 text-sm font-bold">Contains</p>
                 {includes.map((item, j) => (
                   <Row key={item} first={j === 0} name={item} />
                 ))}
@@ -73,7 +63,7 @@ export default function Pricing() {
                 <button
                   type="button"
                   onClick={() => prefillContact({ supply: t.supply })}
-                  className={`btn mt-2 w-full ${featured ? "" : "btn-ghost"}`}
+                  className="btn mt-2 w-full"
                 >
                   Choose the {t.name.toLowerCase()}
                 </button>

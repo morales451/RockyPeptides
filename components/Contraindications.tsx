@@ -22,9 +22,9 @@ export default function Contraindications() {
       </div>
       <BarXL />
       <p className="font-extrabold">Do not use retatrutide if:</p>
-      <ul className="mt-1">
+      <ul className="mt-1 md:grid md:grid-cols-2 md:gap-x-10">
         {conditions.map((c, i) => (
-          <li key={i} className={`row ${i === 0 ? "row-first" : ""} flex gap-3`}>
+          <li key={i} className={`row ${i === 0 ? "row-first" : ""} ${i === 1 ? "md:border-t-0" : ""} flex gap-3`}>
             <svg viewBox="0 0 16 16" className="mt-1 h-4 w-4 shrink-0" aria-hidden="true">
               <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="2.4" />
             </svg>
