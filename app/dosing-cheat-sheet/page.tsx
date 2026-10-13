@@ -53,7 +53,7 @@ export default function DosingCheatSheet() {
           <Row name="Water, protein, movement, awareness" value="What lasts after" />
 
           <Section n={1} title="Mix it: 1 mL (100 units) of water into each vial">
-            <div className="grid items-center gap-4 sm:grid-cols-[1fr_1fr]">
+            <div className="grid items-start gap-4 sm:grid-cols-[1.15fr_1fr]">
               <MixVisual className="h-auto w-full" />
               <ol>
                 {reconstitutionSteps.map((s, i) => (

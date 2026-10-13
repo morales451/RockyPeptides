@@ -58,11 +58,11 @@ export function MixVisual({ className = "" }: { className?: string }) {
         <line key={i} x1={24} x2={136} y1={210 - 0.9 * 158 * (i / 3)} y2={210 - 0.9 * 158 * (i / 3)} stroke={INK} strokeWidth="2" strokeDasharray="6 5" />
       ))}
       {[0, 1, 2].map((i) => (
-        <text key={i} x={80} y={210 - 0.9 * 158 * ((i + 0.5) / 3) + 6} textAnchor="middle" fontSize="17" fontWeight="800" fill={INK}>
+        <text key={i} x={80} y={210 - 0.9 * 158 * ((i + 0.5) / 3) + 6} textAnchor="middle" fontSize="20" fontWeight="800" fill={INK}>
           1 mL
         </text>
       ))}
-      <text x={80} y={238} textAnchor="middle" fontSize="18" fontWeight="900" fill={INK}>
+      <text x={8} y={240} fontSize="21" fontWeight="900" fill={INK}>
         BAC water · {BAC_ML} mL
       </text>
 
@@ -83,11 +83,8 @@ export function MixVisual({ className = "" }: { className?: string }) {
         return (
           <g key={i}>
             <VialShape x={318} y={ty - 26} w={40} h={52} liquid={0.55} />
-            <text x={372} y={ty + 2} fontSize="19" fontWeight="900" fill={INK}>
+            <text x={370} y={ty + 9} fontSize="26" fontWeight="900" fill={INK}>
               Reta {RETA_MG} mg
-            </text>
-            <text x={372} y={ty + 22} fontSize="15" fontWeight="600" fill={INK}>
-              + {WATER_PER_VIAL_ML} mL water
             </text>
           </g>
         );
@@ -98,54 +95,91 @@ export function MixVisual({ className = "" }: { className?: string }) {
 
 /* ── Syringe filled to a dose ───────────────────────────────────────── */
 
-export function Syringe({ units, className = "" }: { units: number; className?: string }) {
-  const x0 = 70; // the 0 line, at the needle end
-  const x100 = 520;
-  const px = (u: number) => x0 + ((x100 - x0) * u) / 100;
+/**
+ * The full 100-unit syringe on wide screens. On phones the "zoom" variant
+ * shows only 0–30 units at a size people can actually match against
+ * the syringe in their hand.
+ */
+export function Syringe({
+  units,
+  zoom = false,
+  className = "",
+}: {
+  units: number;
+  zoom?: boolean;
+  className?: string;
+}) {
+  const max = zoom ? 30 : 100;
+  const W = zoom ? 360 : 600;
+  const x0 = zoom ? 46 : 70; // the 0 line, at the needle end
+  const xMax = zoom ? 336 : 520;
+  const px = (u: number) => x0 + ((xMax - x0) * u) / max;
   const top = 34;
   const bottom = 74;
   const fillEnd = px(units);
+  const label = zoom ? 18 : 15;
+  const tag = zoom ? 19 : 17;
+  const ticks = Array.from({ length: max / (zoom ? 1 : 5) + 1 }, (_, i) => i * (zoom ? 1 : 5));
+  const numbers = Array.from({ length: max / (zoom ? 5 : 10) + 1 }, (_, i) => i * (zoom ? 5 : 10));
   return (
     <svg
-      viewBox="0 0 600 112"
+      viewBox={`0 0 ${W} 112`}
       className={className}
       role="img"
       aria-label={`Insulin syringe filled to the ${units} unit line`}
       style={{ fontFamily: "inherit" }}
     >
       {/* needle and hub */}
-      <line x1={4} x2={50} y1={54} y2={54} stroke={INK} strokeWidth="2.5" />
-      <rect x={50} y={44} width={x0 - 50} height={20} fill={INK} />
+      <line x1={4} x2={x0 - 20} y1={54} y2={54} stroke={INK} strokeWidth="2.5" />
+      <rect x={x0 - 20} y={44} width={20} height={20} fill={INK} />
       {/* liquid */}
       <rect x={x0} y={top} width={fillEnd - x0} height={bottom - top} fill={MINT} />
       {/* stopper and plunger */}
-      <rect x={fillEnd} y={top} width={12} height={bottom - top} fill={INK} />
-      <rect x={fillEnd + 12} y={56} width={x100 + 40 - fillEnd - 12} height={6} fill={INK} opacity="0.35" />
-      <rect x={x100 + 40} y={28} width={10} height={52} fill={INK} />
+      <rect x={fillEnd} y={top} width={zoom ? 10 : 12} height={bottom - top} fill={INK} />
+      <rect
+        x={fillEnd + 10}
+        y={56}
+        width={(zoom ? W : xMax + 40) - fillEnd - 10}
+        height={6}
+        fill={INK}
+        opacity="0.35"
+      />
+      {!zoom && <rect x={xMax + 40} y={28} width={10} height={52} fill={INK} />}
       {/* barrel */}
-      <rect x={x0} y={top} width={x100 - x0} height={bottom - top} fill="none" stroke={INK} strokeWidth="3" />
-      <rect x={x100} y={top - 8} width={6} height={bottom - top + 16} fill={INK} />
+      {zoom ? (
+        <>
+          <path d={`M${W} ${top} H${x0} V${bottom} H${W}`} fill="none" stroke={INK} strokeWidth="3" />
+        </>
+      ) : (
+        <>
+          <rect x={x0} y={top} width={xMax - x0} height={bottom - top} fill="none" stroke={INK} strokeWidth="3" />
+          <rect x={xMax} y={top - 8} width={6} height={bottom - top + 16} fill={INK} />
+        </>
+      )}
       {/* scale */}
-      {Array.from({ length: 21 }, (_, i) => i * 5).map((u) => (
-        <line
-          key={u}
-          x1={px(u)}
-          x2={px(u)}
-          y1={top}
-          y2={top + (u % 10 === 0 ? 14 : 8)}
-          stroke={INK}
-          strokeWidth={u % 10 === 0 ? 2 : 1.2}
-        />
-      ))}
-      {Array.from({ length: 11 }, (_, i) => i * 10).map((u) => (
-        <text key={u} x={px(u)} y={bottom + 20} textAnchor="middle" fontSize="15" fontWeight="700" fill={INK}>
+      {ticks.map((u) => {
+        const major = zoom ? u % 5 === 0 : u % 10 === 0;
+        return (
+          <line
+            key={u}
+            x1={px(u)}
+            x2={px(u)}
+            y1={top}
+            y2={top + (major ? 14 : 8)}
+            stroke={INK}
+            strokeWidth={major ? 2 : 1.2}
+          />
+        );
+      })}
+      {numbers.map((u) => (
+        <text key={u} x={px(u)} y={bottom + 22} textAnchor="middle" fontSize={label} fontWeight="700" fill={INK}>
           {u}
         </text>
       ))}
       {/* target line */}
-      <line x1={fillEnd} x2={fillEnd} y1={top - 12} y2={bottom} stroke={INK} strokeWidth="3" />
-      <rect x={fillEnd - 58} y={0} width={116} height={26} fill={INK} />
-      <text x={fillEnd} y={19} textAnchor="middle" fontSize="17" fontWeight="900" fill="#fff">
+      <line x1={fillEnd} x2={fillEnd} y1={top - 10} y2={bottom} stroke={INK} strokeWidth="3" />
+      <rect x={fillEnd - 62} y={0} width={124} height={28} fill={INK} />
+      <text x={fillEnd} y={20} textAnchor="middle" fontSize={tag} fontWeight="900" fill="#fff">
         Draw to {units}
       </text>
     </svg>
@@ -162,7 +196,7 @@ export function DoseLadder({ compact = false }: { compact?: boolean }) {
           key={d.week}
           className={`row ${i === 0 ? "row-first" : ""} grid items-center gap-x-4 gap-y-1 ${
             compact
-              ? "grid-cols-[5rem_4.5rem_1fr] py-2"
+              ? "grid-cols-[5rem_4.5rem_1fr] py-2 max-sm:grid-cols-[1fr_auto]"
               : "grid-cols-[1fr_auto] py-4 md:grid-cols-[7rem_8rem_1fr]"
           }`}
         >
@@ -180,8 +214,9 @@ export function DoseLadder({ compact = false }: { compact?: boolean }) {
               {d.units} units
             </span>
           </span>
-          <span className={compact ? "" : "col-span-2 md:col-span-1"}>
-            <Syringe units={d.units} className="h-auto w-full" />
+          <span className={compact ? "col-span-full sm:col-span-1" : "col-span-2 md:col-span-1"}>
+            <Syringe units={d.units} className="hidden h-auto w-full sm:block" />
+            <Syringe units={d.units} zoom className="h-auto w-full sm:hidden" />
           </span>
         </li>
       ))}

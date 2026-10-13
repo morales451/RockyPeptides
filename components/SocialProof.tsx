@@ -44,7 +44,7 @@ export default function SocialProof() {
                   href={s.redditUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group grid grid-cols-[6.25rem_1fr_auto] items-center gap-3 py-1 md:grid-cols-[11rem_1fr_auto] md:gap-8 md:py-2"
+                  className="group grid grid-cols-[7rem_1fr_auto] items-center gap-3 py-1 md:grid-cols-[13.5rem_1fr_auto] md:gap-8 md:py-2"
                 >
                   <span
                     className="num whitespace-nowrap text-xl font-black md:text-[2.5rem] md:leading-none"
