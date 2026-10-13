@@ -8,72 +8,72 @@ export interface Myth {
 export const myths: Myth[] = [
   {
     id: 1,
-    title: "Verification",
+    title: "Lab reports",
     myth: "COAs on websites prove it's safe.",
     reality:
-      "A COA — Certificate of Analysis — is a lab report that shows a product was tested for purity, identity, and potency. In theory, it proves what's in the vial matches what's on the label. In practice? The vast majority of COAs in this industry can be fabricated — and ours are no exception. We'll be upfront about that. We source our peptides from manufacturers that produce and sell millions of units, and we do receive COAs that we're happy to share with you. But a PDF on a website should never be your litmus test for safety or quality. The real measure of trust is the source, the consistency, and whether a supplier is honest enough to tell you that. We are.",
+      "A COA (Certificate of Analysis) is a lab report on what's in the vial. Honestly, most COAs in this industry can be faked, and ours are no exception. We buy from manufacturers that make millions of units, and we're happy to share the COAs we get. But a PDF shouldn't be your test. Judge a seller by its source, its consistency, and whether it's honest with you.",
   },
   {
     id: 2,
-    title: "Clinic Markups",
-    myth: "I should only trust expensive USA Wellness Clinics.",
+    title: "Clinics",
+    myth: "I should only trust expensive wellness clinics.",
     reality:
-      "Clinics are fantastic for medical consultations, bloodwork, and professional guidance — and for many people, that's the right path. But let's be transparent about the supply chain: the raw active pharmaceutical ingredient (API) overwhelmingly comes from the same overseas manufacturers, whether it goes to a clinic or a research supplier. The clinic adds a doctor's oversight (which has real value), but also a significant markup. You're paying a premium for the middleman, not necessarily a different molecule.",
+      "Clinics are great for a doctor's advice and bloodwork, and for many people that's the right path. But the active ingredient usually comes from the same overseas makers either way. A clinic adds a doctor's oversight, which has real value, plus a big markup. You're not getting a different molecule.",
   },
   {
     id: 3,
     title: "Needles",
     myth: "Injecting myself is painful and taboo.",
     reality:
-      "We get it — the word \"injection\" sounds intimidating. But subcutaneous (SubQ) injections use tiny insulin syringes with needles roughly the thickness of a human hair. You're pinching a small fold of belly fat and barely feeling a thing. This is the exact same routine that millions of diabetics and IVF patients do every single day without a second thought. It's not dramatic, and it's certainly not dangerous.",
+      "The needles are tiny insulin needles, about as thin as a hair. You pinch a little belly fat and barely feel it. Millions of people with diabetes and going through IVF do this every day.",
   },
   {
     id: 4,
     title: "Steroids",
     myth: "Peptides are unregulated steroids.",
     reality:
-      "This is one of the most common misconceptions, and it's completely wrong. Anabolic steroids are synthetic hormones that artificially override your endocrine system. Peptides are short chains of amino acids — the same building blocks found in every protein you eat. They work by signaling your body to perform its own natural functions more efficiently. It's the difference between hotwiring a car and using the key.",
+      "No. Steroids are synthetic hormones that override your system. Peptides are short chains of amino acids, the same building blocks as the protein you eat. They signal your body to do what it already does. It's the difference between hotwiring a car and using the key.",
   },
   {
     id: 5,
-    title: 'The "Easy Way"',
+    title: "The easy way",
     myth: "It's cheating. Just eat less and exercise more.",
     reality:
-      "If it were that simple, we wouldn't have a global obesity epidemic. For many people, obesity isn't a willpower problem — it's a complex metabolic dysfunction involving broken satiety signals, chronic insulin resistance, and hormonal imbalance. GLP-3 agonists help correct these underlying biological mechanisms so that diet and exercise can actually work the way they're supposed to. It's not a shortcut; it's fixing the road.",
+      "For many people, weight isn't a willpower problem. Fullness signals, insulin and hormones get out of balance. GLP-3s help fix those signals so diet and exercise can actually work. It's not a shortcut; it's fixing the road.",
   },
   {
     id: 6,
-    title: '"Research Only"',
-    myth: 'The "Not for Human Consumption" label means it\'s toxic.',
+    title: "“Research only”",
+    myth: "The ‘not for human consumption’ label means it's toxic.",
     reality:
-      "This label is a legal classification, not a safety warning. The molecule itself may be well-characterized and studied, but it hasn't completed the full FDA approval process for consumer sale — a process that can take over a decade and cost billions. \"Research only\" is how it's legally sold before that process concludes. It's a regulatory status, not a toxicity report.",
+      "It's a legal status, not a safety warning. It means the compound hasn't finished FDA approval for consumer sale, a process that can take over a decade and billions of dollars. It says nothing about the molecule being toxic.",
   },
   {
     id: 7,
-    title: "Muscle Loss",
-    myth: 'I\'ll lose all my muscle and get "Ozempic face."',
+    title: "Muscle loss",
+    myth: "I'll lose all my muscle and get ‘Ozempic face.’",
     reality:
-      "Rapid weight loss from any method — medication, surgery, or crash dieting — can lead to muscle loss if you're not eating enough protein and doing resistance training. The drug doesn't selectively eat your muscle tissue. Poor nutrition and inactivity do. People who maintain adequate protein intake (around 1g per pound of lean body mass) and lift weights consistently on GLP-3s typically preserve their muscle mass just fine.",
+      "Losing weight fast in any way can cost muscle if you skip protein and strength training. The drug doesn't target muscle; poor nutrition and inactivity do. Eat about 1 g of protein per pound of lean body mass and lift weights, and most people keep their muscle.",
   },
   {
     id: 8,
-    title: "The Rebound",
+    title: "The rebound",
     myth: "You gain it all back when you stop.",
     reality:
-      "If you use the medication as a crutch and change absolutely nothing about your habits, lifestyle, or relationship with food — then yes, you'll likely regain weight. That's true of literally any intervention. But if you use it as a tool to build healthier eating patterns, increase your activity, and add muscle mass, you can absolutely maintain your results after tapering off. The medication buys you time and metabolic breathing room to build a sustainable foundation.",
+      "If nothing else changes, weight can come back. That's true of any approach. Use the time to build habits: protein, movement, strength. Then you can taper off and keep your results.",
   },
   {
     id: 9,
-    title: "Side Effects",
-    myth: "I'll be dangerously nauseous 24/7.",
+    title: "Side effects",
+    myth: "I'll be badly nauseous all the time.",
     reality:
-      "Severe nausea and GI distress typically come from one thing: starting at too high a dose. The standard protocol is to begin with a micro-dose and slowly titrate upward over weeks, giving your body time to adjust. Most people who follow a proper titration schedule experience zero to very mild side effects — maybe slight appetite suppression or occasional mild nausea that passes within the first week or two.",
+      "Bad nausea usually comes from starting too high. That's why we start at 1 mg and go slow. Most people feel little or nothing, or mild nausea that fades in a week or two.",
   },
   {
     id: 10,
-    title: "Long-Term Safety",
-    myth: "These are brand new; we don't know the long-term effects.",
+    title: "Long-term safety",
+    myth: "These are brand new; nobody knows the long-term effects.",
     reality:
-      "GLP-3 triple agonists like retatrutide are indeed newer compounds. But they're built on GLP-1 receptor agonist technology that has been safely used in humans and rigorously studied since 2005 — that's nearly two decades of clinical data. The underlying mechanism of action is well-understood. Newer doesn't automatically mean untested; it means the science has evolved.",
+      "Retatrutide is newer. But it builds on GLP-1 medicines that have been used and studied in people since 2005, nearly two decades of data. How it works is well understood.",
   },
 ];

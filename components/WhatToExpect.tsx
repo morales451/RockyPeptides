@@ -1,84 +1,68 @@
+import { Label, BarXL, BarMD } from "@/components/Label";
+
+const milestones = [
+  {
+    time: "Weeks 1–2",
+    title: "Appetite starts to change",
+    detail: "Less food noise. You may not feel hungry at mealtimes.",
+  },
+  {
+    time: "Weeks 3–4",
+    title: "The scale starts moving",
+    detail: "Cravings drop and energy improves. Many people are 3–5 lbs down by the end of month one.",
+  },
+  {
+    time: "Months 2–3",
+    title: "You see it",
+    detail: "Clothes fit differently, and people around you notice.",
+  },
+  {
+    time: "Month 3 on",
+    title: "It adds up",
+    detail: "Steady progress, new habits, and a different relationship with food.",
+  },
+];
+
 export default function WhatToExpect() {
-  const milestones = [
-    {
-      time: "Week 1–2",
-      title: "Appetite changes begin",
-      description:
-        "Less \"food noise.\" You may not feel hungry at meal times. Some people notice reduced cravings almost immediately.",
-    },
-    {
-      time: "Week 3–4",
-      title: "Measurable weight loss starts",
-      description:
-        "Energy improves. Cravings noticeably decrease. Most people see 3–5 lbs down by the end of the first month.",
-    },
-    {
-      time: "Month 2–3",
-      title: "Visible changes",
-      description:
-        "Clothes start fitting differently. People around you start to notice. This is where the momentum builds.",
-    },
-    {
-      time: "Month 3+",
-      title: "The compound effect",
-      description:
-        "Consistent results. New habits are forming. Your relationship with food has fundamentally shifted.",
-    },
-  ];
-
   return (
-    <section id="expect" className="scroll-mt-20 bg-sage-50 py-20 md:py-28">
-      <div className="max-w-4xl mx-auto px-6">
-        <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-4">
-          Your Journey
-        </p>
-        <h2 className="text-2xl md:text-4xl font-bold text-sage-800 mb-4">
-          What to expect on our protocol
-        </h2>
-        <p className="text-lg text-warm-800/80 mb-12 max-w-2xl">
-          A realistic look at the typical journey on our 1–2 mg protocol. No
-          hype — just what most people experience.
-        </p>
-
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-[19px] top-2 bottom-2 w-0.5 bg-ocean-500/20 hidden md:block" />
-
-          <div className="space-y-8">
-            {milestones.map((milestone, i) => (
-              <div key={i} className="flex gap-5 items-start">
-                <div className="flex-shrink-0 relative z-10">
-                  <div className="w-10 h-10 rounded-full bg-ocean-500 text-white flex items-center justify-center font-bold text-sm">
-                    {i + 1}
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl p-5 border border-sage-200 shadow-sm flex-1">
-                  <p className="text-ocean-500 text-sm font-semibold mb-1">
-                    {milestone.time}
-                  </p>
-                  <h3 className="font-semibold text-sage-800 mb-1">
-                    {milestone.title}
-                  </h3>
-                  <p className="text-base text-warm-800">
-                    {milestone.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-sage-50 rounded-2xl p-6 md:p-8 border border-sage-200 mt-10">
-          <p className="text-base text-sage-700">
-            <strong className="text-sage-800 block mb-1">
-              Keep in mind:
-            </strong>
-            Results vary, but consistency is the biggest factor. Pair the
-            protocol with plenty of protein and regular activity and you&rsquo;re
-            set up to succeed — the peptide works best alongside good habits, not
-            in place of them.
+    <section id="expect" className="on-ink bg-ink text-white">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-[1fr_1.1fr] md:gap-14 md:px-6 md:py-24">
+        <div className="md:sticky md:top-24 md:self-start">
+          <h2 className="headline text-[clamp(2.25rem,5vw,3.75rem)]">
+            What to expect
+          </h2>
+          <p className="prose-measure mt-5 text-xl leading-snug text-mint-pale">
+            A realistic look at the first few months on our 1&ndash;2&nbsp;mg
+            plan. No hype, just what most people experience.
           </p>
         </div>
+
+        <Label>
+          <h3 className="label-title">Timeline</h3>
+          <BarXL />
+          <ol>
+            {milestones.map((m, i) => (
+              <li
+                key={m.time}
+                className={`row ${i === 0 ? "row-first" : ""} grid grid-cols-[6.5rem_1fr] gap-3 md:grid-cols-[8rem_1fr]`}
+              >
+                <span className="num font-black" style={{ fontStretch: "105%" }}>
+                  {m.time}
+                </span>
+                <span>
+                  <span className="block font-extrabold">{m.title}</span>
+                  <span className="block text-ink-soft">{m.detail}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+          <BarMD />
+          <p className="footnote pt-1">
+            Results vary; consistency matters most. Eat plenty of protein and
+            stay active. The peptide works best alongside good habits, not
+            instead of them.
+          </p>
+        </Label>
       </div>
     </section>
   );

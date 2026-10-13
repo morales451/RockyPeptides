@@ -2,223 +2,142 @@ import {
   titrationSchedule,
   storageRules,
   reconstitutionSteps,
+  injectionSteps,
 } from "@/lib/dosingData";
+import { Label, BarXL, BarMD, Row } from "@/components/Label";
+import Contraindications from "@/components/Contraindications";
+
+function StepHead({ n, title }: { n: number; title: string }) {
+  return (
+    <div className="flex items-baseline gap-3">
+      <span className="num text-sm font-extrabold">Step {n}</span>
+      <h3 className="text-2xl font-black md:text-[1.75rem]" style={{ fontStretch: "112%" }}>
+        {title}
+      </h3>
+    </div>
+  );
+}
 
 export default function DosingGuide() {
   return (
-    <section id="dosing" className="scroll-mt-20 bg-warm-50 py-20 md:py-28">
-      <div className="max-w-4xl mx-auto px-6">
-        <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-4">
-          Getting Started
-        </p>
-        <h2 className="text-2xl md:text-4xl font-bold text-sage-800 mb-8">
-          Your complete dosing &amp; preparation guide
-        </h2>
-        <div className="space-y-6 text-lg leading-relaxed">
-          <p>
-            New to peptides or just want a clear reference? This guide covers
-            everything from mixing your first vial to storing it — one step at a
-            time.
-          </p>
-        </div>
-
-        {/* ── Reconstitution ── */}
-        <div className="mt-12">
-          <h3 className="text-xl md:text-2xl font-bold text-sage-800 mb-6">
-            Step 1: Reconstitution (Mixing Your Peptide)
-          </h3>
-          <p className="text-lg leading-relaxed mb-6">
-            Your peptide arrives as a freeze-dried powder. Before use, mix it
-            with bacteriostatic (BAC) water. It&rsquo;s simple — just follow
-            these steps carefully.
-          </p>
-          <div className="space-y-4">
-            {reconstitutionSteps.map((step, i) => (
-              <div key={i} className="flex gap-4 items-start">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-ocean-500 text-white flex items-center justify-center font-bold text-sm">
-                  {i + 1}
-                </div>
-                <p className="text-base leading-relaxed pt-1">{step}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── Titration Schedule ── */}
-        <div className="mt-16">
-          <h3 className="text-xl md:text-2xl font-bold text-sage-800 mb-6">
-            Step 2: Dosing &amp; Titration Schedule
-          </h3>
-          <p className="text-lg leading-relaxed mb-6">
-            The golden rule: <strong className="text-sage-800">start low and go slow.</strong>{" "}
-            This isn&rsquo;t a race. Some protocols push higher doses, but most
-            people get excellent results with our simple two-step approach. Less
-            is more.
-          </p>
-          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-            {titrationSchedule.map((step, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-xl p-6 border border-sage-200 shadow-sm"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-ocean-500 text-white flex items-center justify-center font-bold text-sm">
-                    {i + 1}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sage-800">{step.weeks}</p>
-                    <p className="text-ocean-500 font-bold text-lg">
-                      {step.dose}
-                    </p>
-                  </div>
-                </div>
-                <p className="text-base text-warm-800">{step.notes}</p>
-              </div>
-            ))}
-          </div>
-          <div className="bg-sage-50 rounded-2xl p-6 md:p-8 border border-sage-200 mt-6">
-            <p className="text-base text-sage-700">
-              <strong className="text-sage-800 block mb-1">
-                Why we recommend this protocol:
-              </strong>
-              Many guides push higher doses (4, 8, 12 mg), but most people reach
-              their goals at just 1–2 mg per week. Starting at 1 mg lets your
-              body adjust with minimal side effects; 2 mg is where most find
-              their sweet spot. Feeling nausea? Stay at 1 mg longer before moving
-              up. Listen to your body.
+    <section id="dosing" className="bg-mint">
+      <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+        <div className="grid gap-10 md:grid-cols-[1fr_1.1fr] md:gap-14">
+          <div className="md:sticky md:top-24 md:self-start">
+            <h2 className="headline text-[clamp(2.25rem,5vw,3.75rem)]">
+              How to use it safely
+            </h2>
+            <p className="prose-measure mt-5 text-xl leading-snug">
+              Start low and go slow. Here&rsquo;s every step, from mixing your
+              first vial to storing it.
             </p>
+            <a href="/dosing-cheat-sheet" target="_blank" className="btn mt-8">
+              <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden="true">
+                <path d="M8 1.5v9M4 7l4 4 4-4M2 14.5h12" stroke="currentColor" strokeWidth="2" fill="none" />
+              </svg>
+              Printable cheat sheet
+            </a>
           </div>
+          <Contraindications />
         </div>
 
-        {/* ── Injection Technique ── */}
-        <div className="mt-16">
-          <h3 className="text-xl md:text-2xl font-bold text-sage-800 mb-6">
-            Step 3: Injection Technique
-          </h3>
-          <p className="text-lg leading-relaxed mb-6">
-            Subcutaneous (SubQ) injections are simple and nearly painless —
-            millions do them daily (diabetics, IVF patients, and more).
-            Here&rsquo;s the basics:
-          </p>
-          <div className="space-y-4">
-            <div className="flex gap-4 items-start">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-warm-100 flex items-center justify-center">
-                <span className="text-warm-800 font-semibold text-sm">1</span>
-              </div>
-              <div>
-                <h4 className="font-semibold text-sage-800 mb-1">
-                  Choose your injection site
-                </h4>
-                <p>
-                  The belly (about 2 inches from the navel) is the most common
-                  spot. You can also use the front of the thigh or the back of
-                  the upper arm. Rotate sites each time.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-4 items-start">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-warm-100 flex items-center justify-center">
-                <span className="text-warm-800 font-semibold text-sm">2</span>
-              </div>
-              <div>
-                <h4 className="font-semibold text-sage-800 mb-1">
-                  Clean and pinch
-                </h4>
-                <p>
-                  Wipe the injection site with an alcohol swab. Pinch a small
-                  fold of skin between your thumb and index finger.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-4 items-start">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-warm-100 flex items-center justify-center">
-                <span className="text-warm-800 font-semibold text-sm">3</span>
-              </div>
-              <div>
-                <h4 className="font-semibold text-sage-800 mb-1">
-                  Insert and inject
-                </h4>
-                <p>
-                  Insert the needle at a 45-degree angle into the pinched skin.
-                  Push the plunger slowly and steadily. Remove the needle and
-                  release the skin. You&rsquo;re done.
-                </p>
-              </div>
-            </div>
-          </div>
+        <div className="mt-14 grid items-start gap-6 md:mt-20 md:grid-cols-2 md:gap-8">
+          {/* Mix */}
+          <Label>
+            <h3 className="label-title">Directions</h3>
+            <BarXL />
+            <StepHead n={1} title="Mix it" />
+            <p className="mt-1 text-ink-soft">
+              It arrives as a powder. Mix it with the BAC (bacteriostatic) water
+              in your kit.
+            </p>
+            <BarMD />
+            <ol>
+              {reconstitutionSteps.map((step, i) => (
+                <li key={i} className={`row ${i === 0 ? "row-first" : ""} flex gap-3`}>
+                  <span className="num w-5 shrink-0 font-black">{i + 1}</span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+          </Label>
 
-          {/* ── Video: How to do a SubQ injection ── */}
-          <div className="mt-10">
-            <h4 className="font-semibold text-sage-800 mb-4">
-              Watch: How to give a subcutaneous injection
-            </h4>
-            <div className="aspect-video rounded-xl overflow-hidden border border-sage-200 shadow-sm">
+          {/* Dose */}
+          <Label>
+            <StepHead n={2} title="Dose it" />
+            <BarXL />
+            {titrationSchedule.map((s, i) => (
+              <div key={s.weeks} className={`row ${i === 0 ? "row-first" : ""}`}>
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="font-extrabold">{s.weeks}</span>
+                  <span className="num text-3xl font-black" style={{ fontStretch: "112%" }}>
+                    {s.dose}
+                  </span>
+                </div>
+                <p className="mt-1 text-ink-soft">{s.notes}</p>
+              </div>
+            ))}
+            <BarMD />
+            <p className="pt-1">
+              <span className="font-extrabold">Feeling sick?</span>{" "}Stay at 1 mg
+              longer before moving up. Many guides push 4, 8 or 12 mg, but most
+              people reach their goals at 1&ndash;2 mg.
+            </p>
+          </Label>
+
+          {/* Inject */}
+          <Label>
+            <StepHead n={3} title="Inject it" />
+            <BarXL />
+            <p>
+              It&rsquo;s a small shot just under the skin, nearly painless.
+              Millions of people with diabetes and in IVF do this every day.
+            </p>
+            <BarMD />
+            <ol>
+              {injectionSteps.map((s, i) => (
+                <li key={s.title} className={`row ${i === 0 ? "row-first" : ""} flex gap-3`}>
+                  <span className="num w-5 shrink-0 font-black">{i + 1}</span>
+                  <span>
+                    <span className="block font-extrabold">{s.title}</span>
+                    <span className="block text-ink-soft">{s.detail}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+            <BarMD />
+            <p className="pb-2 pt-1 font-extrabold">Watch how it&rsquo;s done</p>
+            <div className="aspect-video border-2 border-ink" data-print-row>
               <iframe
-                src="https://www.youtube.com/embed/tcEWjyQfDLc"
+                src="https://www.youtube-nocookie.com/embed/tcEWjyQfDLc"
                 title="How to give a subcutaneous injection"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="w-full h-full"
+                loading="lazy"
+                className="h-full w-full"
               />
             </div>
-          </div>
-        </div>
+          </Label>
 
-        {/* ── Storage & Handling (KEY) ── */}
-        <div className="mt-16">
-          <h3 className="text-xl md:text-2xl font-bold text-sage-800 mb-2">
-            Step 4: Storage &amp; Handling
-          </h3>
-          <p className="text-lg leading-relaxed mb-6">
-            Most people overlook this — and it matters. Poor storage degrades
-            your peptide and weakens its effect. Follow these rules:
-          </p>
-          <div className="space-y-4">
-            {storageRules.map((rule, i) => (
-              <div
-                key={i}
-                className={`rounded-xl p-6 border ${
-                  i === 1
-                    ? "bg-coral-400/10 border-coral-400/30"
-                    : i === 2
-                      ? "bg-ocean-500/5 border-ocean-400/30"
-                      : "bg-white border-sage-200"
-                }`}
-              >
-                <h4 className="font-semibold text-sage-800 mb-2">
-                  {rule.label}
-                </h4>
-                <p className="text-base text-warm-800">{rule.detail}</p>
+          {/* Store */}
+          <Label>
+            <StepHead n={4} title="Store it" />
+            <BarXL />
+            <p>
+              Easy to overlook, and it matters. Poor storage weakens the
+              peptide.
+            </p>
+            <BarMD />
+            {storageRules.map((r, i) => (
+              <div key={r.label} className={`row ${i === 0 ? "row-first" : ""}`}>
+                <p className="font-extrabold">{r.label}</p>
+                <p className="mt-0.5 text-ink-soft">{r.detail}</p>
               </div>
             ))}
-          </div>
-          <div className="bg-warm-100 rounded-2xl p-6 md:p-8 border border-warm-200 mt-6">
-            <p className="text-base text-warm-800">
-              <strong className="text-sage-800 block mb-1">
-                The bottom line:
-              </strong>
-              Treat your peptides like you&rsquo;d treat any medication.
-              Refrigerate after mixing, keep things sterile, and don&rsquo;t cut
-              corners on handling. A little care goes a long way.
-            </p>
-          </div>
-        </div>
-
-        {/* ── Download Cheat Sheet ── */}
-        <div className="mt-12 text-center">
-          <a
-            href="/dosing-cheat-sheet"
-            target="_blank"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-ocean-500 text-white font-semibold hover:bg-ocean-600 transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            Download Dosing Cheat Sheet
-          </a>
-          <p className="text-sm text-warm-800/60 mt-2">
-            Print it out or save as PDF for quick reference.
-          </p>
+            <BarMD />
+            <Row first name="After mixing" value="Fridge, 36–46°F" strong />
+            <Row name="Use within" value="28–30 days" strong />
+          </Label>
         </div>
       </div>
     </section>

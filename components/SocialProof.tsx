@@ -1,85 +1,74 @@
 import { successStories } from "@/lib/socialProof";
+import { Label, BarXL, BarMD } from "@/components/Label";
+
+function OutArrow() {
+  return (
+    <svg viewBox="0 0 16 16" className="h-4 w-4 shrink-0" aria-hidden="true">
+      <path d="M5 3h8v8M13 3L3 13" stroke="currentColor" strokeWidth="2.2" fill="none" />
+    </svg>
+  );
+}
 
 export default function SocialProof() {
   return (
-    <section id="results" className="scroll-mt-20 bg-sage-50 py-20 md:py-28">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-4">
-            Real Results
-          </p>
-          <h2 className="text-2xl md:text-4xl font-bold text-sage-800 mb-4">
-            See what others are saying.
+    <section id="results" className="on-ink bg-ink text-white">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-[1fr_1.25fr] md:gap-14 md:px-6 md:py-24">
+        <div className="md:sticky md:top-24 md:self-start">
+          <h2 className="headline text-[clamp(2.25rem,5vw,3.75rem)]">
+            Real people, real posts
           </h2>
-          <p className="max-w-2xl mx-auto text-lg text-warm-800/80">
-            Real posts from the r/Retatrutide community on Reddit. No
-            cherry-picking, no paid testimonials — just honest experiences.
+          <p className="prose-measure mt-5 text-xl leading-snug text-mint-pale">
+            Don&rsquo;t take our word for it. These are posts from the
+            r/Retatrutide community on Reddit. Read them yourself.
           </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {successStories.map((story) => (
-            <a
-              key={story.id}
-              href={story.redditUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white rounded-xl p-6 border border-sage-200 shadow-sm hover:shadow-md hover:border-ocean-400 transition-all group"
-            >
-              <p className="text-3xl font-bold text-ocean-500 mb-2">
-                {story.stat}
-              </p>
-              <h3 className="font-semibold text-sage-800 mb-2 group-hover:text-ocean-600 transition-colors">
-                {story.title}
-              </h3>
-              {story.duration && (
-                <p className="text-sm text-warm-800/60 mb-4">
-                  {story.duration}
-                </p>
-              )}
-              <span className="inline-flex items-center gap-1 text-sm font-medium text-ocean-500">
-                Read on Reddit
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  />
-                </svg>
-              </span>
-            </a>
-          ))}
-        </div>
-
-        <div className="text-center mt-10">
           <a
             href="https://www.reddit.com/r/Retatrutide/top/?sort=top&t=all"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-ocean-500 text-white font-semibold hover:bg-ocean-600 transition-colors"
+            className="btn btn-mint mt-8"
           >
-            Browse all top results on r/Retatrutide
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </svg>
+            Browse r/Retatrutide
+            <OutArrow />
           </a>
         </div>
+
+        <Label>
+          <h3 className="label-title">Results Posted</h3>
+          <BarXL />
+          <ul>
+            {successStories.map((s, i) => (
+              <li key={s.id} className={`row ${i === 0 ? "row-first" : ""}`}>
+                <a
+                  href={s.redditUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group grid grid-cols-[6.25rem_1fr_auto] items-center gap-3 py-1 md:grid-cols-[8.5rem_1fr_auto]"
+                >
+                  <span
+                    className="num whitespace-nowrap text-xl font-black md:text-[1.75rem]"
+                    style={{ fontStretch: "112%" }}
+                  >
+                    {s.stat}
+                  </span>
+                  <span>
+                    <span className="block font-extrabold group-hover:underline">
+                      {s.title}
+                    </span>
+                    <span className="block text-sm text-ink-soft">
+                      Read on Reddit{s.duration ? ` · ${s.duration}` : ""}
+                    </span>
+                  </span>
+                  <OutArrow />
+                </a>
+              </li>
+            ))}
+          </ul>
+          <BarMD />
+          <p className="footnote pt-1">
+            Posts by Reddit users, not paid testimonials. Different people,
+            doses and timelines; your results will vary.
+          </p>
+        </Label>
       </div>
     </section>
   );

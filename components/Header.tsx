@@ -1,143 +1,81 @@
 "use client";
 
 import { useState } from "react";
+import { Logo } from "@/components/Logo";
+
+const links = [
+  { href: "#basics", label: "The basics" },
+  { href: "#dosing", label: "How to use it" },
+  { href: "#results", label: "Results" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#faq", label: "FAQ" },
+];
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-sage-200">
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
-        <a href="#" className="flex items-center gap-2">
-          <img
-            src="/Gemini_Generated_Image_u6pjcwu6pjcwu6pj.png"
-            alt="Evolve Peptides"
-            className="h-10 w-auto"
-          />
+    <header className="sticky top-0 z-50 bg-white border-b-2 border-ink">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-4 md:px-6">
+        <a href="#top" aria-label="Evolve Peptides, back to top">
+          <Logo />
         </a>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-5">
-          <a
-            href="#why-evolve"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-          >
-            Why Evolve
-          </a>
-          <a
-            href="#dosing"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-          >
-            Getting Started
-          </a>
-          <a
-            href="#pricing"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-          >
-            Pricing
-          </a>
-          <a
-            href="#myths"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-          >
-            Myth vs. Fact
-          </a>
-          <a
-            href="#faq"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-          >
-            FAQ
-          </a>
-          <a
-            href="#contact"
-            className="text-sm font-medium text-white bg-ocean-500 hover:bg-ocean-600 px-4 py-2 rounded-lg transition-colors"
-          >
-            Order Now
+        <nav className="hidden items-center gap-6 md:flex" aria-label="Main">
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="text-[0.9375rem] font-semibold text-ink hover:underline"
+            >
+              {l.label}
+            </a>
+          ))}
+          <a href="#contact" className="btn min-h-10 px-4 text-sm">
+            Talk to us
           </a>
         </nav>
 
-        {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 text-sage-800"
+          type="button"
+          className="flex h-11 w-11 items-center justify-center border-2 border-ink md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="h-5 w-5" viewBox="0 0 20 20" aria-hidden="true">
             {menuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
+              <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="2.5" />
             ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+              <path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" strokeWidth="2.5" />
             )}
           </svg>
         </button>
       </div>
 
-      {/* Mobile menu */}
       {menuOpen && (
-        <nav className="md:hidden border-t border-sage-200 bg-white/95 backdrop-blur-sm px-6 py-4 flex flex-col gap-4">
-          <a
-            href="#why-evolve"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-            onClick={() => setMenuOpen(false)}
-          >
-            Why Evolve
-          </a>
-          <a
-            href="#dosing"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-            onClick={() => setMenuOpen(false)}
-          >
-            Getting Started
-          </a>
-          <a
-            href="#pricing"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-            onClick={() => setMenuOpen(false)}
-          >
-            Pricing
-          </a>
-          <a
-            href="#results"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-            onClick={() => setMenuOpen(false)}
-          >
-            Results
-          </a>
-          <a
-            href="#myths"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-            onClick={() => setMenuOpen(false)}
-          >
-            Myth vs. Fact
-          </a>
-          <a
-            href="#faq"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
-            onClick={() => setMenuOpen(false)}
-          >
-            FAQ
-          </a>
+        <nav
+          id="mobile-menu"
+          aria-label="Main"
+          className="border-t-2 border-ink bg-white px-4 pb-4 md:hidden"
+        >
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={() => setMenuOpen(false)}
+              className="row flex py-3 text-lg font-bold"
+            >
+              {l.label}
+            </a>
+          ))}
           <a
             href="#contact"
-            className="text-sm font-medium text-warm-800 hover:text-ocean-500 transition-colors"
             onClick={() => setMenuOpen(false)}
+            className="btn mt-3 w-full"
           >
-            Order Now
+            Talk to us
           </a>
         </nav>
       )}

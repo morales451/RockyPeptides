@@ -2,10 +2,7 @@
 
 export default function PrintButton() {
   return (
-    <button
-      onClick={() => window.print()}
-      className="px-5 py-2 rounded-lg bg-ocean-500 text-white text-sm font-semibold hover:bg-ocean-600 transition-colors cursor-pointer"
-    >
+    <button type="button" onClick={() => window.print()} className="btn min-h-10 px-4 text-sm">
       Print / Save as PDF
     </button>
   );

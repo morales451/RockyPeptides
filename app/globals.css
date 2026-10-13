@@ -1,41 +1,259 @@
 @import "tailwindcss";
 
+/*
+ * Evolve Peptides: the facts-label system.
+ * The page is the package (mint and navy fields); the labels are printed on it
+ * (white panels, navy ink, a 10/5/1px rule grammar). No radius, no shadows.
+ */
+
 @theme inline {
-  --color-sage-50: #f6f7f5;
-  --color-sage-100: #e8ebe5;
-  --color-sage-200: #d1d7cb;
-  --color-sage-300: #b3bda9;
-  --color-sage-600: #6b7c5e;
-  --color-sage-700: #556347;
-  --color-sage-800: #3d4a34;
-  --color-sage-900: #2a3324;
+  --color-ink: #0d2b4e;
+  --color-ink-soft: #3a5575;
+  --color-mint: #2fd3a0;
+  --color-mint-deep: #149470;
+  --color-mint-pale: #c9f3e4;
+  --color-paper: #ffffff;
+  --color-fog: #eef3f1;
 
-  --color-ocean-400: #4d9aab;
-  --color-ocean-500: #3b7d8c;
-  --color-ocean-600: #2d6270;
-  --color-ocean-700: #1f4a55;
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+}
 
-  --color-warm-50: #fdf8f3;
-  --color-warm-100: #f5ebe0;
-  --color-warm-200: #e8d5c4;
-  --color-warm-800: #5c4a3a;
-
-  --color-coral-400: #e07a5f;
-  --color-coral-500: #c9624a;
-
-  --color-emerald-400: #6ba38e;
-  --color-emerald-500: #549478;
+:root {
+  --ink: #0d2b4e;
+  --mint: #2fd3a0;
+  --mint-deep: #149470;
+  --rule-xl: 10px;
+  --rule-md: 5px;
+  --rule-hair: 1px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
 }
 
 body {
-  background-color: var(--color-sage-50);
-  color: var(--color-warm-800);
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--color-mint);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "tnum" 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  caret-color: var(--ink);
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--mint);
+}
+
+html {
+  scrollbar-color: var(--ink) var(--mint);
+}
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+.on-ink :focus-visible {
+  outline-color: var(--mint);
+}
+
+a {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 2px;
+}
+
+/* ── Type voices ─────────────────────────────────────────── */
+
+.display {
+  font-weight: 900;
+  font-stretch: 118%;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.headline {
+  font-weight: 900;
+  font-stretch: 112%;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.condensed {
+  font-stretch: 80%;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.prose-measure {
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+/* ── The label ───────────────────────────────────────────── */
+
+.label {
+  background: var(--color-paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 0.6rem 0.85rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .label {
+    padding: 0.75rem 1.1rem 0.9rem;
+  }
+}
+
+.label-title {
+  font-weight: 900;
+  font-stretch: 118%;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  font-size: clamp(1.9rem, 4.2vw, 2.75rem);
+}
+
+.rule {
+  display: block;
+  background: var(--ink);
+  transform-origin: left center;
+}
+.rule-xl {
+  height: var(--rule-xl);
+  margin: 0.4rem 0 0.15rem;
+}
+.rule-md {
+  height: var(--rule-md);
+  margin: 0.25rem 0 0.1rem;
+}
+
+.row {
+  border-top: var(--rule-hair) solid var(--ink);
+  padding: 0.45rem 0;
+}
+.row-first {
+  border-top: 0;
+}
+
+.footnote {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--color-ink-soft);
+}
+
+/* Print-in: labels below the fold draw their rules when they arrive.
+   Content is visible by default; only .print-pending (set by script)
+   holds the start state. */
+@media (prefers-reduced-motion: no-preference) {
+  .label .rule {
+    transition: transform 900ms var(--ease-out);
+  }
+  .label .row,
+  .label [data-print-row] {
+    transition:
+      opacity 600ms var(--ease-out),
+      transform 600ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 45ms + 120ms);
+  }
+  .label.print-pending .rule {
+    transform: scaleX(0);
+  }
+  .label.print-pending .row,
+  .label.print-pending [data-print-row] {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* ── Controls ────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0 1.4rem;
+  background: var(--ink);
+  color: #fff;
+  border: 2px solid var(--ink);
+  font-weight: 800;
+  font-stretch: 108%;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+.btn:hover {
+  background: var(--color-paper);
+  color: var(--ink);
+}
+.btn-mint {
+  background: var(--mint);
+  color: var(--ink);
+  border-color: var(--mint);
+}
+.btn-mint:hover {
+  background: transparent;
+  color: var(--mint);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+}
+.btn-ghost:hover {
+  background: var(--ink);
+  color: #fff;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.field {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  font: inherit;
+  font-size: 1rem;
+  appearance: none;
+}
+.field::placeholder {
+  color: #6c809a;
+}
+.field:focus-visible {
+  outline: 3px solid var(--mint);
+  outline-offset: 0;
+}
+select.field {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%230d2b4e' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  background-size: 12px 8px;
+  padding-right: 2.5rem;
+}
+
+.field-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  margin-bottom: 0.35rem;
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
 }

@@ -18,8 +18,8 @@ export const successStories: SuccessStory[] = [
   {
     id: 2,
     title: "5 Month Progress Pictures",
-    stat: "5 months",
-    duration: "5 months",
+    stat: "5 mo.",
+    duration: "progress pictures",
     redditUrl:
       "https://www.reddit.com/r/Retatrutide/comments/1px91dw/5_month_progress_pictures/",
   },

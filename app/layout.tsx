@@ -1,20 +1,30 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Archivo } from "next/font/google";
+import PrintObserver from "@/components/PrintObserver";
 import "./globals.css";
 
+const archivo = Archivo({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const description =
+  "Plain-language facts about GLP-3 peptides like retatrutide: what they are, who shouldn't use them, how to use them safely, and what they cost in Houston.";
+
 export const metadata: Metadata = {
-  title: "Evolve Peptides | Understanding GLP-3 Peptides",
-  description:
-    "An educational resource for understanding GLP-3 peptides like retatrutide. Get the facts, debunk the myths, and learn the science in plain language.",
-  icons: {
-    icon: "/Gemini_Generated_Image_u6pjcwu6pjcwu6pj.png",
-    apple: "/Gemini_Generated_Image_u6pjcwu6pjcwu6pj.png",
-  },
+  metadataBase: new URL(process.env.URL ?? "http://localhost:3000"),
+  title: "Evolve Peptides | The facts about GLP-3s",
+  description,
   openGraph: {
-    title: "Evolve Peptides | Understanding GLP-3 Peptides",
-    description:
-      "An educational resource for understanding GLP-3 peptides like retatrutide. Get the facts, debunk the myths, and learn the science in plain language.",
-    images: [{ url: "/Gemini_Generated_Image_u6pjcwu6pjcwu6pj.png" }],
+    title: "Evolve Peptides | The facts about GLP-3s",
+    description,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#2fd3a0",
 };
 
 export default function RootLayout({
@@ -23,9 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className={`${archivo.variable} h-full`}>
       <body className="min-h-full flex flex-col">
         {children}
+        <PrintObserver />
       </body>
     </html>
   );

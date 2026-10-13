@@ -1,80 +1,60 @@
+import { Logo } from "@/components/Logo";
+
+const links = [
+  { href: "#basics", label: "The basics" },
+  { href: "#dosing", label: "How to use it" },
+  { href: "#results", label: "Results" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#myths", label: "Myth vs. fact" },
+  { href: "#faq", label: "FAQ" },
+  { href: "#contact", label: "Contact" },
+];
+
 export default function Footer() {
   return (
-    <footer className="bg-sage-800 text-sage-100">
-      <div className="max-w-4xl mx-auto px-6 py-12 md:py-16">
-        <div className="mb-8">
-          <div className="mb-6">
-            <img
-              src="/Gemini_Generated_Image_u6pjcwu6pjcwu6pj.png"
-              alt="Evolve Peptides"
-              className="h-12 w-auto brightness-0 invert mb-2"
-            />
-            <p className="text-sm text-sage-300">
+    <footer className="on-ink border-t-[10px] border-mint bg-ink text-white">
+      <div className="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+          <div>
+            <Logo tone="mint" />
+            <p className="mt-4 text-lg font-bold text-mint">
               Education over hype. Science over stigma.
             </p>
           </div>
-
-          <div className="flex flex-wrap gap-x-6 gap-y-2 mb-8 text-sm">
-            <a href="#why-evolve" className="text-sage-300 hover:text-white transition-colors">
-              Why Evolve
-            </a>
-            <a href="#dosing" className="text-sage-300 hover:text-white transition-colors">
-              Getting Started
-            </a>
-            <a href="#pricing" className="text-sage-300 hover:text-white transition-colors">
-              Pricing
-            </a>
-            <a href="#results" className="text-sage-300 hover:text-white transition-colors">
-              Results
-            </a>
-            <a href="#myths" className="text-sage-300 hover:text-white transition-colors">
-              Myth vs. Fact
-            </a>
-            <a href="#faq" className="text-sage-300 hover:text-white transition-colors">
-              FAQ
-            </a>
-            <a href="#contact" className="text-sage-300 hover:text-white transition-colors">
-              Contact
-            </a>
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-10 gap-y-2 sm:grid-cols-3">
+            {links.map((l) => (
+              <a key={l.href} href={l.href} className="font-semibold text-white/85 hover:text-mint hover:underline">
+                {l.label}
+              </a>
+            ))}
             <a
               href="https://www.reddit.com/r/Retatrutide/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sage-300 hover:text-white transition-colors"
+              className="font-semibold text-white/85 hover:text-mint hover:underline"
             >
               r/Retatrutide
             </a>
-          </div>
+          </nav>
+        </div>
 
-          <h3 className="text-lg font-semibold text-white mb-4">
-            Medical Disclaimer
-          </h3>
-          <p className="text-sm leading-relaxed text-sage-200">
-            Evolve Peptides provides educational content about GLP-3 peptides
-            and related compounds. Nothing on this site constitutes medical
-            advice, diagnosis, or treatment recommendations. The information
-            presented is for educational and informational purposes only and is
-            not intended to replace professional medical consultation. Always
-            consult a qualified healthcare provider before making any decisions
-            about medications, supplements, or health protocols. Individual
-            results may vary, and the science discussed here reflects publicly
-            available research at the time of publication.
+        <div className="mt-12 border-t-[5px] border-white pt-4">
+          <p className="font-extrabold">*Medical disclaimer</p>
+          <p className="prose-measure mt-2 text-sm leading-relaxed text-white/80">
+            Evolve Peptides shares educational information about GLP-3 peptides
+            and related compounds. Nothing here is medical advice, diagnosis or
+            treatment. Always talk to a qualified healthcare provider before
+            making decisions about medicines, supplements or health plans.
+            Individual results vary, and the science here reflects publicly
+            available research at the time of writing.
           </p>
         </div>
 
-        <div className="border-t border-sage-700 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-sage-300">
-            &copy; {new Date().getFullYear()} Evolve Peptides. For educational
-            purposes only.
-          </p>
-          <div className="flex items-center gap-6">
-            <a
-              href="#"
-              className="text-xs text-sage-300 hover:text-white transition-colors"
-            >
-              Back to Top
-            </a>
-          </div>
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/40 pt-5 text-sm text-white/75 md:flex-row md:justify-between">
+          <p>&copy; {new Date().getFullYear()} Evolve Peptides, Houston. For educational purposes only.</p>
+          <a href="#top" className="font-semibold hover:text-mint hover:underline">
+            Back to top
+          </a>
         </div>
       </div>
     </footer>

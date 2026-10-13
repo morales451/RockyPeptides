@@ -1,68 +1,43 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  PROJECTION_WEEKS as WEEKS,
-  computeProjection,
-} from "@/lib/projection";
+import { PROJECTION_WEEKS as WEEKS, computeProjection } from "@/lib/projection";
+import { Label, BarXL, BarMD, Row } from "@/components/Label";
 
 const LB_PER_KG = 2.20462;
 const ASYMPTOTE_FOR_AXIS = 0.16;
+const INK = "#0d2b4e";
 
 type Unit = "lbs" | "kg";
-
-function formatWeight(value: number, unit: Unit) {
-  return `${value.toFixed(1)} ${unit}`;
-}
 
 export default function WeightLossProjection() {
   const [unit, setUnit] = useState<Unit>("lbs");
   const [weightInput, setWeightInput] = useState("220");
 
   const startingWeight = Math.max(0, Number(weightInput) || 0);
+  const points = useMemo(() => computeProjection(startingWeight), [startingWeight]);
 
-  const points = useMemo(
-    () => computeProjection(startingWeight),
-    [startingWeight],
-  );
+  const milestones = [
+    { label: "Week 12", point: points[12] },
+    { label: "Week 24", point: points[24] },
+    { label: "Week 48", point: points[48] },
+  ];
 
-  const w12 = points[12];
-  const w24 = points[24];
-  const w48 = points[48];
-
-  // SVG geometry
-  const W = 720;
-  const H = 320;
-  const PAD = { top: 24, right: 24, bottom: 36, left: 56 };
+  // Chart geometry
+  const W = 640;
+  const H = 260;
+  const PAD = { top: 16, right: 16, bottom: 30, left: 44 };
   const innerW = W - PAD.left - PAD.right;
   const innerH = H - PAD.top - PAD.bottom;
-
-  const xMax = WEEKS;
   const yMin = startingWeight * (1 - ASYMPTOTE_FOR_AXIS * 1.05);
   const yMax = startingWeight;
   const ySpan = Math.max(yMax - yMin, 1);
-
-  const xScale = (week: number) => PAD.left + (week / xMax) * innerW;
-  const yScale = (w: number) =>
-    PAD.top + ((yMax - w) / ySpan) * innerH;
-
-  const toPath = (slice: typeof points) =>
-    slice
-      .map(
-        (p, i) =>
-          `${i === 0 ? "M" : "L"} ${xScale(p.week).toFixed(2)} ${yScale(
-            p.weight,
-          ).toFixed(2)}`,
-      )
-      .join(" ");
-
-  const curvePath = toPath(points);
-
-  const xTicks = [0, 12, 24, 36, 48];
-  const yTickCount = 5;
-  const yTicks = Array.from({ length: yTickCount }, (_, i) => {
-    return yMin + (ySpan * i) / (yTickCount - 1);
-  });
+  const x = (week: number) => PAD.left + (week / WEEKS) * innerW;
+  const y = (w: number) => PAD.top + ((yMax - w) / ySpan) * innerH;
+  const path = points
+    .map((p, i) => `${i === 0 ? "M" : "L"} ${x(p.week).toFixed(1)} ${y(p.weight).toFixed(1)}`)
+    .join(" ");
+  const yTicks = [0, 1, 2, 3].map((i) => yMin + (ySpan * i) / 3);
 
   function convertInput(next: Unit) {
     const current = Number(weightInput);
@@ -70,36 +45,33 @@ export default function WeightLossProjection() {
       setUnit(next);
       return;
     }
-    const converted =
-      next === "kg" ? current / LB_PER_KG : current * LB_PER_KG;
-    setWeightInput(converted.toFixed(1));
+    const converted = next === "kg" ? current / LB_PER_KG : current * LB_PER_KG;
+    setWeightInput(converted.toFixed(0));
     setUnit(next);
   }
 
   return (
-    <section
-      id="projection"
-      className="scroll-mt-20 bg-white py-20 md:py-28"
-    >
-      <div className="max-w-4xl mx-auto px-6">
-        <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-4">
-          Projection Tool
-        </p>
-        <h2 className="text-2xl md:text-4xl font-bold text-sage-800 mb-4">
-          Project your weight loss over 12 months
-        </h2>
-        <p className="text-lg text-warm-800/80 mb-10 max-w-2xl">
-          Enter your starting weight to see a projected curve on our 2&nbsp;mg
-          weekly protocol, modeled on published Phase 2 trial data for
-          retatrutide.
-        </p>
+    <section id="projection" className="bg-mint">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-[1fr_1.25fr] md:gap-14 md:px-6 md:py-24">
+        <div className="md:sticky md:top-24 md:self-start">
+          <h2 className="headline text-[clamp(2.25rem,5vw,3.75rem)]">
+            See what a year could look like
+          </h2>
+          <p className="prose-measure mt-5 text-xl leading-snug">
+            Type your weight. The label updates with a projection for our
+            2&nbsp;mg weekly plan, based on published trial data.
+          </p>
+          <p className="prose-measure mt-4 text-lg">
+            It&rsquo;s an estimate, not a promise. Your results depend on you,
+            your body and your habits.
+          </p>
+        </div>
 
-        <div className="bg-sage-50 rounded-2xl border border-sage-200 p-6 md:p-8">
-          <div className="mb-8 max-w-sm">
-            <label
-              htmlFor="proj-weight"
-              className="block text-sm font-medium text-sage-800 mb-2"
-            >
+        <Label>
+          <h3 className="label-title">Your Projection</h3>
+          <BarXL />
+          <div className="flex flex-wrap items-end justify-between gap-3 pb-1">
+            <label htmlFor="proj-weight" className="font-extrabold">
               Starting weight
             </label>
             <div className="flex">
@@ -109,22 +81,20 @@ export default function WeightLossProjection() {
                 inputMode="decimal"
                 min={50}
                 max={unit === "lbs" ? 700 : 320}
-                step="0.1"
+                step="1"
                 value={weightInput}
                 onChange={(e) => setWeightInput(e.target.value)}
-                className="flex-1 min-w-0 px-4 py-3 rounded-l-lg bg-white text-sage-800 border-2 border-r-0 border-sage-200 focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400 outline-none"
+                className="field num w-28 border-r-0 text-right text-xl font-black"
               />
-              <div className="flex rounded-r-lg overflow-hidden border-2 border-sage-200">
+              <div className="flex border-2 border-ink" role="group" aria-label="Unit">
                 {(["lbs", "kg"] as const).map((u) => (
                   <button
                     key={u}
                     type="button"
                     onClick={() => convertInput(u)}
                     aria-pressed={unit === u}
-                    className={`px-3 text-sm font-medium transition-colors cursor-pointer ${
-                      unit === u
-                        ? "bg-ocean-500 text-white"
-                        : "bg-white text-sage-700 hover:bg-sage-100"
+                    className={`min-w-12 px-3 font-bold ${
+                      unit === u ? "bg-ink text-white" : "bg-white text-ink hover:bg-mint-pale"
                     }`}
                   >
                     {u}
@@ -133,148 +103,65 @@ export default function WeightLossProjection() {
               </div>
             </div>
           </div>
-
-          <div className="grid grid-cols-3 gap-3 mb-6">
-            {[
-              { label: "Week 12", point: w12 },
-              { label: "Week 24", point: w24 },
-              { label: "Week 48", point: w48 },
-            ].map(({ label, point }) => (
-              <div
-                key={label}
-                className="bg-white rounded-xl border border-sage-200 p-4 text-center"
-              >
-                <p className="text-xs uppercase tracking-wider text-warm-800/60 mb-1">
-                  {label}
-                </p>
-                <p className="text-xl md:text-2xl font-bold text-sage-800">
-                  {formatWeight(point.weight, unit)}
-                </p>
-                <p className="text-sm text-ocean-500 font-semibold">
-                  −{(point.lossFrac * 100).toFixed(1)}%
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="bg-white rounded-xl border border-sage-200 p-3 md:p-4">
-            <svg
-              viewBox={`0 0 ${W} ${H}`}
-              role="img"
-              aria-label={`Projected weight curve over ${WEEKS} weeks at 2 mg per week`}
-              className="w-full h-auto"
-            >
-              <defs>
-                <linearGradient id="proj-fill" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="#0891b2" stopOpacity="0.25" />
-                  <stop offset="100%" stopColor="#0891b2" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-
-              {yTicks.map((t, i) => (
-                <g key={i}>
-                  <line
-                    x1={PAD.left}
-                    x2={W - PAD.right}
-                    y1={yScale(t)}
-                    y2={yScale(t)}
-                    stroke="#e5e7eb"
-                    strokeDasharray="3 3"
-                  />
-                  <text
-                    x={PAD.left - 8}
-                    y={yScale(t)}
-                    dy="0.32em"
-                    textAnchor="end"
-                    fontSize="11"
-                    fill="#64748b"
-                  >
-                    {t.toFixed(0)}
-                  </text>
-                </g>
-              ))}
-
-              {xTicks.map((t) => (
-                <text
-                  key={t}
-                  x={xScale(t)}
-                  y={H - PAD.bottom + 18}
-                  textAnchor="middle"
-                  fontSize="11"
-                  fill="#64748b"
-                >
-                  Wk {t}
+          <BarMD />
+          {milestones.map(({ label, point }, i) => (
+            <Row
+              key={label}
+              first={i === 0}
+              name={<span className="font-extrabold">{label}</span>}
+              value={
+                <span aria-live="polite">
+                  {point.weight.toFixed(0)} {unit}
+                  <span className="ml-3 inline-block w-16 font-normal text-ink-soft">
+                    &minus;{(point.lossFrac * 100).toFixed(1)}%
+                  </span>
+                </span>
+              }
+            />
+          ))}
+          <BarMD />
+          <svg
+            viewBox={`0 0 ${W} ${H}`}
+            role="img"
+            aria-label={`Projected weight over ${WEEKS} weeks, from ${startingWeight.toFixed(0)} to ${points[48].weight.toFixed(0)} ${unit} by week 48`}
+            className="mt-2 h-auto w-full"
+            data-print-row
+          >
+            {yTicks.map((t, i) => (
+              <g key={i}>
+                <line x1={PAD.left} x2={W - PAD.right} y1={y(t)} y2={y(t)} stroke={INK} strokeOpacity="0.18" />
+                <text x={PAD.left - 8} y={y(t)} dy="0.32em" textAnchor="end" fontSize="12" fill={INK}>
+                  {t.toFixed(0)}
                 </text>
-              ))}
-
-              <line
-                x1={PAD.left}
-                x2={W - PAD.right}
-                y1={PAD.top + innerH}
-                y2={PAD.top + innerH}
-                stroke="#cbd5e1"
-              />
-              <line
-                x1={PAD.left}
-                x2={PAD.left}
-                y1={PAD.top}
-                y2={PAD.top + innerH}
-                stroke="#cbd5e1"
-              />
-
-              {/* Area fill under the full curve */}
-              <path
-                d={`${curvePath} L ${xScale(WEEKS).toFixed(2)} ${(
-                  PAD.top + innerH
-                ).toFixed(2)} L ${xScale(0).toFixed(2)} ${(
-                  PAD.top + innerH
-                ).toFixed(2)} Z`}
-                fill="url(#proj-fill)"
-              />
-
-              {/* Full curve line */}
-              <path
-                d={curvePath}
-                fill="none"
-                stroke="#0891b2"
-                strokeWidth="2.5"
-                strokeLinejoin="round"
-                strokeLinecap="round"
-              />
-
-              {/* Milestone markers */}
-              {[w12, w24, w48].map((p) => (
-                <circle
-                  key={p.week}
-                  cx={xScale(p.week)}
-                  cy={yScale(p.weight)}
-                  r={4}
-                  fill="#0891b2"
-                  stroke="#fff"
-                  strokeWidth="2"
-                />
-              ))}
-
-              <text
-                x={W - PAD.right - 8}
-                y={PAD.top + 14}
-                textAnchor="end"
-                fontSize="11"
-                fill="#64748b"
-              >
-                Weight ({unit})
+              </g>
+            ))}
+            {[0, 12, 24, 36, 48].map((t) => (
+              <text key={t} x={x(t)} y={H - 8} textAnchor="middle" fontSize="12" fill={INK}>
+                Wk {t}
               </text>
-            </svg>
-          </div>
-
-          <p className="text-xs text-warm-800/60 mt-6 leading-relaxed">
-            Projection modeled on percent body-weight change reported in
-            Jastreboff et al., <em>NEJM</em> 2023 (Phase 2 retatrutide trial).
-            The 2&nbsp;mg curve is extrapolated below the lowest published
-            arm. Individual results vary based on adherence, diet, activity,
-            and biology. Not medical advice.
+            ))}
+            <line x1={PAD.left} x2={W - PAD.right} y1={PAD.top + innerH} y2={PAD.top + innerH} stroke={INK} strokeWidth="2" />
+            <path d={path} fill="none" stroke={INK} strokeWidth="4" strokeLinejoin="round" />
+            {milestones.map(({ point }) => (
+              <rect
+                key={point.week}
+                x={x(point.week) - 6}
+                y={y(point.weight) - 6}
+                width="12"
+                height="12"
+                fill="#2fd3a0"
+                stroke={INK}
+                strokeWidth="2.5"
+              />
+            ))}
+          </svg>
+          <p className="footnote mt-3">
+            Modeled on percent body-weight change in Jastreboff et al.,{" "}
+            <em>NEJM</em>{" "}2023 (Phase 2 retatrutide trial). The 2&nbsp;mg curve
+            is extrapolated below the lowest published dose. Individual results
+            vary with diet, activity and biology. Not medical advice.
           </p>
-        </div>
+        </Label>
       </div>
     </section>
   );

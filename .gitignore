@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# Impeccable review captures
+.impeccable/review/
+.impeccable/config.local.json
