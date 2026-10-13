@@ -1,168 +1,104 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PrintButton from "@/components/PrintButton";
-import {
-  titrationSchedule,
-  storageRules,
-  reconstitutionSteps,
-} from "@/lib/dosingData";
+import { Logo } from "@/components/Logo";
+import { Label, BarXL, BarMD, Row } from "@/components/Label";
+import { storageRules, reconstitutionSteps, injectionSteps } from "@/lib/dosingData";
+import { MixVisual, DoseLadder } from "@/components/DoseVisuals";
 
 export const metadata: Metadata = {
-  title: "Dosing Quick-Reference Guide | Evolve Peptides",
+  title: "Dosing Cheat Sheet | Evolve Peptides",
   description:
-    "Printable dosing cheat sheet for retatrutide. Reconstitution, titration schedule, injection technique, and storage instructions.",
+    "Printable retatrutide cheat sheet: mixing, dosing schedule, injection basics and storage.",
 };
+
+function Section({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
+  return (
+    <section className="break-inside-avoid">
+      <BarMD />
+      <h2 className="pt-1 text-xl font-black" style={{ fontStretch: "112%" }}>
+        {n}. {title}
+      </h2>
+      {children}
+    </section>
+  );
+}
 
 export default function DosingCheatSheet() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Print button - hidden when printing */}
-      <div className="print:hidden sticky top-0 bg-white border-b border-sage-200 px-6 py-4 flex items-center justify-between max-w-3xl mx-auto">
-        <a
-          href="/"
-          className="text-sm text-ocean-500 hover:text-ocean-600 font-medium"
-        >
-          &larr; Back to Evolve Peptides
-        </a>
-        <PrintButton />
+    <div className="min-h-screen bg-mint print:bg-white">
+      <div className="sticky top-0 z-10 border-b-2 border-ink bg-white print:hidden">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-3">
+          <Link href="/" className="font-bold underline">
+            &larr; Back to Evolve
+          </Link>
+          <PrintButton />
+        </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-6 py-10 print:py-4 print:px-4">
-        {/* Header */}
-        <div className="text-center mb-8 print:mb-4">
-          <h1 className="text-2xl md:text-3xl print:text-2xl font-bold text-sage-800 mb-1">
-            Evolve Peptides — Dosing Quick-Reference Guide
-          </h1>
-          <p className="text-sm text-warm-800/60">
-            Keep this handy. Print it out or save as PDF.
+      <main className="mx-auto max-w-3xl px-4 py-8 print:p-0">
+        <Label className="print:border-2">
+          <div className="flex items-start justify-between gap-4">
+            <h1 className="label-title">Dosing Cheat Sheet</h1>
+            <Logo className="hidden sm:inline-flex" />
+          </div>
+          <p className="mt-1">Retatrutide 10&nbsp;mg vials + 3&nbsp;mL BAC water. Keep this on the fridge.</p>
+          <BarXL />
+          <p className="font-extrabold">The goal</p>
+          <p>
+            Retatrutide isn&rsquo;t a magic fix. It&rsquo;s a tool to build good
+            habits, then wean off while keeping them.
           </p>
-        </div>
+          <Row name="Eat high protein, stay active" value="Keeps your muscle" />
+          <Row name="Water, protein, movement, awareness" value="What lasts after" />
 
-        {/* Mission statement */}
-        <div className="mb-8 print:mb-5 bg-sage-50 rounded-xl p-5 print:p-4 border border-sage-200">
-          <h2 className="text-lg font-bold text-sage-800 mb-2">
-            Read this first: the goal
-          </h2>
-          <p className="text-sm text-warm-800 mb-3">
-            Retatrutide isn&rsquo;t a magic fix — it&rsquo;s a tool to build
-            good habits. The plan is to wean off it while keeping the habits it
-            helped you start.
-          </p>
-          <ul className="space-y-1.5 text-sm">
-            <li className="flex gap-2">
-              <span className="font-bold text-ocean-500 flex-shrink-0">•</span>
-              <span>
-                <strong>Eat high protein and stay active.</strong> This keeps
-                muscle on so you look strong and healthy while losing weight —
-                not flabby.
-              </span>
-            </li>
-            <li className="flex gap-2">
-              <span className="font-bold text-ocean-500 flex-shrink-0">•</span>
-              <span>
-                <strong>Master the fundamentals:</strong> exercise, hydration,
-                protein, and nutritional awareness. These are what last after
-                the peptide.
-              </span>
-            </li>
-          </ul>
-        </div>
+          <Section n={1} title="Mix it: 1 mL (100 units) of water into each vial">
+            <div className="grid items-start gap-4 sm:grid-cols-[1.15fr_1fr]">
+              <MixVisual className="h-auto w-full" />
+              <ol>
+                {reconstitutionSteps.map((s, i) => (
+                  <li key={i} className={`row ${i === 0 ? "row-first" : ""} flex gap-3 py-1.5 text-sm`}>
+                    <span className="num w-4 shrink-0 font-black">{i + 1}</span>
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </Section>
 
-        {/* Reconstitution */}
-        <div className="mb-8 print:mb-5">
-          <h2 className="text-lg font-bold text-sage-800 mb-3 pb-2 border-b border-sage-200">
-            1. Reconstitution (Mixing)
-          </h2>
-          <ol className="space-y-2 text-sm">
-            {reconstitutionSteps.map((step, i) => (
-              <li key={i} className="flex gap-2">
-                <span className="font-bold text-ocean-500 flex-shrink-0">
-                  {i + 1}.
-                </span>
-                <span>{step}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
+          <Section n={2} title="Dose it: once a week, fill to the line">
+            <DoseLadder compact />
+            <p className="pt-1 text-sm">
+              <span className="font-extrabold">Feeling sick?</span>{" "}
+              Stay on your current dose another week before stepping up.
+            </p>
+          </Section>
 
-        {/* Titration Schedule */}
-        <div className="mb-8 print:mb-5">
-          <h2 className="text-lg font-bold text-sage-800 mb-3 pb-2 border-b border-sage-200">
-            2. Dosing Schedule
-          </h2>
-          <table className="w-full text-sm border border-sage-200 rounded-lg overflow-hidden">
-            <thead>
-              <tr className="bg-sage-50">
-                <th className="text-left px-4 py-2 font-semibold text-sage-800">
-                  Duration
-                </th>
-                <th className="text-left px-4 py-2 font-semibold text-sage-800">
-                  Dose
-                </th>
-                <th className="text-left px-4 py-2 font-semibold text-sage-800">
-                  Notes
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {titrationSchedule.map((step, i) => (
-                <tr
-                  key={i}
-                  className={i % 2 === 1 ? "bg-sage-50/50" : "bg-white"}
-                >
-                  <td className="px-4 py-2 font-medium">{step.weeks}</td>
-                  <td className="px-4 py-2 font-bold text-ocean-500">
-                    {step.dose}
-                  </td>
-                  <td className="px-4 py-2">{step.notes}</td>
-                </tr>
+          <Section n={3} title="Inject it">
+            <ol>
+              {injectionSteps.map((s, i) => (
+                <li key={s.title} className={`row ${i === 0 ? "row-first" : ""} py-1.5 text-sm`}>
+                  <span className="font-extrabold">{s.title}:</span> {s.detail}
+                </li>
               ))}
-            </tbody>
-          </table>
-        </div>
+            </ol>
+          </Section>
 
-        {/* Injection Quick Reference */}
-        <div className="mb-8 print:mb-5">
-          <h2 className="text-lg font-bold text-sage-800 mb-3 pb-2 border-b border-sage-200">
-            3. Injection Basics (SubQ)
-          </h2>
-          <ul className="space-y-1.5 text-sm">
-            <li>
-              <strong>Site:</strong> Belly (2&quot; from navel), front of thigh,
-              or back of upper arm. Rotate each time.
-            </li>
-            <li>
-              <strong>Prep:</strong> Wipe site with alcohol swab. Pinch a fold
-              of skin.
-            </li>
-            <li>
-              <strong>Inject:</strong> Insert at 45° angle. Push plunger slowly.
-              Remove and release.
-            </li>
-          </ul>
-        </div>
-
-        {/* Storage Rules */}
-        <div className="mb-8 print:mb-5">
-          <h2 className="text-lg font-bold text-sage-800 mb-3 pb-2 border-b border-sage-200">
-            4. Storage &amp; Handling
-          </h2>
-          <div className="space-y-2 text-sm">
-            {storageRules.map((rule, i) => (
-              <div key={i}>
-                <strong>{rule.label}:</strong> {rule.detail}
+          <Section n={4} title="Store it">
+            {storageRules.map((r, i) => (
+              <div key={r.label} className={`row ${i === 0 ? "row-first" : ""} py-1.5 text-sm`}>
+                <span className="font-extrabold">{r.label}:</span> {r.detail}
               </div>
             ))}
-          </div>
-        </div>
+          </Section>
 
-        {/* Footer */}
-        <div className="text-center text-xs text-warm-800/40 pt-4 border-t border-sage-200 print:mt-2">
-          <p>
-            Evolve Peptides — evolvepeptides.com — For educational purposes
-            only. Consult your healthcare provider.
+          <BarXL />
+          <p className="footnote">
+            Evolve Peptides &middot; For educational purposes only. Talk to your
+            healthcare provider.
           </p>
-        </div>
-      </div>
+        </Label>
+      </main>
     </div>
   );
 }
